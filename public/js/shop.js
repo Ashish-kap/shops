@@ -17,7 +17,7 @@ const shopId = urlSegments[shopIndex + 1];
 // Function to fetch data from the API based on selected value
 async function fetchData(selectedValue) {
   try {
-    const response = await fetch(`${BaseUrl}/${selectedValue}-profit-by-shop/${shopId}`);
+    const response = await fetch(`https://sugarcan-shop.onrender.com/${selectedValue}-profit-by-shop/${shopId}`);
     const data = await response.json();
     return data;
   } catch (error) {
