@@ -32,8 +32,8 @@ async function updateCardContainer() {
   const data = await fetchData(selectedValue);
   if (data) {
     shopName.textContent = data.name;
-    contactInformation.textContent = data.address;
-    address.textContent = data.contactInformation;
+    address.textContent = data.address;
+    contactInformation.textContent = data.contactInformation;
     totalDailyProfit.textContent = data.totalProfitByShop;
     totalDailyIncome.textContent = data.totalIncomeByShop;
     totalDailyExpense.textContent = data.totalExpenseByShop;
