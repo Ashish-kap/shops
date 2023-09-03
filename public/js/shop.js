@@ -1,5 +1,5 @@
 // JS file
-const BaseUrl = `https://sugarcan-shop.onrender.com`
+const BaseUrl =`https://sugarcan-shop.onrender.com`
 const dropdown = document.getElementById("timeRange");
 const totalDailyProfit = document.getElementById("totalDailyProfit");
 const totalDailyIncome = document.getElementById("totalDailyIncome");
@@ -244,7 +244,7 @@ closeBasicExpenseModalButton.addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", async function () {
   const employeeNameSelect = document.getElementById("employeeName");
 
-  const response = await fetch("${BaseUrl}/get-register-employee/64c634c3b26622a9ae9bea40");
+  const response = await fetch(`${BaseUrl}/get-register-employee/64c634c3b26622a9ae9bea40`);
   const employees = await response.json();
 
   employees.forEach(function (employee) {
