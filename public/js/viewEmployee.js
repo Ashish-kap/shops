@@ -1,3 +1,5 @@
+const BaseUrl = `https://sugarcan-shop.onrender.com`
+
 const currentUrl = window.location.href;
 
 // Use regular expressions to extract shopId and employeeId
@@ -11,13 +13,13 @@ const employeeId = employeeIdMatch[1];
 
 //Fetch Employer expense table
 async function fetchEmployeeExpenses() {
-            const response = await fetch(`http://localhost:3000/shop/${shopId}/get-all-employee-expenses/${employeeId}`);
+            const response = await fetch(`${BaseUrl}/shop/${shopId}/get-all-employee-expenses/${employeeId}`);
             const data = await response.json();
             return data.allExpenses;
         }
 
 async function fetchEmployeeDetails() {
-    const response = await fetch(`http://localhost:3000/shop/${shopId}/get-all-employee-expenses/${employeeId}`);
+    const response = await fetch(`${BaseUrl}/shop/${shopId}/get-all-employee-expenses/${employeeId}`);
     const data = await response.json();
     return data.employee;
 }
@@ -113,7 +115,7 @@ const updateEmployerExpense = async (salaryAmount,date,description,paymentMethod
   try {
     const res = await axios({
       method: 'PATCH',
-      url: `http://localhost:3000/update-employee-salaries/${docId}`,
+      url: `${BaseUrl}/update-employee-salaries/${docId}`,
       data:{
         salaryAmount,
         date,
@@ -156,7 +158,7 @@ const deleteEmployerExpense = async (docId) => {
   try {
     const res = await axios({
       method: 'DELETE',
-      url: `http://localhost:3000/delete-employee-salaries/${docId}/employee/${employeeId}`,
+      url: `${BaseUrl}/delete-employee-salaries/${docId}/employee/${employeeId}`,
       data:{
       }
     });

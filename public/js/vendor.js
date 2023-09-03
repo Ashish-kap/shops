@@ -1,4 +1,4 @@
-
+const BaseUrl = `https://sugarcan-shop.onrender.com`
 const currentUrl = window.location.href;
 const urlSegments = currentUrl.split("/");
 const shopIndex = urlSegments.indexOf("all-vendors");
@@ -8,7 +8,7 @@ var selectedEmployeeId;
 
 document.addEventListener("DOMContentLoaded", function() {
   // Fetch employee data from the API
-  const apiUrl = `http://localhost:3000/get-register-vendors/${shopId}`;
+  const apiUrl = `${BaseUrl}/get-register-vendors/${shopId}`;
   fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Add a click event listener to the button
     viewDetailsButton.addEventListener('click', () => {
         // Redirect to another site
-        window.location.href = `http://localhost:3000/shop/${shopId}/vendor-details/${vendor._id}`; // Replace with your desired URL
+        window.location.href = `${BaseUrl}/shop/${shopId}/vendor-details/${vendor._id}`; // Replace with your desired URL
     });
 
     // Add event listener to "Pay Salary" button on this vendor card
@@ -72,7 +72,7 @@ const createVendorExpense = async (productName,vendorExpenseDate,description,pay
   try {
     const res = await axios({
       method: 'POST',
-      url: `http://localhost:3000/shops/${shopId}/vendor-expenses/${vendorId}`,
+      url: `${BaseUrl}/shops/${shopId}/vendor-expenses/${vendorId}`,
       data:{
         productName:productName,
         date:vendorExpenseDate,

@@ -1,4 +1,5 @@
 // JS file
+const BaseUrl = `https://sugarcan-shop.onrender.com`
 const dropdown = document.getElementById("timeRange");
 const totalDailyProfit = document.getElementById("totalDailyProfit");
 const totalDailyIncome = document.getElementById("totalDailyIncome");
@@ -16,7 +17,7 @@ const shopId = urlSegments[shopIndex + 1];
 // Function to fetch data from the API based on selected value
 async function fetchData(selectedValue) {
   try {
-    const response = await fetch(`http://localhost:3000/${selectedValue}-profit-by-shop/${shopId}`);
+    const response = await fetch(`${BaseUrl}/${selectedValue}-profit-by-shop/${shopId}`);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -55,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const startDate = document.getElementById("startDate").value;
     const endDate = document.getElementById("endDate").value;
 
-    const apiUrl = `http://localhost:3000/select-period-for-shop/${shopId}?start=${startDate}&end=${endDate}`;
+    const apiUrl = `${BaseUrl}/select-period-for-shop/${shopId}?start=${startDate}&end=${endDate}`;
     
     try {
       const response = await fetch(apiUrl);
@@ -127,7 +128,7 @@ const registerEmployee = async (employeeName,employeeAddress,phoneNumber,employe
   try {
     const res = await axios({
       method: 'POST',
-      url: `http://localhost:3000/register-employee/${shopId}`,
+      url: `${BaseUrl}/register-employee/${shopId}`,
       data:{
         name:employeeName,
         address:employeeAddress,
@@ -169,7 +170,7 @@ const registerVendor = async (VendorName,VendorAddress,ContactInformation) => {
   try {
     const res = await axios({
       method: 'POST',
-      url: `http://localhost:3000/register-vendors/${shopId}`,
+      url: `${BaseUrl}/register-vendors/${shopId}`,
       data:{
         vendorName:VendorName,
         address:VendorAddress,
@@ -243,7 +244,7 @@ closeBasicExpenseModalButton.addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", async function () {
   const employeeNameSelect = document.getElementById("employeeName");
 
-  const response = await fetch("http://localhost:3000/get-register-employee/64c634c3b26622a9ae9bea40");
+  const response = await fetch("${BaseUrl}/get-register-employee/64c634c3b26622a9ae9bea40");
   const employees = await response.json();
 
   employees.forEach(function (employee) {
@@ -283,7 +284,7 @@ closeIncomeModalButton.addEventListener("click", () => {
 
 // show all basic expenses tabel
 async function fetchExpenses() {
-    const response = await fetch(`http://localhost:3000/get-all-basic-expenses/${shopId}`);
+    const response = await fetch(`${BaseUrl}/get-all-basic-expenses/${shopId}`);
     const data = await response.json();
     return data.allExpenses;
 }
@@ -363,7 +364,7 @@ populateTable();
 
 // fetch Income table
 async function fetchIncome() {
-            const response = await fetch(`http://localhost:3000/get-all-income/${shopId}`);
+            const response = await fetch(`${BaseUrl}/get-all-income/${shopId}`);
             const data = await response.json();
             return data.allIncome;
         }
@@ -453,7 +454,7 @@ populateIncomeTable();
 //   downloadLink.addEventListener('click', async function(event) {
 //     event.preventDefault(); // Prevent the default behavior of the anchor tag
 
-//     const apiUrl = `http://localhost:3000/all-expenses-by-shop/${shopId}`;
+//     const apiUrl = `${BaseUrl}/all-expenses-by-shop/${shopId}`;
 
 //     try {
 //       const response = await fetch(apiUrl);
@@ -472,7 +473,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   downloadLink.addEventListener('click', async function(event) {
     event.preventDefault(); // Prevent the default behavior of the anchor tag
-    window.location.href=`http://localhost:3000/all-expenses-by-shop/${shopId}`
+    window.location.href=`${BaseUrl}/all-expenses-by-shop/${shopId}`
   });
 });
 

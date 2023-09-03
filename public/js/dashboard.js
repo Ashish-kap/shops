@@ -1,4 +1,5 @@
 // JS file
+const BaseUrl = `https://sugarcan-shop.onrender.com`
 const dropdown = document.getElementById("timeRange");
 
 const totalDailyProfit = document.getElementById("totalDailyProfit");
@@ -8,7 +9,7 @@ const totalDailyExpense = document.getElementById("totalDailyExpense");
 // Function to fetch data from the API based on selected value
 async function fetchData(selectedValue) {
   try {
-    const response = await fetch(`http://localhost:3000/${selectedValue}-profit`);
+    const response = await fetch(`${BaseUrl}/${selectedValue}-profit`);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -44,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const startDate = document.getElementById("startDate").value;
     const endDate = document.getElementById("endDate").value;
 
-    const apiUrl = `http://localhost:3000/select-period?start=${startDate}&end=${endDate}`;
+    const apiUrl = `${BaseUrl}/select-period?start=${startDate}&end=${endDate}`;
     
     try {
       const response = await fetch(apiUrl);
@@ -91,7 +92,7 @@ const createShop = async (shopName,contactInformation,address) => {
   try {
     const res = await axios({
       method: 'POST',
-      url: 'http://localhost:3000/create-shop',
+      url: `${BaseUrl}/create-shop`,
       data:{
         name:shopName,
         contactInformation,
@@ -131,7 +132,7 @@ document.querySelector('.create-shop').addEventListener('submit',e=>{
 // Function to fetch data from the API
 async function fetchShops() {
     try {
-        const response = await fetch('http://localhost:3000/all-shops');
+        const response = await fetch(`${BaseUrl}/all-shops`);
         if (!response.ok) {
             throw new Error('Failed to fetch data');
         }

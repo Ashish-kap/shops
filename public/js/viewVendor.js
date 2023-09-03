@@ -1,3 +1,5 @@
+const BaseUrl = `https://sugarcan-shop.onrender.com`
+
 const currentUrl = window.location.href;
 
 // Use regular expressions to extract shopId and employeeId
@@ -9,14 +11,14 @@ const vendorId = vendorIdMatch[1];
 
 
 async function fetchvendorDetails() {
-    const response = await fetch(`http://localhost:3000/shop/${shopId}/get-all-vendor-expenses/${vendorId}`);
+    const response = await fetch(`${BaseUrl}/shop/${shopId}/get-all-vendor-expenses/${vendorId}`);
     const data = await response.json();
     return data.vendor;
 }
 
 
 async function fetchVendorExpenses() {
-    const response = await fetch(`http://localhost:3000/shop/${shopId}/get-all-vendor-expenses/${vendorId}`);
+    const response = await fetch(`${BaseUrl}/shop/${shopId}/get-all-vendor-expenses/${vendorId}`);
     const data = await response.json();
     return data.allExpenses;
 }
@@ -127,7 +129,7 @@ const updateVendorExpense = async (productName,vendorExpenseDate,description,pay
   try {
     const res = await axios({
       method: 'PATCH',
-      url: `http://localhost:3000/vendor-expenses/${docId}`,
+      url: `${BaseUrl}/vendor-expenses/${docId}`,
       data:{
         productName:productName,
         vendorName:vendorName,
@@ -176,7 +178,7 @@ const deleteVendorExpense = async (docId) => {
   try {
     const res = await axios({
       method: 'DELETE',
-      url: `http://localhost:3000/delete-vendor-expenses/${docId}`,
+      url: `${BaseUrl}/delete-vendor-expenses/${docId}`,
       data:{
        
       }

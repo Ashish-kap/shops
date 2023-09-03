@@ -1,3 +1,4 @@
+const BaseUrl = `https://sugarcan-shop.onrender.com`
 const currentUrll = window.location.href;
 const urlSegmentss = currentUrll.split("/");
 const shopIndexx = urlSegmentss.indexOf("shop-overview");
@@ -8,7 +9,7 @@ const createIncome = async (amount,date,description,incomeSource,ProductSoldQuan
   try {
     const res = await axios({
       method: 'POST',
-      url: `http://localhost:3000/create-income/${shopIdd}`,
+      url: `${BaseUrl}/create-income/${shopIdd}`,
       data:{
         amount,
         date,
@@ -53,7 +54,7 @@ const updateIncome = async (amount,date,description,docId,incomeSource,ProductSo
   try {
     const res = await axios({
       method: 'PATCH',
-      url: `http://localhost:3000/update-income/${docId}`,
+      url: `${BaseUrl}/update-income/${docId}`,
       data:{
         amount,
         date,
@@ -98,7 +99,7 @@ const deleteIncome = async (docId) => {
   try {
     const res = await axios({
       method: 'DELETE',
-      url: `http://localhost:3000/delete-income/${docId}`,
+      url: `${BaseUrl}/delete-income/${docId}`,
       data:{
        
       }
@@ -127,7 +128,7 @@ const createBasicExpense = async (expenseName,expenseAmount,date,description) =>
   try {
     const res = await axios({
       method: 'POST',
-      url: `http://localhost:3000/create-basic-expenses/${shopIdd}`,
+      url: `${BaseUrl}/create-basic-expenses/${shopIdd}`,
       data:{
         expenseName,
         amount:expenseAmount,
@@ -169,7 +170,7 @@ const updateBasicExpense = async (expenseName,expenseAmount,date,description,doc
   try {
     const res = await axios({
       method: 'PATCH',
-      url: `http://localhost:3000/update-basic-expenses/${docId}`,
+      url: `${BaseUrl}/update-basic-expenses/${docId}`,
       data:{
         expenseName,
         amount:expenseAmount,
@@ -212,7 +213,7 @@ const deleteBasicExpense = async (docId) => {
   try {
     const res = await axios({
       method: 'DELETE',
-      url: `http://localhost:3000/delete-basic-expenses/${docId}`,
+      url: `${BaseUrl}/delete-basic-expenses/${docId}`,
       data:{
         amount,
         date,

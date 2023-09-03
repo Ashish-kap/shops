@@ -1,3 +1,5 @@
+const BaseUrl = `https://sugarcan-shop.onrender.com`
+
 const login = async(email,password)=>{
     try{
         // const token = localStorage.getItem('token'); // Retrieve token from local storage
