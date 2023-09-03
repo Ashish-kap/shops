@@ -11,7 +11,6 @@ const viewRoutes = require('./routes/viewRoutes.js')
 
 const cookieParser = require("cookie-parser");
 const rateLimit = require('express-rate-limit');
-const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 // const xss = require('xss-clean');
 // const hpp = require('hpp');
@@ -41,8 +40,6 @@ app.use(session({
 }));
 
 
-// Set security HTTP headers
-app.use(helmet());
 
 // Limit requests from same API
 // const limiter = rateLimit({
