@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+      }
+
+      .container {
+        margin: 150px auto;
+        width: 400px;
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      button[type="submit"] {
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #45a049;
+      }
+
+      .google-btn {
+        display: block;
+        margin: 20px auto;
+        width: 200px;
+        text-align: center;
+      }
+
+      .google-btn a {
+        display: inline-block;
+        background-color: #dd4b39;
+        color: #fff;
+        font-size: 16px;
+        padding: 12px 20px;
+        border-radius: 2px;
+        text-decoration: none;
+      }
+
+      .google-btn a:hover {
+        background-color: #c23321;
+      }
+      .button-facebook{
+        display: inline-block;
+        background-color: blue;
+        color: #fff;
+        font-size: 16px;
+        padding: 12px 20px;
+        border-radius: 2px;
+        text-decoration: none;
+        margin-top: 10px;
+        display: block;
+        margin: 20px auto;
+        width: 200px;
+        text-align: center;
+      }
+      /* truecaller button */
+      .button-truecaller{
+        display: inline-block;
+        background-color: skyblue;
+        color: #fff;
+        font-size: 16px;
+        padding: 12px 20px;
+        border-radius: 2px;
+        text-decoration: none;
+        margin-top: 10px;
+        display: block;
+        margin: 20px auto;
+        width: 200px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Login</h1>
+      <form>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+
+        <button type="submit">Login</button>
+      </form>
+
+      <div class="google-btn">
+        <a href="/google">Login with Google</a>
+      </div>
+      <a class="button-facebook" href="/login/federated/facebook">Sign in with Facebook</a>
+      <a class="button-truecaller" href="/login/truecaller">Sign in with trueCaller</a>
+    
+    </div>
+  </body>
+</html>

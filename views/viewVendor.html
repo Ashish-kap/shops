@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/viewVendor.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="vendor-card">
+        <div class="profile-photo">
+            <img src="/images/vendor_photo.jpg" alt="vendor Photo" width="150">
+        </div>
+        <div class="profile-details">
+            <h2>Vendor Details</h2>
+            <p id="vendorName"><strong>Name:</strong>Loading... </p>
+            <p id="vendorAddress"><strong>Address:</strong> Loading...</p>
+            <p id="vendorContactInformation"><strong>Contact Information:</strong>Loading... </p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="vendor-expense-table">
+            <h1>Vendor Expense</h1>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Amount</th>
+                            <th>Payment Due Date</th>
+                            <th>Payment Status</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vendorExpenseTableBody">
+                        <!-- Vendor Expenses will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- The update vendor expense modal -->
+    <div id="UpdateVendorExpenseModal" class="vendorExpenseModal-modal">
+        <div class="vendorExpenseModal-modal-content">
+            <span class="close" id="closeUpdateVendorExpenseModalButton">&times;</span>
+            <h2>Update Vendor Expense</h2>
+            <form class="udpate-vendor-expense-form" id="vendorExpenseForm">
+                <input type="text" id="updateProductName" name="productName" placeholder="Product Name" required>
+                <input type="text" id="updateVendorQuantity" name="quantity" placeholder="Quantity" required>
+                <input type="number" id="updateVendorExpenseAmount" name="amount" placeholder="Amount" required>
+                <label for="expenseDate">Date:</label>
+                <input type="date" id="updateVendorExpenseDate" name="expenseDate" value="<?php echo date('Y-m-d'); ?>"
+                    required>
+                <label for="paymentStatus">Payment Status:</label>
+                <select class="select-paymentStatus" id="updateVendorPaymentStatus" name="paymentStatus" required>
+                    <option class="option-paymentStatus" value="Paid">Paid</option>
+                    <option class="option-paymentStatus" value="Unpaid">Unpaid</option>
+                    <option class="option-paymentStatus" value="Partially Paid">Partially Paid</option>
+                </select>
+                <label for="paymentDueDate">Payment Due Date:</label>
+                <input type="date" id="updateVendorPaymentDueDate" name="paymentDueDate"
+                    value="<?php echo date('Y-m-d'); ?>">
+                <textarea id="updateVendorDescription" name="description" rows="4" placeholder="Description"></textarea>
+                <button type="submit" class="submit-button">Update</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/axios.min.js"></script>
+    <script src="/js/sweetalert.min.js"></script>
+    <script src="/js/viewVendor.js"></script>
+</body>
+</html>

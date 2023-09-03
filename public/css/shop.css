@@ -1,0 +1,922 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #EEEEEE;
+
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f8f8; */
+}
+
+/* Main section */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Shop details section */
+
+/* Shop details section */
+.shop-details {
+    background-color: #fff;
+    color: #444;
+    padding: 30px 20px 0px 20px;
+    height: 273px;
+    border-radius: 8px;
+    margin-bottom: 50px;
+    text-align: center;
+    position: relative;
+    /* background-image: url("/images/shop-bg.jpg");
+    background-size: cover;
+    background-position: center; */
+ 
+}
+
+.homelogo{
+    position: fixed;
+    top: 0;
+    right: 0;
+    font-size: 10px;
+    margin-top: 40px;
+    margin-right: 3rem;
+}
+
+.donwloadlogo {
+    position: fixed;
+    top: 0;
+    right: 0;
+    font-size: 10px;
+    margin-top: 80px;
+    margin-right: 2.8rem;
+}
+
+.shop-details h1 {
+    font-size: 36px;
+    margin-top: -15px;
+    margin-bottom: 10px;
+}
+
+.shop-details p {
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+/* Dropdown styles */
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 12px 60px;
+    font-size: 16px;
+    margin-top: 1.5rem;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 8px;
+    background-color: #F3AA60;;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom styles for the select dropdown arrow */
+select::-ms-expand {
+    display: none;
+}
+
+select::after {
+    content: "\25BC";
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* Style the options */
+option {
+   background-color: #fff;
+   color: #333;
+   text-align: left;
+   /* padding: 8px; */
+}
+
+/* Hover effect on options */
+option:hover {
+   background-color: #f9f9f9;
+}
+
+/* Style the selected option */
+option:checked {
+   background-color: #007bff;
+   color: #fff;
+}
+
+/* Remove default focus outline on select element */
+select:focus {
+    outline: none;
+}
+
+/* Create a fancy border for the select */
+.custom-select {
+    position: relative;
+    display: inline-block;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+
+/* Date range */
+
+.select-period{
+    text-align: center;
+    margin-top: 70px;
+    margin-bottom: 50px;
+}
+
+.select-period label {
+    margin: 0px 2px;
+    font-weight: bold;
+}
+
+.select-period input[type="date"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 3px 0;
+}
+
+.select-period button {
+    padding: 10px 20px;
+    margin-left: 5px;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+
+/* register button */
+ .registration-buttons {
+     display: flex;
+     flex-direction: row;
+     align-items: center;
+     justify-content: center;
+ }
+
+ .registration-button {
+     display: inline-block;
+     padding: 15px 30px;
+     margin: 10px;
+     border: none;
+     border-radius: 30px;
+     text-align: center;
+     font-size: 16px;
+     font-weight: bold;
+     color: #fff;
+     background-color: #3498db;
+     text-decoration: none;
+     transition: background-color 0.3s, transform 0.2s;
+ }
+
+ .registration-button:hover {
+     background-color: #2980b9;
+     transform: scale(1.05);
+ }
+
+ .registration-button:last-child {
+     background-color: #e74c3c;
+ }
+
+ .registration-button:last-child:hover {
+     background-color: #c0392b;
+ }
+
+
+/* Blocks section */
+.blocks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+    margin:auto 26rem
+}
+
+.blockss {
+    display: flex;
+    margin: -3rem 20rem; 
+    height: 0px;
+}
+
+.block-profit {
+    flex: 1;
+    background-color: #50CD89;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    border: 8px solid #fff;
+    padding:40px 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.block-profit h2{
+    color: #fff;
+    font-size: 24px;
+    margin-top: -20px;
+}
+
+.block-profit h3 {
+    color: #fff;
+    margin-top: -10px;
+}
+
+/* Hover effect for block-profits */
+/* .block-profit:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+} */
+
+.block-expense {
+    flex: 1;
+    background-color: #F1416C;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    border: 8px solid #fff;
+    padding: 70px 20px;
+    margin-right: 30px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.block-expense h2{
+    color: #fff;
+    font-size: 24px;
+    margin-top: -20px;
+}
+
+.block-expense h3 {
+    color: #fff;
+    margin-top: -10px;
+}
+
+.block-expense img {
+    width: 45px;
+    /* border-radius: 20px; */
+    
+}
+
+/* Hover effect for block-expenses */
+/* .block-expense:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+} */
+
+.block-income {
+    flex: 1;
+    background-color: #009EF7;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    border: 8px solid #fff;
+    padding: 70px 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+
+.block-income h2{
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 15px;
+    margin-top: -20px;
+}
+
+.block-income h3 {
+    color: #fff;
+    margin-top: -10px;
+}
+
+.block-income img {
+    width: 45px;
+    /* border-radius: 20px; */
+}
+
+
+
+/* Styles for the Employee Modal */
+
+.employee-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+/* Modal content styling */
+.employee-modal-content {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    width: 400px;
+    position: relative;
+}
+
+/* Close button styling */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    color: #999;
+    cursor: pointer;
+}
+
+/* Modal header styling */
+.employee-modal-content h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Form styling */
+#employeeForm {
+    display: grid;
+    gap: 15px;
+}
+
+/* Label styling */
+label {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Input styling */
+#employeeForm input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Submit button styling */
+button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+
+/* register vendor modal */
+
+/* Vendor modal styling */
+.vendor-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.vendor-modal-content {
+    background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+        padding: 30px;
+        width: 400px;
+        position: relative;
+}
+#vendorForm {
+    display: grid;
+    gap: 15px;
+}
+
+#vendorForm input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Rest of the previous CSS styles */
+
+/* Styles for the Expense modal */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: opacity 0.3s ease;
+}
+
+.modal-content {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    margin: 10% auto;
+    padding: 20px;
+    position: relative;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #333;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.expense-type-button {
+    background-color: #3498db;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.expense-type-button:hover {
+    background-color: #2980b9;
+}
+
+
+
+
+/*  INPUT MODAL */
+
+/* Styles for the income modal */
+
+.income-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: opacity 0.3s ease;
+}
+
+.income-modal-content {
+    background-color: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.3);
+    max-width: 350px;
+    margin: 0% auto;
+    padding: 30px;
+    position: relative;
+    text-align: center;
+}
+
+.income-close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.income-close:hover {
+    color: #333;
+}
+
+.income-modal h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+.income-modal label {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 5px;
+    text-align: left;
+    color: #444;
+}
+
+.income-modal input[type="number"],
+.income-modal input[type="date"],
+.income-modal input[type="text"],
+.income-modal textarea {
+    width: 90%;
+    padding: 12px;
+    margin-right: 12px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.3s ease;
+}
+
+.income-modal input[type="number"]:focus,
+.income-modal input[type="date"]:focus,
+.income-modal input[type="text"]:focus,
+.income-modal textarea:focus {
+    border-color: #3498db;
+}
+
+.income-submit-button {
+    background-color: #3498db;
+    border: none;
+    border-radius: 8px;
+    margin-top: -5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 12px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.income-submit-button:hover {
+    background-color: #2980b9;
+}
+
+/* Media query for responsiveness */
+@media screen and (max-width: 600px) {
+    .income-modal-content {
+        max-width: 90%;
+    }
+}
+
+
+
+
+
+/*  BASIC EXPENSE MODAL */
+
+
+/* Styles for the basic expense modal */
+.basic-expense-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: opacity 0.3s ease;
+}
+
+.basic-expense-modal-content {
+    background-color: #f5f5f5;
+    border-radius: 20px;
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.4);
+    max-width: 350px;
+    margin: 0.2% auto;
+    padding: 30px;
+    position: relative;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    font-size: 32px;
+    font-weight: bold;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #555;
+}
+
+.basic-expense-modal h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.basic-expense-form label {
+    display: block;
+    font-size: 18px;
+    margin-left: 30px;
+    margin-bottom: 10px;
+    color: #555;
+    text-align: left;
+}
+
+.update-basic-expense-form label {
+    display: block;
+    font-size: 18px;
+    margin-left: 30px;
+    margin-bottom: 10px;
+    color: #555;
+    text-align: left;
+}
+
+.basic-expense-form  input[type="text"],
+.basic-expense-form input[type="number"],
+.basic-expense-form input[type="date"],
+.basic-expense-form textarea {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.update-basic-expense-form input[type="text"],
+.update-basic-expense-form input[type="number"],
+.update-basic-expense-form input[type="date"],
+.update-basic-expense-form textarea {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+ .update-basic-expense-form input[type="text"]:focus,
+ .update-basic-expense-form input[type="number"]:focus,
+ .update-basic-expense-form input[type="date"]:focus,
+ .update-basic-expense-form textarea:focus {
+    border-color: #3498db;
+}
+
+
+.basic-expense-form input[type="text"]:focus,
+.basic-expense-form input[type="number"]:focus,
+.basic-expense-form input[type="date"]:focus,
+.basic-expense-form textarea:focus {
+    border-color: #3498db;
+}
+
+.basic-expense-form button.submit-button {
+    background-color: #3498db;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 12px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.basic-expense-form button.submit-button:hover {
+    background-color: #2980b9;
+}
+
+/* Media query for responsiveness */
+@media screen and (max-width: 600px) {
+    .basic-expense-modal-content {
+        max-width: 90%;
+    }
+}
+
+
+
+/*  BASIC EXPENSE TABLE */
+
+.container {
+    display: flex;
+    /* justify-content: center; */
+    align-items:center;
+    height: 100vh;
+    margin-top: 15rem;
+    background-color: #f0f0f0;
+}
+
+.container-two {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    height: 100vh;
+    margin-top: 1rem;
+    background-color: #f0f0f0;
+}
+
+.basic-expense-table {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 80%;
+    max-width: 550px;
+}
+
+.basic-income-table {
+    background-color: #fff;
+    border-radius: 8px;
+    margin-left:25px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 80%;
+    max-width: 550px;
+}
+
+
+.table-container {
+    max-height: 400px;
+    /* Adjust the maximum height as needed */
+    overflow-y: auto;
+    border-top: 1px solid #ccc;
+    margin-top: 20px;
+}
+
+.table-container-two {
+    max-height: 400px;
+    /* Adjust the maximum height as needed */
+    overflow-y: auto;
+    border-top: 1px solid #ccc;
+    margin-top: 20px;
+}
+
+.vendor-expense-table {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 80%;
+    max-width: 550px;
+}
+
+
+.employee-expense-table {
+    background-color: #fff;
+    border-radius: 8px;
+    margin-left: 25px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 80%;
+    max-width: 550px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+th {
+    background-color: #f7f7f7;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Style for the select element */
+.select-expense {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 16px;
+    margin-top: -5px;
+    margin-bottom: 5px;
+    color: #333;
+    width: 100%;
+    max-width: 300px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.select-expense:focus {
+    outline: none;
+    border-color: #6c63ff;
+    background-color: #fff;
+}
+
+/* Style for the individual options */
+.option-expense {
+    background-color: #fff;
+    color: #333;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.option-expense:hover {
+    background-color: #6c63ff;
+    color: #fff;
+}
+
+
+/* Style for the select element */
+.select-incomeSource {
+    appearance: none;
+    margin-left: -3rem;
+    margin-top: -3px;
+    margin-bottom: 5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #f5f5f5;
+    border: 1px solid #000;
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 16px;
+    color: #333;
+    width: 100%;
+    max-width: 300px;
+    cursor: pointer;
+    transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+}
+
+.select-incomeSource:focus {
+    outline: none;
+    border-color: #000;
+    background-color: #fff;
+    color: #000;
+}
+
+/* Style for the individual options */
+.option-incomeSource {
+    background-color: #fff;
+    color: #333;
+    padding: 10px;
+    border-radius: 6px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.option-incomeSource:hover {
+    background-color: #000;
+    color: #fff;
+}

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/shop.css">
+  <title>Shop</title>
+</head>
+<body>
+  <main>
+    <section class="shop-details">
+        <a href="/dashboard" class="homelogo"><img src="/images/home.png"></a>
+        <a class="donwloadlogo" id="download-link"><img src="/images/download.png"></a>
+        <h1><span id="shopName"></span></h1>
+        <p>Contact Information: <span id="contactInformation"></span></p>
+        <p>Address: <span id="address"></span></p>
+        <div class="registration-buttons">
+          <a class="registration-button" id="registerEmployeeButton">Register Employee</a>
+          <a class="registration-button" id="registerVendorButton">Register Vendor</a>
+        </div>
+        <div class="registration-buttons">
+          <a class="registration-button" id="viewEmployeeButton">View Employee</a>
+          <a class="registration-button" id="viewVendorButton">View Vendor</a>
+        </div>
+          <select id="timeRange">
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="yearly">Yearly</option>
+            <!-- <option value="alltime">All Time</option> -->
+          </select>
+    </section>
+
+    <div class="select-period">
+      <label for="startDate">From:</label>
+      <input type="date" id="startDate" name="startDate" value="<?php echo date('Y-m-d'); ?>">
+      <label for="endDate">To:</label>
+      <input type="date" id="endDate" name="endDate" value="<?php echo date('Y-m-d'); ?>">
+      <button id="applyDateRange" class="applyDateRange">Apply</button>
+    </div>
+
+
+    <section class="blocks">
+      <div class="block-profit profit">
+        <h2 id="totalDailyProfit">0</h2>
+        <h3>Profit</h3>
+        <!-- Add content for profit block here -->
+      </div>
+    </section>
+    <section class="blockss">
+        <div class="block-expense expense">
+          <h2 id="totalDailyExpense">0</h2>
+          <h3>Expense</h3>
+          <img src="/images/add.png"  id="openModalButton">
+          <!-- Add content for expense block here -->
+        </div>
+        <div class="block-income income">
+          <h2 id="totalDailyIncome">0</h2>
+          <h3>Income</h3>
+          <img src="/images/add.png" id="openIncomeModalButton">
+          <!-- Add content for income block here -->
+        </div>
+    </section>
+   
+    <div class="container">
+      <div class="basic-expense-table">
+        <h1>Basic Expense</h1>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Expense Name</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="expenseTableBody">
+              <!-- Expenses will be populated here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Income -->
+      <div class="basic-income-table">
+        <h1>Income</h1>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Amount</th>
+                <th>Product Sold Quantity</th>
+                <th>Income Source</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="incomeTableBody">
+              <!-- Income will be populated here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+  <!-- Register Employee Modal -->
+
+  <div class="employee-modal" id="employeeModal">
+    <div class="employee-modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <h2>Register Employee</h2>
+      <form id="employeeForm" class="registerEmployeeForm">
+        <label for="employeeName">Employee Name</label>
+        <input type="text" id="employeeName" required>
+  
+        <label for="employeeAddress">Address</label>
+        <input type="text" id="employeeAddress" required>
+  
+        <label for="employeePhoneNumber">Phone Number</label>
+        <input type="tel" id="employeePhoneNumber" required>
+  
+        <label for="employeeSalary">Salary</label>
+        <input type="number" id="employeeSalary" required>
+  
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <!--  register vendor -->
+
+  <div class="vendor-modal" id="vendorModal">
+    <div class="vendor-modal-content">
+      <span class="close" id="closeModalVendor">&times;</span>
+      <h2>Register Vendor</h2>
+      <form id="vendorForm" class="registerVendorForm">
+        <label for="vendorName">Vendor Name</label>
+        <input type="text" id="vendorName" required>
+        
+        <label for="vendorAddress">Vendor Address</label>
+        <input type="text" id="vendorAddress" required>
+        
+        <label for="vendorContactInformation">Vendor Contact Information</label>
+        <input type="text" id="vendorContactInformation" required>
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- The Expense modal -->
+  <div id="expenseModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeModalButton">&times;</span>
+      <h2>Select Expense Type</h2>
+      <button class="expense-type-button" id="basicExpenseButton">Basic Expense</button>
+    </div>
+  </div>
+
+
+<!-- The income modal -->
+<div id="incomeModal" class="income-modal">
+  <div class="income-modal-content">
+    <span class="income-close" id="closeIncomeModalButton">&times;</span>
+    <h2>Add Income</h2>
+    <form id="incomeForm" class="incomeForm">
+      <label for="amount">Amount:</label>
+      <input type="number" id="amount" name="amount" required>
+      <label for="ProductSoldQuantity">Product Sold Quantity:</label>
+      <input type="text" id="ProductSoldQuantity" name="ProductSoldQuantity" required>
+      <label for="date">Date:</label>
+      <input type="date" id="date" name="date" value="<?php echo date('Y-m-d'); ?>" required>
+      <label for="amount">Income Source:</label>
+        <select class="select-incomeSource" id="incomeSourceName" name="incomeSourceName" required>
+          <option class="option-incomeSource" value="CASH">CASH </option>
+          <option class="option-incomeSource" value="Bank Transfer">Bank Transfer</option>
+          <option class="option-incomeSource" value="Google Pay/Paytm/Phone Pe">Google Pay/Paytm/Phone Pe</option>
+        </select>
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" rows="4" ></textarea>
+      <button type="submit" class="income-submit-button">Submit</button>
+    </form>
+  </div>
+</div>
+
+
+<!-- update income modal -->
+<div id="updateIncomeModal" class="income-modal">
+  <div class="income-modal-content">
+    <span class="income-close" id="closeUpdateIncomeModalButton">&times;</span>
+    <h2>Update Income</h2>
+    <form id="update-incomeForm" class="update-incomeForm">
+      <label for="amount">Amount:</label>
+      <input type="number" id="updateAmount" name="amount" required>
+      <label for="ProductSoldQuantity">Product Sold Quantity:</label>
+      <input type="text" id="updateProductSoldQuantity" name="ProductSoldQuantity" required>
+      <label for="date">Date:</label>
+      <input type="date" id="updateDate" name="date" value="<?php echo date('Y-m-d'); ?>" required>
+      <label for="amount">Income Source:</label>
+      <select class="select-incomeSource" id="updateIncomeSourceName" name="incomeSourceName" required>
+        <option class="option-incomeSource" value="CASH">CASH </option>
+        <option class="option-incomeSource" value="Bank Transfer">Bank Transfer</option>
+        <option class="option-incomeSource" value="Google Pay/Paytm/Phone Pe">Google Pay/Paytm/Phone Pe</option>
+      </select>
+      <label for="description">Description:</label>
+      <textarea id="updateDescription" name="description" rows="4" ></textarea>
+      <button type="submit" class="income-submit-button">Update</button>
+    </form>
+  </div>
+</div>
+
+
+
+<!--  BAsic Expense Modal -->
+
+<div id="basicExpenseModal" class="basic-expense-modal">
+  <div class="basic-expense-modal-content">
+    <span class="close" id="closeBasicExpenseModalButton">&times;</span>
+    <h2>Add Basic Expense</h2>
+    <form class="basic-expense-form" id="basicExpenseForm">
+      <label for="expenseName">Expense Name:</label>
+      <!-- <input type="text" id="expenseName" name="expenseName" required> -->
+      <select class="select-expense" id="expenseName" name="expenseName" required>
+        <option class="option-expense" value="Tea(CHAI)">Tea(CHAI) </option>
+        <option class="option-expense" value="Breakfast(Nasta)">Breakfast(Nasta)</option>
+        <option class="option-expense" value="ICE(BARF)">ICE(BARF)</option>
+        <option class="option-expense" value="Garland(Phoolon Ka Haar)">Garland(Phoolon Ka Haar)</option>
+        <option class="option-expense" value="Vegetables(Bhaji)">Vegetables(Bhaji)</option>
+        <option class="option-expense" value="Police">Police</option>
+        <option class="option-expense" value="Medicine(DAVA)">Medicine(DAVA)</option>
+        <option class="option-expense" value="Other">Other</option>
+      </select>
+
+      <label for="expenseAmount">Amount:</label>
+      <input type="number" id="expenseAmount" name="expenseAmount" required>
+
+      <label for="expenseDate">Date:</label>
+      <input type="date" id="expenseDate" name="expenseDate" value="<?php echo date('Y-m-d'); ?>" required>
+
+      <label for="expenseDescription">Description:</label>
+      <textarea id="expenseDescription" name="expenseDescription" rows="4" required></textarea>
+
+      <button type="submit" class="submit-button">Submit</button>
+    </form>
+  </div>
+</div>
+
+
+<!--  Update BAsic Expense Modal -->
+<div id="updateBasicExpenseModal" class="basic-expense-modal">
+  <div class="basic-expense-modal-content">
+    <span class="close" id="closeUpdateBasicExpenseModalButton">&times;</span>
+    <h2>Update Basic Expense</h2>
+    <form class="update-basic-expense-form" id="basicExpenseForm">
+      <label for="expenseName">Expense Name:</label>
+      <!-- <input type="text" id="updateExpenseName" name="expenseName" required> -->
+      <select class="select-expense" id="updateExpenseName" name="expenseName" required>
+        <option class="option-expense" value="Tea(CHAI)">Tea(CHAI) </option>
+        <option class="option-expense" value="Breakfast(Nasta)">Breakfast(Nasta)</option>
+        <option class="option-expense" value="ICE(BARF)">ICE(BARF)</option>
+        <option class="option-expense" value="Garland(Phoolon Ka Haar)">Garland(Phoolon Ka Haar)</option>
+        <option class="option-expense" value="Vegetables(Bhaji)">Vegetables(Bhaji)</option>
+        <option class="option-expense" value="Police">Police</option>
+        <option class="option-expense" value="Medicine(DAVA)">Medicine(DAVA)</option>
+        <option class="option-expense" value="Other">Other</option>
+      </select>
+
+      <label for="expenseAmount">Amount:</label>
+      <input type="number" id="updateExpenseAmount" name="expenseAmount" required>
+
+      <label for="expenseDate">Date:</label>
+      <input type="date" id="updateExpenseDate" name="expenseDate" value="<?php echo date('Y-m-d'); ?>" required>
+
+      <label for="expenseDescription">Description:</label>
+      <textarea id="updateExpenseDescription" name="expenseDescription" rows="4" required></textarea>
+
+      <button type="submit" class="submit-button">Update</button>
+    </form>
+  </div>
+</div>
+
+</body>
+  <script src="/js/axios.min.js"></script>
+  <script src="/js/sweetalert.min.js"></script>
+  <script src="/js/income.js"></script>
+  <script src="/js/shop.js"></script>
+</html>

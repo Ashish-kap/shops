@@ -1,0 +1,376 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #EEEEEE;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+
+.navbar {
+    background-color: #fff;
+    /* background-color: #272829; */
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.navbar__container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+.navbar__center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar__name {
+    color: #444444;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 30px;
+}
+
+
+
+.applyDateRange{
+    margin-left: 5px;
+    background-color: #444;
+}
+
+.containerr {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px auto;
+}
+
+.cards-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.card {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    width: 250px;
+    margin: 0 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card h2 {
+    color: #fff;
+}
+
+.card h3 {
+    color: #fff;
+}
+
+
+/* Drop Down */
+select {
+     appearance: none;
+     -webkit-appearance: none;
+     -moz-appearance: none;
+     background: none;
+     border: none;
+     outline: none;
+     padding: 12px 30px;
+     font-size: 16px;
+     color: #fff;
+     font-weight: bold;
+     margin-top: 50px;
+     text-align: center;
+     border-radius: 8px;
+     background-color: #F3AA60;;
+     cursor: pointer;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+ /* Custom styles for the select dropdown arrow */
+ select::-ms-expand {
+     display: none;
+ }
+
+ select::after {
+     content: "\25BC";
+     position: absolute;
+     right: 12px;
+     top: 50%;
+     transform: translateY(-50%);
+     pointer-events: none;
+ }
+
+ /* Style the options */
+ option {
+    background-color: #fff;
+    color: #333;
+    text-align: left;
+    /* padding: 8px; */
+ }
+
+ /* Hover effect on options */
+ option:hover {
+    background-color: #f9f9f9;
+ }
+
+ /* Style the selected option */
+ option:checked {
+    background-color: #007bff;
+    color: #fff;
+ }
+
+ /* Remove default focus outline on select element */
+ select:focus {
+     outline: none;
+ }
+
+ /* Create a fancy border for the select */
+ .custom-select {
+     position: relative;
+     display: inline-block;
+     border: 2px solid #007bff;
+     border-radius: 8px;
+     overflow: hidden;
+ }
+
+
+.shop-row {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.shop-card {
+    width: calc(25.33% - 30px);
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+/* Optional: Add some space between the cards */
+.shop-card:not(:nth-child(3n)) {
+    margin-right: 20px;
+}
+
+/* Optional: Adjust card width on smaller screens to show fewer cards per row */
+@media screen and (max-width: 768px) {
+    .shop-card {
+        width: calc(50% - 20px);
+        /* Two cards in a row with some margin in between */
+    }
+}
+
+.shop-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.shop-card h2 {
+    color: #555;
+    margin-bottom: 10px;
+    
+}
+
+.shop-card p {
+    color: #777;
+    margin-bottom: 5px;
+}
+
+.card.profit {
+    background-color: #50CD89;;
+    /* Light green */
+}
+
+.card.income {
+    background-color: #009EF7;;
+    /* Light red */
+}
+
+.card.expense {
+    background-color: #F1416C;;
+    /* Light blue */
+}
+.shop-card button {
+    background-color: #61677A;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    margin: 10px auto;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.shop-card button:hover {
+    background-color: #0056b3;
+}
+
+.shop-card button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+}
+
+.shop-card button:active {
+    background-color: #004080;
+}
+
+
+.shop-heading-container {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 24px;
+    color: #444;
+}
+
+div.shop-heading-container::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.shop-heading {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    margin-right: 48rem
+}
+
+.add-shop {
+    margin-right: 8rem;
+    float: right;
+    /* width: 40px;
+    height: 40px; */
+    cursor: pointer;
+    /* transition: transform 0.3s ease; */
+}
+
+.add-shop:hover {
+    transform: scale(1.1);
+}
+
+
+/* Styles for the responsive footer */
+.footer {
+    background-color: #f9f9f9;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer__container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+.footer__center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer__name {
+    color: #333;
+    font-size: 18px;
+}
+
+.footer__heart {
+    font-size: 18px;
+    margin-left: 5px;
+}
+
+
+/* Style for modal */
+.modal {
+    display: none;
+    /* Hide the modal by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black with opacity */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 8px;
+    position: relative;
+}
+
+.close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+/* Style for form inside the modal */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}

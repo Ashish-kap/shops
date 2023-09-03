@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/viewEmployee.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="employee-card">
+        <div class="profile-photo">
+            <img src="/images/employee_photo.jpg" alt="Employee Photo" width="150">
+        </div>
+        <div class="profile-details">
+            <h2>Employee Details</h2>
+            <p id="employeeName"><strong>Name:</strong>Loading... </p>
+            <p id="employeeSalary"><strong>Salary:</strong>Loading...</p>
+            <p id="employeeBalanced"><strong>Balanced:</strong>Loading... </p>
+            <p id="employeeAddress"><strong>Address:</strong> Loading...</p>
+            <p id="employeePhoneNumber"><strong>Phone Number:</strong>Loading... </p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="employee-expense-table">
+            <h1>Employee Expenses</h1>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Salary Amount</th>
+                            <th>Description</th>
+                            <th>Payment Method</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employeeExpenseTableBody">
+                        <!-- Employee Expenses will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="updateEmployeeExpenseModal" class="employee-expense-modal">
+        <div class="employee-expense-modal-content">
+            <span class="close" id="closeUpdateEmployeeExpenseModalButton">&times;</span>
+            <h2>Update Employee Expense</h2>
+            <form class="update-employee-expense-form" id="employeeExpenseForm">
+        
+                <label for="salaryAmount">Salary Amount:</label>
+                <input type="number" id="updateSalaryAmount" name="salaryAmount" required>
+    
+                <label for="expenseDate">Date:</label>
+                <input type="date" id="updateEmployeeExpenseDate" name="expenseDate" value="<?php echo date('Y-m-d'); ?>"
+                    required>
+    
+                <label for="paymentMethod">Payment Method:</label>
+                <input type="text" id="updatePaymentMethod" name="paymentMethod" required>
+    
+                <label for="expenseDescription">Description:</label>
+                <textarea id="updateEmployeeExpenseDescription" name="expenseDescription" rows="4" required></textarea>
+    
+                <button type="submit" class="submit-button">Update</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/axios.min.js"></script>
+    <script src="/js/sweetalert.min.js"></script>
+    <script src="/js/viewEmployee.js"></script>
+</body>
+</html>
