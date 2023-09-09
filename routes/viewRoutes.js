@@ -9,7 +9,7 @@ router.post('/user-login',authController.loginWithPassword)
 
 router.get('/',viewController.home)
 router.get('/dashboard',authController.protect,viewController.dashBoard)
-router.get('/signup',authController.protect,viewController.signup)
+router.get('/signup',viewController.signup)
 router.get('/all-employees/:shopId',authController.protect,viewController.allEmployess)
 router.get('/all-vendors/:shopId',authController.protect,viewController.allVendors)
 router.get('/shop-overview/:shopId',authController.protect,viewController.shop)
