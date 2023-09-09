@@ -1,31 +1,43 @@
 //signup
-const signup = async(name,email,password,confirmPassword)=>{
-    console.log(name,email,password,confirmPassword)
+
+const BaseUrl = `https://sugarcan-shop.onrender.com`
+// const BaseUrl = `http://localhost:3000`
+const signup = async(name,phoneNumber,password,confirmPassword)=>{
+    console.log(name,phoneNumber,password,confirmPassword)
     try{
         const res= await axios({
         method:'POST',
-        url:"http://localhost:3000/users/signupp",
+        url:`${BaseUrl}/user-signup`,
         data:{
             name:name,
-            emailID:email,
+            phoneNumber:phoneNumber,       
             password:password,
             passwordConfirm:confirmPassword
         }
     })
-    console.log(res)
-    window.location.replace('/home');
+    if (res.data.status === 'success') {
+      swal({
+        text: "Signup successfully..!",
+        icon: "success",
+        button: "OK",
+      }).then(() => {
+        window.location.replace('/dashboard');
+      });
+    }
     }catch(err){
-        // console.log(err.response.data)
-        alert('something went wrong')
-
+        swal({
+            text:err.response.data.message,
+            icon: "warning",
+            button: "OK",
+        })
     }
 }
 
-document.querySelector('.formed').addEventListener('submit',e=>{
-e.preventDefault();
+document.querySelector('.signup-form').addEventListener('submit',e=>{
+    e.preventDefault();
     const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-    signup(name,email,password,confirmPassword);
+    const signupPhoneNumber = document.getElementById('signupPhoneNumber').value;
+    const signupPassword = document.getElementById('signupPassword').value;
+    const signupConfirmPassword = document.getElementById('signupConfirmPassword').value;
+    signup(name,signupPhoneNumber,signupPassword,signupConfirmPassword);
 })

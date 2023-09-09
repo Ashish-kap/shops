@@ -26,7 +26,7 @@ const createSendToken = (user,statusCode,res)=>{
     //remove password from output
     user.password = undefined;
     res.status(statusCode).json({
-           status:"sucess",
+           status:"success",
            token,
            data:{
                user: user
@@ -35,53 +35,101 @@ const createSendToken = (user,statusCode,res)=>{
 }
 
 
-exports.signup = async(req,res)=>{
-    try{
 
-      const email = req.body.email;
-      const secretCode = req.body.secretCode;
+exports.signupp = async (req, res) => {
+  try { 
+    const {name,password,passwordConfirm,phoneNumber} = req.body;
 
-      // Check if the secret code is valid
-      if (secretCode && secretCode !== "Feedback2023") {
-        return res.status(401).json({
-          status: "failed",
-          message: "Invalid secret code. Please enter a valid secret code to continue.",
-        });
-      }
-
-      // Check if the user already exists in the jwtUser collection
-      const userExists = await Userr.findOne({ email });
-      if (userExists) {
-          return res.status(400).json({
-              status: "failed",
-              message: "A user with this email address already exists. Please use a different email address or sign in instead.",
-          });
-      }
-
-      // Check if the user already exists in the User collection
-      // const userExistsIngoogleAUth = await googleUser.findOne({ email });
-      // if (userExistsIngoogleAUth) {
-      //   return res.status(400).json({ 
-      //     status:"failed",
-      //     message: 'You tried signing in with a different authentication method than the one you used during signup. Please try again using your original authentication method.' });
-      // }
-  
-
-    const newUser = await Userr.create({
-            username:req.body.username,
-            email:req.body.email,
-            password:req.body.password,
-            passwordConfirm:req.body.passwordConfirm,
-            passwordChangeAt:req.body.passwordChangeAt,
-            passwordForgotToken:req.body.passwordForgotToken,
-            passwordExpireToken:req.body.passwordExpireToken,
-            secretCode:req.body.secretCode
-    });
-      createSendToken(newUser,200,res);
-    }catch(err){
-        res.status(400).json(err)
+    // Check if the user already exists in the jwtUser collection
+    const userExists = await Userr.findOne({phoneNumber});
+    if (userExists) {
+      return res.status(400).json({
+        status:"failed",
+        message:"Phone number already exists. Please Login..!",
+      });
     }
-}
+
+    
+    // Check if any of the required variables are missing
+    if (!name || !phoneNumber || !password || !passwordConfirm) {
+            return res.status(403).json({
+                status: "failed",
+                message: "Missing required signup data. Please provide all the necessary information.",
+            });
+    }
+
+    // Check if the password is at least 8 characters long
+    if (password.length < 8) {
+      return res.status(400).json({
+        status: "failed",
+        message: "Password must be at least 8 characters long.",
+      });
+    }
+
+    if(password !== passwordConfirm){
+        return res.status(406).json({
+            status: "failed",
+            message: "Password and confirm password is not matching.",
+        });
+    }
+
+    let newUser = await Userr.create({
+        name,
+        phoneNumber,
+        password,
+    });
+    await newUser.save();
+    createSendToken(newUser, 200, res);
+
+  } catch (err) {
+    res.status(400).json({
+        error:err,
+        message:"something went wrong..! Try again later"
+    });
+    console.log(err);
+  }
+};
+
+
+
+exports.loginWithPassword = async (req, res) => {
+  const { phoneNumber, password } = req.body;
+  try {
+
+    if(!phoneNumber || !password){
+        // return next(("please provide email and password",400));
+        return res.status(401).json({
+                status: 'failed',
+                message: "Please provide phone number and password"
+        });
+    }
+    // Find the user by email
+    const user = await Userr.findOne({phoneNumber}).select('+password');
+    if (!user) {
+      // If user is not found, send an error response
+      return res.status(404).json({ 
+        error: 'User not found',
+        message:"User not found..! Please provide valid phone number"
+      });
+    }
+
+    // const correct = await user.correctPassword(password, user.password)
+    if(!user || !(await user.correctPassword(password, user.password))){
+        return res.status(401).json({
+            status: 'failed',
+            message: 'Incorrect phone number or password'
+        });
+    }
+   
+    createSendToken(user, 200, res);
+  } catch (error) {
+    // Handle any errors that occur during the process
+    console.error(error);
+    res.status(500).json({ error: 'Something went wrong!' });
+  }
+};
+
+
 exports.login = async(req,res,next)=>{
     try{
 

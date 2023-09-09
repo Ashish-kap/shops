@@ -1,4 +1,5 @@
 // JS file
+// const BaseUrl = `http://localhost:3000`
 const BaseUrl = `https://sugarcan-shop.onrender.com`
 const dropdown = document.getElementById("timeRange");
 
@@ -177,9 +178,18 @@ async function populateShopCards() {
 
         const viewButton = document.createElement('button');
         viewButton.textContent = 'View';
+        viewButton.style.marginLeft = '10px'; 
         viewButton.addEventListener('click', () => {
             window.location.href = `/shop-overview/${shop._id}`;
         });
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.addEventListener('click', () => {
+            deleteShop(shop._id)
+        });
+
+        shopCard.appendChild(deleteButton);
         shopCard.appendChild(viewButton);
         shopRow.appendChild(shopCard);
     });
@@ -191,5 +201,29 @@ populateShopCards();
 
 
 
-
+const deleteShop = async (shopId) => {
+  try {
+    const res = await axios({
+      method: 'DELETE',
+      url: `${BaseUrl}/delete-shop/${shopId}`,
+      data:{
+      }
+    });
+    if (res.data.status === 'success') {
+        swal({
+            text:"Shop deleted successfully!",
+            icon: "success",
+            button: "OK",
+        }).then(() => {
+            location.reload()
+        });
+    }
+  } catch (err) {
+    swal({
+      text:err.response.data.message,
+      icon: "warning",
+      button: "OK",
+    })
+  }
+};
 

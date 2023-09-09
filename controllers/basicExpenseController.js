@@ -1,5 +1,6 @@
 const BasicExpense = require('../model/basicExpense.js');
 const Shop = require('../model/shop.js'); 
+const Item = require('../model/expenseType.js'); 
 
 //Endpoint to add a new basic expense
 exports.createBasicExpense = async (req, res) => {
@@ -48,6 +49,101 @@ exports.createBasicExpense = async (req, res) => {
      });
   }
 };
+
+// Get Expense type
+exports.getAllExpenseTypes = async (req, res) => {
+  try {
+    // Find the document containing the expense types
+    const item = await Item.findOne();
+
+    if (!item || !item.expenseTypes || item.expenseTypes.length === 0) {
+      return res.status(404).json({ message: 'Expense types not found' });
+    }
+
+    // Extract the expense types from the document
+    const expenseTypes = item.expenseTypes.map((expenseType) => expenseType);
+
+    return res.status(200).json({ expenseTypes });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+exports.addExpenseType = async (req, res) => {
+  try {
+    const { name } = req.body;
+
+    if (!name) {
+      return res.status(400).json({ message: 'Expense Type name is required' });
+    }
+
+    // Find the existing document or create a new one if it doesn't exist
+    let item = await Item.findOne();
+
+    if (!item) {
+      item = new Item({ expenseTypes: [] });
+    }
+
+    // Check if the expense type with the same name already exists
+    const existingExpenseType = item.expenseTypes.find(
+      (expenseType) => expenseType.name === name
+    );
+
+    if (existingExpenseType) {
+      return res.status(400).json({ message: 'Expense Type already exists' });
+    }
+
+    // Add the new expense type to the array
+    item.expenseTypes.push({ name });
+
+    // Save the updated document
+    await item.save();
+
+    return res.status(201).json({ 
+      status:"success",
+      message: 'ExpenseType added successfully',
+      item 
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+
+exports.deleteExpenseType = async (req, res) => {
+  try {
+    const { expenseTypeId } = req.params; // Get the expense type ID from the request parameters
+
+    // Find the document containing the expense types
+    let item = await Item.findOne();
+
+    if (!item) {
+      return res.status(404).json({ message: 'Expense types not found' });
+    }
+
+    // Find the index of the expense type to delete
+    const index = item.expenseTypes.findIndex((expenseType) => expenseType.name.toString() === expenseTypeId);
+
+    if (index === -1) {
+      return res.status(404).json({ message: 'Expense type not found' });
+    }
+
+    // Remove the expense type from the array
+    item.expenseTypes.splice(index, 1);
+
+    // Save the updated document
+    await item.save();
+
+    return res.status(200).json({ message: 'Expense type deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 
 exports.updateBasixExpense = async (req, res) => {
   try {

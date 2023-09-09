@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
+
 const basicExpenseSchema = new mongoose.Schema({
   expenseName: {
     type: String,
     required: true,
-    minlength: 2, 
-    maxlength: 100, 
-    trim: true, 
+    minlength: 1,
+    maxlength: 100,
+    trim: true,
   },
   amount: {
     type: Number,

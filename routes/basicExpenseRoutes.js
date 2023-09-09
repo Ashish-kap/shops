@@ -14,6 +14,12 @@ router.get('/basic-expenses/monthlyBasicExpense/:shopId',basicExpenseController.
 router.get('/basic-expenses/yearlyBasicExpense/:shopId',basicExpenseController.yearlyBasicExpense)
 
 
+router.get('/get-expense-type',basicExpenseController.getAllExpenseTypes)
+router.post('/push-expense-type',basicExpenseController.addExpenseType)
+router.delete('/delete-expense-type/:expenseTypeId',basicExpenseController.deleteExpenseType)
+
+
+
 module.exports=router;
 
 

@@ -1,66 +1,47 @@
 const BaseUrl = `https://sugarcan-shop.onrender.com`
+// const BaseUrl = `http://localhost:3000`
 
-const login = async(email,password)=>{
-    try{
-        // const token = localStorage.getItem('token'); // Retrieve token from local storage
-        // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Add Authorization header
-        await axios({
-        method:'POST',
-        // url:"http://localhost:3000/users/login",
-        url:"https://feedback-cloudrun-dev001-36kbmsu6la-el.a.run.app/users/login",
-        data:{
-            email:email,
-            password:password
-        }
-    })
-    window.location.replace('/home');
-    }catch(err){
-        alert('Incorrect email or password')
-        // alert(err.response.data)
+const login = async (loginPhoneNumber,loginPassword) => {
+  try {
+    const res = await axios({
+      method: 'POST',
+      url: `${BaseUrl}/user-login`,
+      data:{
+        phoneNumber:loginPhoneNumber,
+        password:loginPassword
+      }
+    });
+    if (res.data.status === 'success') {
+      swal({
+          text:"Logged in successfully!",
+          icon: "success",
+          button: "OK",
+      }).then(() => {
+          // const userId = res.data.data.user._id;
+          window.setTimeout(() => {
+            //location.assign('/home');
+            window.location.href = `/dashboard`; 
+          }, 1000);
+      });
     }
-}
+  } catch (err) {
+    swal({
+      text:err.response.data.message,
+      icon: "warning",
+      button: "OK",
+    }).then(() => {
+      location.reload()
+    });
 
-document.querySelector('.form').addEventListener('submit',e=>{
+  }
+};
+
+
+document.querySelector('.loginn-form').addEventListener('submit',e=>{
     e.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    login(email,password);
+    const loginPhoneNumber = document.getElementById('loginPhoneNumber').value;
+    const loginPassword = document.getElementById('loginPassword').value;
+    login(loginPhoneNumber,loginPassword);
 })
-
-
-
-// const logoutButton = document.querySelector("#logoutButton");
-// logoutButton.addEventListener("click", function() {
-//   axios("/logout", {
-//     method: "GET",
-//     credentials: "same-origin"
-//   })
-//   .then(response => {
-//     if (response.ok) {
-//       return response.json();
-//     } else {
-//       throw new Error("Network response was not ok.");
-//     }
-//   })
-//   .then(data => {
-//     if (data.redirect) {
-//       window.history.pushState(null, null, data.redirect);
-//       window.location.reload();
-//     }
-//   })
-//   .catch(error => {
-//     console.error("Error:", error);
-//   });
-// });
-
-
-// document.querySelector('.form').addEventListener('submit',e=>{
-//     e.preventDefault();
-//     const logout = document.getElementById('logoutButton');
-//     login(logout);
-// })
-
-
-
 
 

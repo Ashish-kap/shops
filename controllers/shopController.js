@@ -58,3 +58,22 @@ exports.updateShop = async (req, res) => {
   }
 };
 
+
+exports.deleteShop =  async (req, res) => {
+  const shopId = req.params.shopId;
+  try {
+    // Attempt to find the shop by its ID and delete it
+    const deletedShop = await Shop.findByIdAndDelete(shopId);
+
+    if (!deletedShop) {
+      return res.status(404).json({ 
+        message: 'Shop not found'
+       });
+    }
+
+    return res.status(200).json({status:"success",message: 'Shop deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting shop:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};

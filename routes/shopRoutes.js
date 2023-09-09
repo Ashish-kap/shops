@@ -7,6 +7,7 @@ const router = express.Router();
 router.get('/all-shops',shopController.allShops)
 router.post('/create-shop',shopController.createShop)
 router.patch('/update-shop/:id',shopController.updateShop)
+router.delete('/delete-shop/:shopId',shopController.deleteShop)
 
 module.exports =router;
 

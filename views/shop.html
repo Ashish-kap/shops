@@ -225,8 +225,7 @@
     <h2>Add Basic Expense</h2>
     <form class="basic-expense-form" id="basicExpenseForm">
       <label for="expenseName">Expense Name:</label>
-      <!-- <input type="text" id="expenseName" name="expenseName" required> -->
-      <select class="select-expense" id="expenseName" name="expenseName" required>
+      <!-- <select class="select-expense" id="expenseName" name="expenseName" required>
         <option class="option-expense" value="Tea(CHAI)">Tea(CHAI) </option>
         <option class="option-expense" value="Breakfast(Nasta)">Breakfast(Nasta)</option>
         <option class="option-expense" value="ICE(BARF)">ICE(BARF)</option>
@@ -235,21 +234,42 @@
         <option class="option-expense" value="Police">Police</option>
         <option class="option-expense" value="Medicine(DAVA)">Medicine(DAVA)</option>
         <option class="option-expense" value="Other">Other</option>
+      </select> -->
+
+      <select class="select-expense" id="updateExpenseName" name="expenseName" required>
+        <option value="">Select an Expense Type</option>
       </select>
+
+      <button id="deleteExpenseType">Delete Expense Type</button>
+      <button id="ExpenseOpenModalButton">Add Expense Type</button>
 
       <label for="expenseAmount">Amount:</label>
       <input type="number" id="expenseAmount" name="expenseAmount" required>
 
       <label for="expenseDate">Date:</label>
       <input type="date" id="expenseDate" name="expenseDate" value="<?php echo date('Y-m-d'); ?>" required>
-
+      
       <label for="expenseDescription">Description:</label>
       <textarea id="expenseDescription" name="expenseDescription" rows="4" required></textarea>
 
       <button type="submit" class="submit-button">Submit</button>
+
     </form>
   </div>
 </div>
+
+<!-- Expense Type Modal -->
+<div id="expenseTypeModal" class="expenseTypeModal">
+  <div class="expense-type-modal-content">
+    <span class="expenseTypeClose" id="expenseTypeCloseModalButton">&times;</span>
+    <form id="expenseTypeForm" class="expenseTypeForm">
+      <label for="expenseType" class="expenseType">Expense Type:</label>
+      <input type="text" id="expenseTypeName" name="expenseType" required>
+      <button type="submit" class="submit">Submit</button>
+    </form>
+  </div>
+</div>
+
 
 
 <!--  Update BAsic Expense Modal -->
@@ -259,8 +279,7 @@
     <h2>Update Basic Expense</h2>
     <form class="update-basic-expense-form" id="basicExpenseForm">
       <label for="expenseName">Expense Name:</label>
-      <!-- <input type="text" id="updateExpenseName" name="expenseName" required> -->
-      <select class="select-expense" id="updateExpenseName" name="expenseName" required>
+      <!-- <select class="select-expense" id="updateExpenseName" name="expenseName" required>
         <option class="option-expense" value="Tea(CHAI)">Tea(CHAI) </option>
         <option class="option-expense" value="Breakfast(Nasta)">Breakfast(Nasta)</option>
         <option class="option-expense" value="ICE(BARF)">ICE(BARF)</option>
@@ -269,6 +288,10 @@
         <option class="option-expense" value="Police">Police</option>
         <option class="option-expense" value="Medicine(DAVA)">Medicine(DAVA)</option>
         <option class="option-expense" value="Other">Other</option>
+      </select> -->
+
+      <select class="select-expense" id="updateExpenseName" name="expenseName" required>
+        <option value="">Select an Expense Type</option>
       </select>
 
       <label for="expenseAmount">Amount:</label>
@@ -286,6 +309,51 @@
 </div>
 
 </body>
+  <script>
+    // Get modal elements
+    const expenseTypeModal= document.getElementById('expenseTypeModal');
+    const ExpenseOpenModalButton = document.getElementById('ExpenseOpenModalButton');
+    const expenseCloseModalButton = document.getElementById('expenseTypeCloseModalButton');
+    
+    // Open the modal
+    ExpenseOpenModalButton.addEventListener('click', () => {
+      expenseTypeModal.style.display = 'block';
+    });
+    
+    // Close the modal
+    expenseCloseModalButton.addEventListener('click', () => {
+      expenseTypeModal.style.display = 'none';
+    });
+    
+    // Close the modal if the user clicks outside of it
+    window.addEventListener('click', (event) => {
+    if (event.target === modal) {
+      expenseTypeModal.style.display = 'none';
+    }
+    });
+    
+    // Handle form submission (you can replace this with your own logic)
+    const expenseTypeForm = document.getElementById('expenseTypeForm');
+    
+    expenseTypeForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    
+    // Get the expense type input value
+    const expenseTypeInput = document.getElementById('expenseType');
+    const expenseType = expenseTypeInput.value;
+    
+    // Do something with the expense type (e.g., send it to the server)
+    console.log(`Expense Type submitted: ${expenseType}`);
+    
+    // Close the modal
+    expenseTypeModal.style.display = 'none';
+    
+    // Clear the input field
+    expenseTypeInput.value = '';
+    });
+
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"
     integrity="sha512-zJYu9ICC+mWF3+dJ4QC34N9RA0OVS1XtPbnf6oXlvGrLGNB8egsEzu/5wgG90I61hOOKvcywoLzwNmPqGAdATA=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>

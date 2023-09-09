@@ -17,7 +17,7 @@ const shopId = urlSegments[shopIndex + 1];
 // Function to fetch data from the API based on selected value
 async function fetchData(selectedValue) {
   try {
-    const response = await fetch(`https://sugarcan-shop.onrender.com/${selectedValue}-profit-by-shop/${shopId}`);
+    const response = await fetch(`${BaseUrl}/${selectedValue}-profit-by-shop/${shopId}`);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -208,7 +208,6 @@ document.querySelector('.registerVendorForm').addEventListener('submit',e=>{
 //  -------- OPEN Expense Modal ----------
 // Get the modal and buttons
 const modal = document.getElementById("expenseModal");
-
 const openModalButton = document.getElementById("openModalButton");
 const closeModalButton = document.getElementById("closeModalButton");
 
@@ -337,7 +336,6 @@ async function populateTable() {
 
 let expenseData = null
 function openEditModal(expense) {
-
     expenseData = expense;
     const modal = document.getElementById("updateBasicExpenseModal");
     const expenseNameInput = document.getElementById("updateExpenseName");
@@ -447,30 +445,8 @@ populateIncomeTable();
 
 
 //  DOWNLOAD EXPENSE REPORT
-
-// document.addEventListener('DOMContentLoaded', function() {
-//   const downloadLink = document.getElementById('download-link');
-
-//   downloadLink.addEventListener('click', async function(event) {
-//     event.preventDefault(); // Prevent the default behavior of the anchor tag
-
-//     const apiUrl = `${BaseUrl}/all-expenses-by-shop/${shopId}`;
-
-//     try {
-//       const response = await fetch(apiUrl);
-//       const data = await response.json();
-//       // Handle the data as needed
-//       console.log(data);
-//     } catch (error) {
-//       console.error('Error fetching data:', error);
-//     }
-//   });
-// });
-
-
 document.addEventListener('DOMContentLoaded', function() {
   const downloadLink = document.getElementById('download-link');
-
   downloadLink.addEventListener('click', async function(event) {
     event.preventDefault(); // Prevent the default behavior of the anchor tag
     window.location.href=`${BaseUrl}/all-expenses-by-shop/${shopId}`
@@ -478,8 +454,112 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+async function populateExpenseTypes() {
+  const selectElement = document.getElementById('updateExpenseName');
+  try {
+    const response = await fetch(`${BaseUrl}/get-expense-type`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch expense types');
+    }
+    var expenseTypeData = await response.json();
+    
+    // Iterate through the expense types and create options for the select element
+    expenseTypeData.expenseTypes.forEach((expenseType) => {
+      const option = document.createElement('option');
+      option.value = expenseType.name;
+      option.textContent= expenseType.name;
+      option.id='expenseName';
+      selectElement.appendChild(option);
+    });
+  } catch (error) {
+    console.error(error);
+    // Handle errors here, e.g., display an error message
+  }
+}
+
+// Call the function to populate expense types when the page loads
+document.addEventListener('DOMContentLoaded', populateExpenseTypes);
+
+// Define a variable to store the selected expense type ID
+let expenseTypeId;
+
+// Function to handle the click event on the "Delete Expense Type" button
+const deleteButton = document.getElementById('deleteExpenseType');
+deleteButton.addEventListener('click', () => {
+  // Check if an expense type is selected
+  if (expenseTypeId) {
+    const apiUrl = `${BaseUrl}/delete-expense-type/${expenseTypeId}`;
+    
+    const xhr = new XMLHttpRequest();
+    
+    xhr.open('DELETE', apiUrl, true);
+    
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        swal({
+            text:"Expense type deleted successfully!",
+            icon: "success",
+            button: "OK",
+        }).then(() => {
+            location.reload()
+        });
+      } else {
+        console.error('Failed to delete expense type');
+          swal({
+            text:"Failed to delete expense type!",
+            icon: "warning",
+            button: "OK",
+          })
+      }
+    };
+    xhr.send();
+  } else {
+    // Handle the case where no expense type is selected, e.g., display an error message
+    console.error('No expense type selected');
+  }
+});
+
+// // Function to update the selected expense type ID when the dropdown value changes
+const selectElement = document.getElementById('updateExpenseName');
+selectElement.addEventListener('change', () => {
+  expenseTypeId = selectElement.value;
+  console.log(expenseTypeId)
+});
 
 
+const addExpenseType = async(name)=>{
+  try {
+    const res = await axios({
+      method: 'POST',
+      url: `${BaseUrl}/push-expense-type`,
+      data:{
+        name:name,
+      }
+    });
+    if (res.data.status==='success') {
+        swal({
+            text:"expense type added successfully",
+            icon: "success",
+            button: "OK",
+        }).then(() => {
+            location.reload()
+        });
+    }
+  } catch (err) {
+    swal({
+      text:err.response.data.message,
+      icon: "warning",
+      button: "OK",
+    })
+  }
+};
+
+
+document.querySelector('.expenseTypeForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const name = document.getElementById('expenseTypeName').value;
+    addExpenseType(name);
+})
 
 
 

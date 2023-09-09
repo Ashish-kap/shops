@@ -1,4 +1,6 @@
 const BaseUrl = `https://sugarcan-shop.onrender.com`
+// const BaseUrl = `http://localhost:3000`
+
 const currentUrll = window.location.href;
 const urlSegmentss = currentUrll.split("/");
 const shopIndexx = urlSegmentss.indexOf("shop-overview");

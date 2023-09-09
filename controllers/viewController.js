@@ -20,7 +20,15 @@ exports.signupScreen= (req,res)=>{
 }
 
 exports.home= (req,res)=>{
+  res.render('home')
+}
+
+exports.dashBoard= (req,res)=>{
   res.render('dashboard')
+}
+
+exports.signup= (req,res)=>{
+  res.render('signup')
 }
 
 exports.allEmployess= async (req,res)=>{
