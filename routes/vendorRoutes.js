@@ -6,15 +6,15 @@ const authController = require('../controllers/authController.js');
 
 const router = express.Router();
 
-router.post('/shops/:shopId/vendor-expenses/:vendorId',vendorController.createVenderExpense)
-router.patch('/vendor-expenses/:expenseId',vendorController.updateVenderExpense)
-router.delete('/delete-vendor-expenses/:expenseId',vendorController.deleteVendorExpense)
+router.post('/shops/:shopId/vendor-expenses/:vendorId',authController.protect,vendorController.createVenderExpense)
+router.patch('/vendor-expenses/:expenseId',authController.protect,vendorController.updateVenderExpense)
+router.delete('/delete-vendor-expenses/:expenseId',authController.protect,vendorController.deleteVendorExpense)
 
 
-router.get('/daily-vendor-expenses/:shopId',vendorController.dailyBasicExpense)
-router.get('/vendor-expenses/weeklyVendorExpense/:shopId',vendorController.weeklyBasicExpense)
-router.get('/vendor-expenses/monthlyVendorExpense/:shopId',vendorController.monthlyBasicExpense)
-router.get('/vendor-expenses/yearlyVendorExpense/:shopId',vendorController.yearlyBasicExpense)
+router.get('/daily-vendor-expenses/:shopId',authController.protect,vendorController.dailyBasicExpense)
+router.get('/vendor-expenses/weeklyVendorExpense/:shopId',authController.protect,vendorController.weeklyBasicExpense)
+router.get('/vendor-expenses/monthlyVendorExpense/:shopId',authController.protect,vendorController.monthlyBasicExpense)
+router.get('/vendor-expenses/yearlyVendorExpense/:shopId',authController.protect,vendorController.yearlyBasicExpense)
 
 
 // register vendor

@@ -5,20 +5,20 @@ const authController = require('../controllers/authController.js');
 
 const router = express.Router();
 
-router.post('/create-employee-salaries/:shopId/employee/:employeeId',employeeController.createEmployeeSalaries)
-router.patch('/update-employee-salaries/:salaryId',employeeController.updateEmployeeExpense)
-router.delete('/delete-employee-salaries/:salaryId/employee/:employeeId',employeeController.deleteEmployeeExpense)
+router.post('/create-employee-salaries/:shopId/employee/:employeeId',authController.protect,employeeController.createEmployeeSalaries)
+router.patch('/update-employee-salaries/:salaryId',authController.protect,employeeController.updateEmployeeExpense)
+router.delete('/delete-employee-salaries/:salaryId/employee/:employeeId',authController.protect,employeeController.deleteEmployeeExpense)
 
-router.get('/daily-employee-expenses/:shopId',employeeController.dailyEmployeeExpense)
-router.get('/employee-expenses/weeklyEmployeeExpense/:shopId',employeeController.weeklyEmployeeExpense)
-router.get('/employee-expenses/monthlyEmployeeExpense/:shopId',employeeController.monthlyEmployeeExpense)
-router.get('/employee-expenses/yearlyEmployeeExpense/:shopId',employeeController.yearlyEmployeeExpense)
+router.get('/daily-employee-expenses/:shopId',authController.protect,employeeController.dailyEmployeeExpense)
+router.get('/employee-expenses/weeklyEmployeeExpense/:shopId',authController.protect,employeeController.weeklyEmployeeExpense)
+router.get('/employee-expenses/monthlyEmployeeExpense/:shopId',authController.protect,employeeController.monthlyEmployeeExpense)
+router.get('/employee-expenses/yearlyEmployeeExpense/:shopId',authController.protect,employeeController.yearlyEmployeeExpense)
 
 
 
 // Register EMployeee
-router.post('/register-employee/:shopId',registerEmployeeController.registerEmployee)
-router.get('/get-register-employee/:shopId',registerEmployeeController.getRegisterEmployee)
+router.post('/register-employee/:shopId',authController.protect,registerEmployeeController.registerEmployee)
+router.get('/get-register-employee/:shopId',authController.protect,registerEmployeeController.getRegisterEmployee)
 
 module.exports =router;
 

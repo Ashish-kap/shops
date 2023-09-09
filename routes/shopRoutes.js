@@ -4,10 +4,10 @@ const authController = require('../controllers/authController.js');
 
 
 const router = express.Router();
-router.get('/all-shops',shopController.allShops)
-router.post('/create-shop',shopController.createShop)
-router.patch('/update-shop/:id',shopController.updateShop)
-router.delete('/delete-shop/:shopId',shopController.deleteShop)
+router.get('/all-shops',authController.protect,shopController.allShops)
+router.post('/create-shop',authController.protect,shopController.createShop)
+router.patch('/update-shop/:id',authController.protect,shopController.updateShop)
+router.delete('/delete-shop/:shopId',authController.protect,shopController.deleteShop)
 
 module.exports =router;
 
