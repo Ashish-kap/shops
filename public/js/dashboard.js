@@ -1,6 +1,11 @@
 // JS file
-// const BaseUrl = `http://localhost:3000`
-const BaseUrl = `https://sugarcan-shop.onrender.com`
+const BaseUrl = `http://localhost:3000`
+// const BaseUrl = `https://sugarcan-shop.onrender.com`
+
+
+
+
+
 const dropdown = document.getElementById("timeRange");
 
 const totalDailyProfit = document.getElementById("totalDailyProfit");

@@ -17,11 +17,15 @@ const shopSchema = new mongoose.Schema({
   address: {
     type: String,
     required: true,
-    minlength: 10,
+    minlength: 3,
     maxlength: 200, 
     trim: true, 
   },
   contactInformation: {
+    type: String,
+    required: true,
+  },
+  userId: {
     type: String,
     required: true,
   },

@@ -17,6 +17,10 @@ const vendorSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  userId: {
+    type: String,
+    required: true,
+  },
   shopId:{
     type: String,
     required: true,

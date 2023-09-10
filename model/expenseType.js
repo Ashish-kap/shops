@@ -7,6 +7,10 @@ const itemSchema = new mongoose.Schema({
       name: String,
     },
   ],
+  userId: {
+    type: String,
+    required: true,
+  },
 });
 
 // Create a model

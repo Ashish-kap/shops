@@ -56,6 +56,10 @@ const vendorExpenseSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  userId: {
+    type: String,
+    required: true,
+  },
    vendorId:{
     type: String,
     required: true,

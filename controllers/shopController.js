@@ -1,8 +1,16 @@
+const BasicExpense = require('../model/basicExpense.js');
+const Income = require('../model/income.js');
 const Shop = require('./../model/shop');
+const VendorExpense = require('../model/vendor.js');
+const EmployeeSalary = require('../model/employee.js');
+
+const Employee = require('../model/registerEmployee.js');
+const Vendor = require('../model/registerVendor.js');
 
 exports.allShops = async (req, res) => {
   try {
-    const shops = await Shop.find();
+    const user = req.userr
+    const shops = await Shop.find({userId:user._id});
     res.json(shops);
   } catch (err) {
     res.status(500).json({ error: 'Internal server error' });
@@ -12,6 +20,8 @@ exports.allShops = async (req, res) => {
 // POST endpoint for creating a new shop
 exports.createShop = async (req, res) => {
   try {
+
+    const user = req.userr
     const { name, address, contactInformation } = req.body;
 
     // Create a new shop document using the Shop model
@@ -19,6 +29,7 @@ exports.createShop = async (req, res) => {
       name,
       address,
       contactInformation,
+      userId:user._id
     });
 
     // Save the new shop to the database
@@ -64,12 +75,20 @@ exports.deleteShop =  async (req, res) => {
   try {
     // Attempt to find the shop by its ID and delete it
     const deletedShop = await Shop.findByIdAndDelete(shopId);
+  
 
     if (!deletedShop) {
       return res.status(404).json({ 
         message: 'Shop not found'
        });
     }
+
+    await BasicExpense.deleteMany({shopId});
+    await EmployeeSalary.deleteMany({shopId});
+    await Income.deleteMany({shopId});
+    await Employee.deleteMany({shopId});
+    await Vendor.deleteMany({shopId});
+    await VendorExpense.deleteMany({shopId});
 
     return res.status(200).json({status:"success",message: 'Shop deleted successfully' });
   } catch (error) {

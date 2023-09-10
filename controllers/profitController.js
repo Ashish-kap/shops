@@ -15,7 +15,8 @@ const PDFDocument = require('pdfkit');
 exports.allBasicExpenses = async (req, res) => {
   try {
     const shopId = req.params.shopId
-    const basicExpenses = await BasicExpense.find({ shopId });
+    const user = req.userr
+    const basicExpenses = await BasicExpense.find({ shopId,userId:user._id});
 
     const allExpenses = [...basicExpenses];
 
@@ -32,7 +33,8 @@ exports.allVendorExpenses = async (req, res) => {
   try {
     const shopId = req.params.shopId
     const vendorId = req.params.vendorId
-    const vendorExpenses = await VendorExpense.find({ shopId,vendorId });
+    const user = req.userr
+    const vendorExpenses = await VendorExpense.find({ shopId,vendorId,userId:user._id});
 
     const vendor= await Vendor.findById(vendorId)
 
@@ -52,7 +54,8 @@ exports.allEmployeeExpenses = async (req, res) => {
   try {
     const shopId = req.params.shopId
     const employeeId = req.params.employeeId
-    const employeeExpenses = await EmployeeSalary.find({ shopId, employeeId });
+    const user = req.userr
+    const employeeExpenses = await EmployeeSalary.find({shopId,employeeId,userId:user._id });
 
     const employee = await Employee.findById(employeeId)
 
@@ -71,7 +74,8 @@ exports.allEmployeeExpenses = async (req, res) => {
 exports.allIncome = async (req, res) => {
   try {
     const shopId = req.params.shopId
-    const allIncomes = await Income.find({ shopId });
+    const user = req.userr
+    const allIncomes = await Income.find({ shopId, userId:user._id });
 
     const allIncome = [...allIncomes];
 
@@ -89,6 +93,7 @@ exports.allIncome = async (req, res) => {
 exports.allExpenses = async (req, res) => {
   try {
     const shopId = req.params.shopId;
+    const user = req.userr
     const response = await fetch(`http://localhost:3000/demo/${shopId}`);
     const responseData = await response.json();
 
@@ -178,14 +183,15 @@ exports.allExpenses = async (req, res) => {
 exports.demo = async (req, res) => {
   try {
     const shopId = req.params.shopId;
-    const registerEmployee = await Employee.find({ shopId });
-    const registerVendor = await Vendor.find({ shopId });
-    const basicExpenses = await BasicExpense.find({ shopId });
-    const vendorExpenses = await VendorExpense.find({ shopId });
-    const employeeExpenses = await EmployeeSalary.find({ shopId });
-    const incomeData = await Income.find({ shopId });
+    const user = req.userr
+    const registerEmployee = await Employee.find({ userId:user._id, shopId });
+    const registerVendor = await Vendor.find({  userId:user._id,shopId });
+    const basicExpenses = await BasicExpense.find({  userId:user._id,shopId });
+    const vendorExpenses = await VendorExpense.find({  userId:user._id,shopId });
+    const employeeExpenses = await EmployeeSalary.find({  userId:user._id,shopId });
+    const incomeData = await Income.find({ userId:user._id, shopId });
 
-    const whichShop = await Shop.findById(shopId);
+    const whichShop = await Shop.find({ userId:user._id,shopId});
     const shopName = whichShop.name
     // Map employee expenses to each employee
     const employeesWithExpenses = registerEmployee.map(employee => {
@@ -237,6 +243,7 @@ exports.selectPeriod=async (req, res) => {
     // const queryDate = req.query.date ? new Date(req.query.date) : new Date();
     const startDate = req.query.start
     const endDate = req.query.end
+    const user = req.userr
 
     // Set the start and end time for the queryDate (midnight to midnight)
     const startTime = new Date(startDate);
@@ -248,19 +255,23 @@ exports.selectPeriod=async (req, res) => {
     console.log("Parsed end date:", endTime);
 
     const basicExpenses = await BasicExpense.find({
+      userId:user._id,
       date: { $gte: startTime, $lte: endTime },
     });
 
     const employeeExpenses = await EmployeeSalary.find({
+      userId:user._id,
       date: { $gte: startTime, $lte: endTime },
     });
 
     const vendorExpenses = await VendorExpense.find({
+      userId:user._id,
       date: { $gte: startTime, $lte: endTime },
     });
 
 
     const income = await Income.find({
+      userId:user._id,
       date: { $gte: startTime, $lte: endTime },
     });
 
@@ -283,6 +294,7 @@ exports.selectPeriodForShop=async (req, res) => {
   try {
     
     const shopId = req.params.shopId;
+    const user = req.userr
     if(!shopId){
         return res.status(404).json({ error: 'shop not found' });
     }
@@ -302,21 +314,26 @@ exports.selectPeriodForShop=async (req, res) => {
 
     const basicExpenses = await BasicExpense.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startTime, $lte: endTime },
     });
 
     const employeeExpenses = await EmployeeSalary.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startTime, $lte: endTime },
     });
 
     const vendorExpenses = await VendorExpense.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startTime, $lte: endTime },
     });
 
 
     const income = await Income.find({
+      userId:user._id,
+      shopId: shopId,
       date: { $gte: startTime, $lte: endTime },
     });
 
@@ -339,6 +356,7 @@ exports.selectPeriodForShop=async (req, res) => {
 exports.dailyProfitByShop= async (req, res) => {
   try {
     const shopId = req.params.shopId;
+    const user = req.userr
     if(!shopId){
         return res.status(404).json({ error: 'shop not found' });
     }
@@ -358,22 +376,26 @@ exports.dailyProfitByShop= async (req, res) => {
 
     const basicExpenses = await BasicExpense.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startTime, $lte: endTime },
     });
 
     const employeeExpenses = await EmployeeSalary.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startTime, $lte: endTime },
     });
 
     const vendorExpenses = await VendorExpense.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startTime, $lte: endTime },
     });
 
 
     const income = await Income.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startTime, $lte: endTime },
     });
 
@@ -397,6 +419,7 @@ exports.dailyProfitByShop= async (req, res) => {
 exports.dailyProfit= async (req, res) => {
   try {
     
+    const user = req.userr
     const queryDate = req.query.date ? new Date(req.query.date) : new Date();
 
     // Set the start and end time for the queryDate (midnight to midnight)
@@ -406,20 +429,24 @@ exports.dailyProfit= async (req, res) => {
     endTime.setHours(23, 59, 59, 999);
 
     const basicExpenses = await BasicExpense.find({
+      userId:user._id,
       date: { $gte: startTime, $lte: endTime },
     });
 
     const employeeExpenses = await EmployeeSalary.find({
+      userId:user._id,
       date: { $gte: startTime, $lte: endTime },
     });
 
     const vendorExpenses = await VendorExpense.find({
       date: { $gte: startTime, $lte: endTime },
+      userId:user._id,
     });
 
 
     const income = await Income.find({
       date: { $gte: startTime, $lte: endTime },
+      userId:user._id,
     });
 
     const totalIncome = income.reduce((total, expense) => total + expense.amount, 0);
@@ -440,6 +467,7 @@ exports.dailyProfit= async (req, res) => {
 exports.weeklyProfitByShop= async (req, res) => {
   try {
     const shopId = req.params.shopId;
+    const user = req.userr
     if(!shopId){
         return res.status(404).json({ error: 'shop not found' });
     }
@@ -462,22 +490,26 @@ exports.weeklyProfitByShop= async (req, res) => {
 
     const basicExpenses = await BasicExpense.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startOfWeek, $lte: endOfWeek },
     });
 
     const employeeExpenses = await EmployeeSalary.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startOfWeek, $lte: endOfWeek },
     });
 
     const vendorExpenses = await VendorExpense.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startOfWeek, $lte: endOfWeek },
     });
 
 
     const income = await Income.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startOfWeek, $lte: endOfWeek },
     });
 
@@ -503,7 +535,7 @@ exports.weeklyProfit= async (req, res) => {
   try {
     
     const queryDate = req.query.date ? new Date(req.query.date) : new Date();
-
+    const user = req.userr
     // Calculate the start and end dates for the week containing the queryDate
     const startOfWeek = new Date(queryDate);
     startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay()); // Move to the beginning of the week (Sunday)
@@ -514,19 +546,23 @@ exports.weeklyProfit= async (req, res) => {
     endOfWeek.setHours(23, 59, 59, 999);
 
     const basicExpenses = await BasicExpense.find({
+      userId:user._id,
       date: { $gte: startOfWeek, $lte: endOfWeek },
     });
 
     const employeeExpenses = await EmployeeSalary.find({
+      userId:user._id,
       date: { $gte: startOfWeek, $lte: endOfWeek },
     });
 
     const vendorExpenses = await VendorExpense.find({
+      userId:user._id,
       date: { $gte: startOfWeek, $lte: endOfWeek },
     });
 
 
     const income = await Income.find({
+      userId:user._id,
       date: { $gte: startOfWeek, $lte: endOfWeek },
     });
 
@@ -550,6 +586,7 @@ exports.weeklyProfit= async (req, res) => {
 
 exports.monthlyProfitByShop= async (req, res) => {
   try {
+    const user = req.userr
     const shopId = req.params.shopId;
     if(!shopId){
         return res.status(404).json({ error: 'shop not found' });
@@ -575,22 +612,26 @@ exports.monthlyProfitByShop= async (req, res) => {
 
     const basicExpenses = await BasicExpense.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startOfMonth, $lte: endOfMonth },
     });
 
     const employeeExpenses = await EmployeeSalary.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startOfMonth, $lte: endOfMonth },
     });
 
     const vendorExpenses = await VendorExpense.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startOfMonth, $lte: endOfMonth },
     });
 
 
     const income = await Income.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startOfMonth, $lte: endOfMonth },
     });
 
@@ -617,7 +658,7 @@ exports.monthlyProfitByShop= async (req, res) => {
 exports.monthlyProfit= async (req, res) => {
   try {
     
-
+    const user = req.userr
     const queryDate = req.query.date ? new Date(req.query.date) : new Date();
 
     // Calculate the start and end dates for the month containing the queryDate
@@ -632,19 +673,23 @@ exports.monthlyProfit= async (req, res) => {
 
 
     const basicExpenses = await BasicExpense.find({
+      userId:user._id,
       date: { $gte: startOfMonth, $lte: endOfMonth },
     });
 
     const employeeExpenses = await EmployeeSalary.find({
+      userId:user._id,
       date: { $gte: startOfMonth, $lte: endOfMonth },
     });
 
     const vendorExpenses = await VendorExpense.find({
+      userId:user._id,
       date: { $gte: startOfMonth, $lte: endOfMonth },
     });
 
 
     const income = await Income.find({
+      userId:user._id,
       date: { $gte: startOfMonth, $lte: endOfMonth },
     });
 
@@ -670,7 +715,7 @@ exports.monthlyProfit= async (req, res) => {
 exports.yearlyProfitByShop= async (req, res) => {
 
   try {
-
+    const user = req.userr
     const shopId = req.params.shopId;
     if(!shopId){
         return res.status(404).json({ error: 'shop not found' });
@@ -696,21 +741,25 @@ exports.yearlyProfitByShop= async (req, res) => {
 
     const basicExpenses = await BasicExpense.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startOfYear, $lte: endOfYear },
     });
 
     const employeeExpenses = await EmployeeSalary.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startOfYear, $lte: endOfYear },
     });
 
     const vendorExpenses = await VendorExpense.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startOfYear, $lte: endOfYear },
     });
 
     const income = await Income.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startOfYear, $lte: endOfYear },
     });
 
@@ -737,7 +786,7 @@ exports.yearlyProfitByShop= async (req, res) => {
 exports.yearlyProfit= async (req, res) => {
   try {
     const queryDate = req.query.date ? new Date(req.query.date) : new Date();
-
+    const user = req.userr
     // Calculate the start and end dates for the year containing the queryDate
     const startOfYear = new Date(queryDate);
     startOfYear.setMonth(0, 1); // Move to the first day of January
@@ -749,18 +798,22 @@ exports.yearlyProfit= async (req, res) => {
 
 
     const basicExpenses = await BasicExpense.find({
+      userId:user._id,
       date: { $gte: startOfYear, $lte: endOfYear },
     });
 
     const employeeExpenses = await EmployeeSalary.find({
+      userId:user._id,
       date: { $gte: startOfYear, $lte: endOfYear },
     });
 
     const vendorExpenses = await VendorExpense.find({
+      userId:user._id,
       date: { $gte: startOfYear, $lte: endOfYear },
     });
 
     const income = await Income.find({
+      userId:user._id,
       date: { $gte: startOfYear, $lte: endOfYear },
     });
 

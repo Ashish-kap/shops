@@ -1,5 +1,6 @@
 // JS file
 // const BaseUrl = `https://sugarcan-shop.onrender.com`
+
 const dropdown = document.getElementById("timeRange");
 const totalDailyProfit = document.getElementById("totalDailyProfit");
 const totalDailyIncome = document.getElementById("totalDailyIncome");
@@ -243,7 +244,7 @@ closeBasicExpenseModalButton.addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", async function () {
   const employeeNameSelect = document.getElementById("employeeName");
 
-  const response = await fetch(`${BaseUrl}/get-register-employee/64c634c3b26622a9ae9bea40`);
+  const response = await fetch(`${BaseUrl}/get-register-employee/${shopId}`);
   const employees = await response.json();
 
   employees.forEach(function (employee) {
@@ -456,6 +457,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
 async function populateExpenseTypes() {
   const selectElement = document.getElementById('updateExpenseName');
+  const selectElement2 = document.getElementById('ExpenseName');
+
+  try {
+    const response = await fetch(`${BaseUrl}/get-expense-type`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch expense types');
+    }
+    var expenseTypeData = await response.json();
+    
+    // Iterate through the expense types and create options for the select element
+    expenseTypeData.expenseTypes.forEach((expenseType) => {
+      const option = document.createElement('option');
+      option.value = expenseType.name;
+      option.textContent= expenseType.name;
+      option.id='expenseName';
+      selectElement.appendChild(option);
+      selectElement2.appendChild(option)
+    });
+  } catch (error) {
+    console.error(error);
+    // Handle errors here, e.g., display an error message
+  }
+}
+
+async function populateExpenseTypesTwo() {
+  const selectElement = document.getElementById('updateExpenseName');
+
   try {
     const response = await fetch(`${BaseUrl}/get-expense-type`);
     if (!response.ok) {
@@ -479,7 +507,7 @@ async function populateExpenseTypes() {
 
 // Call the function to populate expense types when the page loads
 document.addEventListener('DOMContentLoaded', populateExpenseTypes);
-
+document.addEventListener('DOMContentLoaded', populateExpenseTypesTwo);
 // Define a variable to store the selected expense type ID
 let expenseTypeId;
 
@@ -523,6 +551,12 @@ deleteButton.addEventListener('click', () => {
 const selectElement = document.getElementById('updateExpenseName');
 selectElement.addEventListener('change', () => {
   expenseTypeId = selectElement.value;
+  console.log(expenseTypeId)
+});
+
+const selectElement2 = document.getElementById('ExpenseName');
+selectElement2.addEventListener('change', () => {
+  expenseTypeId = selectElement2.value;
   console.log(expenseTypeId)
 });
 

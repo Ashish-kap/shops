@@ -19,8 +19,8 @@ router.get('/vendor-expenses/yearlyVendorExpense/:shopId',authController.protect
 
 // register vendor
 
-router.post('/register-vendors/:shopId',registerVendorController.registerVendor)
-router.get('/get-register-vendors/:shopId',registerVendorController.getRegisterVendors)
+router.post('/register-vendors/:shopId',authController.protect,registerVendorController.registerVendor)
+router.get('/get-register-vendors/:shopId',authController.protect,registerVendorController.getRegisterVendors)
 
 module.exports =router;
 

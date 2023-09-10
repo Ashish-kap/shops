@@ -4,6 +4,7 @@ const Shop = require('../model/shop.js');
 exports.registerVendor = async (req, res) => {
   try {
     const shopId = req.params.shopId
+    const user = req.userr
     const { vendorName, address, contactInformation } = req.body;
 
     // Create a new vendor document
@@ -11,7 +12,8 @@ exports.registerVendor = async (req, res) => {
       vendorName,
       address,
       contactInformation,
-      shopId
+      shopId,
+      userId:user._id
     });
 
     // Save the vendor to the database
@@ -33,8 +35,9 @@ exports.registerVendor = async (req, res) => {
 
 exports.getRegisterVendors = async (req, res) => {
   try {
-    const shopId = req.params.shopId
-    const vendors = await Vendor.find({ shopId });
+    const shopId = req.params.shopId;
+    const user = req.userr
+    const vendors = await Vendor.find({ shopId,userId:user._id });
     res.json(vendors);
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });

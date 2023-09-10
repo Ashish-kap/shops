@@ -6,6 +6,7 @@ const Item = require('../model/expenseType.js');
 exports.createBasicExpense = async (req, res) => {
   try {
     const shopId = req.params.shopId;
+    const user = req.userr
     const {
       expenseName,
       amount,
@@ -19,7 +20,8 @@ exports.createBasicExpense = async (req, res) => {
       amount,
       date,
       description,
-      shopId
+      shopId,
+      userId:user._id,
     });
 
     //Find the shop using the shopId
@@ -54,7 +56,8 @@ exports.createBasicExpense = async (req, res) => {
 exports.getAllExpenseTypes = async (req, res) => {
   try {
     // Find the document containing the expense types
-    const item = await Item.findOne();
+    const user = req.userr
+    const item = await Item.findOne({userId:user._id});
 
     if (!item || !item.expenseTypes || item.expenseTypes.length === 0) {
       return res.status(404).json({ message: 'Expense types not found' });
@@ -73,16 +76,17 @@ exports.getAllExpenseTypes = async (req, res) => {
 exports.addExpenseType = async (req, res) => {
   try {
     const { name } = req.body;
+    const user = req.userr
 
     if (!name) {
       return res.status(400).json({ message: 'Expense Type name is required' });
     }
 
     // Find the existing document or create a new one if it doesn't exist
-    let item = await Item.findOne();
+    let item = await Item.findOne({userId:user._id});
 
     if (!item) {
-      item = new Item({ expenseTypes: [] });
+      item = new Item({ expenseTypes: [],userId:user._id });
     }
 
     // Check if the expense type with the same name already exists
@@ -116,6 +120,7 @@ exports.addExpenseType = async (req, res) => {
 exports.deleteExpenseType = async (req, res) => {
   try {
     const { expenseTypeId } = req.params; // Get the expense type ID from the request parameters
+    const user = req.userr
 
     // Find the document containing the expense types
     let item = await Item.findOne();
@@ -149,6 +154,7 @@ exports.updateBasixExpense = async (req, res) => {
   try {
     const expenseId = req.params.expenseId;
     const updates = req.body;
+    const user = req.userr
 
     // Find the basic expense using the expenseId
     const basicExpense = await BasicExpense.findById(expenseId);
@@ -179,6 +185,7 @@ exports.updateBasixExpense = async (req, res) => {
 exports.deleteBasicExpense = async (req, res) => {
   try {
     const expenseId = req.params.expenseId;
+    const user = req.userr
 
     // Find the basic expense using the expenseId
     const basicExpense = await BasicExpense.findById(expenseId);
@@ -212,6 +219,7 @@ exports.dailyBasicExpense= async (req, res) => {
   try {
     
     const shopId = req.params.shopId;
+    const user = req.userr
     if(!shopId){
         return res.status(404).json({ error: 'shop not found' });
     }
@@ -224,7 +232,8 @@ exports.dailyBasicExpense= async (req, res) => {
     endTime.setHours(23, 59, 59, 999);
 
      const expenses = await BasicExpense.find({
-      shopId: shopId,
+      shopId:shopId,
+      userId:user._id,
       date: { $gte: startTime, $lte: endTime },
     });
 
@@ -239,6 +248,7 @@ exports.dailyBasicExpense= async (req, res) => {
 exports.weeklyBasicExpense =  async (req, res) => {
   try {
     const shopId = req.params.shopId;
+    const user = req.userr
     if (!shopId) {
       return res.status(404).json({ error: 'Shop not found' });
     }
@@ -256,6 +266,7 @@ exports.weeklyBasicExpense =  async (req, res) => {
     // Fetch all expenses for the specific shop and within the specified week
     const expenses = await BasicExpense.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startOfWeek, $lte: endOfWeek },
     });
 
@@ -270,6 +281,8 @@ exports.weeklyBasicExpense =  async (req, res) => {
 exports.monthlyBasicExpense = async (req, res) => {
   try {
     const shopId = req.params.shopId;
+    const user = req.userr
+
     if (!shopId) {
       return res.status(404).json({ error: 'Shop not found' });
     }
@@ -288,6 +301,7 @@ exports.monthlyBasicExpense = async (req, res) => {
     // Fetch all expenses for the specific shop and within the specified month
     const expenses = await BasicExpense.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startOfMonth, $lte: endOfMonth },
     });
 
@@ -302,6 +316,8 @@ exports.monthlyBasicExpense = async (req, res) => {
 exports.yearlyBasicExpense = async (req, res) => {
   try {
     const shopId = req.params.shopId;
+    const user = req.userr
+
     if (!shopId) {
       return res.status(404).json({ error: 'Shop not found' });
     }
@@ -319,6 +335,7 @@ exports.yearlyBasicExpense = async (req, res) => {
     // Fetch all expenses for the specific shop and within the specified year
     const expenses = await BasicExpense.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startOfYear, $lt: endOfYear },
     });
 

@@ -220,3 +220,13 @@ button:hover {
         max-width: 90%;
     }
 }
+
+
+.homelogo {
+    position: fixed;
+    top: 0;
+    right: 0;
+    font-size: 10px;
+    margin-top: 32px;
+    margin-right: 3rem;
+}

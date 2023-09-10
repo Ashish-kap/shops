@@ -4,6 +4,7 @@ const Shop = require('../model/shop.js');
 exports.createIncome = async (req, res) => {
   try {
     const shopId = req.params.shopId;
+    const user = req.userr
     const {
       amount,
       date,
@@ -19,7 +20,8 @@ exports.createIncome = async (req, res) => {
       incomeSource,
       ProductSoldQuantity,
       description,
-      shopId
+      shopId,
+      userId:user._id,
     });
 
     // Find the shop using the shopId
@@ -55,6 +57,7 @@ exports.createIncome = async (req, res) => {
 exports.updateIncome = async (req, res) => {
   try {
     const incomeId = req.params.incomeId;
+    const user = req.userr
     const updates = req.body;
 
     // Find the basic income using the incomeId
@@ -88,6 +91,7 @@ exports.updateIncome = async (req, res) => {
 exports.deleteIncome = async (req, res) => {
   try {
     const incomeId = req.params.incomeId;
+    const user = req.userr
 
     // Find the basic income using the incomeId
     const IncomeData = await Income.findById(incomeId);
@@ -122,6 +126,7 @@ exports.dailyIncome= async (req, res) => {
   try {
     
     const shopId = req.params.shopId;
+    const user = req.userr
     if(!shopId){
         return res.status(404).json({ error: 'shop not found' });
     }
@@ -135,6 +140,7 @@ exports.dailyIncome= async (req, res) => {
 
      const expenses = await Income.find({
       shopId: shopId,
+       userId:user._id,
       date: { $gte: startTime, $lte: endTime },
     });
 
@@ -149,6 +155,7 @@ exports.dailyIncome= async (req, res) => {
 exports.weeklyIncome =  async (req, res) => {
   try {
     const shopId = req.params.shopId;
+    const user = req.userr
     if (!shopId) {
       return res.status(404).json({ error: 'Shop not found' });
     }
@@ -166,6 +173,7 @@ exports.weeklyIncome =  async (req, res) => {
     // Fetch all expenses for the specific shop and within the specified week
     const expenses = await Income.find({
       shopId: shopId,
+       userId:user._id,
       date: { $gte: startOfWeek, $lte: endOfWeek },
     });
 
@@ -180,6 +188,7 @@ exports.weeklyIncome =  async (req, res) => {
 exports.monthlyIncome = async (req, res) => {
   try {
     const shopId = req.params.shopId;
+    const user = req.userr
     if (!shopId) {
       return res.status(404).json({ error: 'Shop not found' });
     }
@@ -198,6 +207,7 @@ exports.monthlyIncome = async (req, res) => {
     // Fetch all expenses for the specific shop and within the specified month
     const expenses = await Income.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startOfMonth, $lte: endOfMonth },
     });
 
@@ -212,6 +222,7 @@ exports.monthlyIncome = async (req, res) => {
 exports.yearlyIncome = async (req, res) => {
   try {
     const shopId = req.params.shopId;
+    const user = req.userr
     if (!shopId) {
       return res.status(404).json({ error: 'Shop not found' });
     }
@@ -229,6 +240,7 @@ exports.yearlyIncome = async (req, res) => {
     // Fetch all expenses for the specific shop and within the specified year
     const expenses = await Income.find({
       shopId: shopId,
+      userId:user._id,
       date: { $gte: startOfYear, $lt: endOfYear },
     });
 
