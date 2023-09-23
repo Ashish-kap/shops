@@ -1,9 +1,9 @@
 //signup
 
-const BaseUrl = `https://sugarcan-shop.onrender.com`
+// const BaseUrl = `https://sugarcan-shop.onrender.com`
 // const BaseUrl = `http://localhost:3000`
 
-
+const BaseUrl = window.config.BaseUrl;
 
 
 const signup = async(name,phoneNumber,password,confirmPassword)=>{

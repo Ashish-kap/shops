@@ -1,9 +1,8 @@
 // JS file
 // const BaseUrl = `http://localhost:3000`
-const BaseUrl = `https://sugarcan-shop.onrender.com`
+// const BaseUrl = `https://sugarcan-shop.onrender.com`
 
-
-
+const BaseUrl = window.config.BaseUrl;
 
 
 const dropdown = document.getElementById("timeRange");

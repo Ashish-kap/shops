@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,9 +16,9 @@
                 <span class="navbar__name">Dashboard</span>
             </div>
         </div>
+        <div id="google_translate_element"></div>
     </nav>
     <div class="containerr">
-
         <div class="select-period">
             <label for="startDate">From:</label>
             <input type="date" id="startDate" name="startDate" value="<?php echo date('Y-m-d'); ?>">
@@ -27,7 +27,7 @@
             <button id="applyDateRange" class="applyDateRange">Apply</button>
         </div>
 
-        <select id="timeRange">
+        <select class="select-timerange" id="timeRange">
             <!-- <option>Select</option> -->
             <option value="daily">Daily</option>
             <option value="weekly">Weekly</option>
@@ -88,11 +88,41 @@
             </form>
         </div>
     </div>
+    
+    <!-- Google Translator -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                { pageLanguage: 'en' },
+                'google_translate_element'
+            );
+        }
 
+        // Load the Google Translate script asynchronously
+        function loadGoogleTranslateScript() {
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+            script.async = true;
+            script.defer = true;
+            document.head.appendChild(script);
+        }
+
+        // Add error handling for script loading
+        function googleTranslateLoadError() {
+            console.error('Error loading Google Translate script.');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=loadGoogleTranslateScript"
+        onerror="googleTranslateLoadError()"></script>
+
+
+    <!-- axios -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"
         integrity="sha512-zJYu9ICC+mWF3+dJ4QC34N9RA0OVS1XtPbnf6oXlvGrLGNB8egsEzu/5wgG90I61hOOKvcywoLzwNmPqGAdATA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="/js/config.js"></script>
     <script src="/js/dashboard.js"></script>
 </body>
 </html>

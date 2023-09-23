@@ -18,7 +18,9 @@ main {
     padding: 20px;
 }
 
-/* Shop details section */
+.google-translator{
+    float:left
+}
 
 /* Shop details section */
 .shop-details {
@@ -30,9 +32,7 @@ main {
     margin-bottom: 50px;
     text-align: center;
     position: relative;
-    /* background-image: url("/images/shop-bg.jpg");
-    background-size: cover;
-    background-position: center; */
+    justify-content: center;
  
 }
 
@@ -58,15 +58,17 @@ main {
     font-size: 36px;
     margin-top: -15px;
     margin-bottom: 10px;
+    margin-right: 10rem;
 }
 
 .shop-details p {
     font-size: 18px;
     margin: 5px 0;
+    margin-right: 5rem;
 }
 
 /* Dropdown styles */
-select {
+.select-timerange {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
