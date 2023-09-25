@@ -18,14 +18,16 @@ body {
 }
 
 .sugarcaneco{
-    justify-content: center;
+    display:grid;
     align-items: center;
+    justify-content: center;
+    width:50%
 }
 
 .sugarcaneco-img{
     width:150px;
     height:80px;
-    margin-left: 13rem;
+    /* margin-left: 13rem; */
 }
 
 .container {
