@@ -44,4 +44,7 @@ document.querySelector('.signup-form').addEventListener('submit',e=>{
     const signupPassword = document.getElementById('signupPassword').value;
     const signupConfirmPassword = document.getElementById('signupConfirmPassword').value;
     signup(name,signupPhoneNumber,signupPassword,signupConfirmPassword);
+     // Disable the button
+    const submitButton = document.getElementById('submitButton');
+    submitButton.disabled = true;
 })

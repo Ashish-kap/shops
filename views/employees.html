@@ -42,7 +42,43 @@
                 <label for="expenseDate">Date:</label>
                 <input type="date" id="employeeExpenseDate" name="expenseDate" value="<?php echo date('Y-m-d'); ?>"
                     required>
-    
+
+                <label>which month salary:</label>
+                <div class="date-range-container">
+                    <label>From:</label>
+                    <select id="fromMonth">
+                        <option value="">select month</option>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
+
+                    <label>To:</label>
+                    <select id="toMonth">
+                        <option value="">select month</option>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
+                </div>
                 <label for="paymentMethod">Payment Method:</label>
                 <select class="select-paymentStatus" id="paymentMethod" name="paymentMethod" required>
                     <option class="option-paymentStatus" value="Cash">Cash</option>

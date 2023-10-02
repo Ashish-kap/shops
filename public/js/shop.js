@@ -77,49 +77,49 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-//  ----------- register employee modal --------
+// //  ----------- register employee modal --------
 document.addEventListener('DOMContentLoaded', function() {
   const registerEmployeeButton = document.getElementById("registerEmployeeButton");
-  const registerVendorButton = document.getElementById("registerVendorButton");
+  // const registerVendorButton = document.getElementById("registerVendorButton");
   const employeeModal = document.getElementById("employeeModal");
-  const vendorModal = document.getElementById("vendorModal");
+  // const vendorModal = document.getElementById("vendorModal");
   const closeModal = document.getElementById("closeModal");
   const closeModalVendor = document.getElementById("closeModalVendor");
 
   //  View vendor and employee button
   const viewEmployeeButton = document.getElementById("viewEmployeeButton");
-  const viewVendorButton = document.getElementById("viewVendorButton");
+  // const viewVendorButton = document.getElementById("viewVendorButton");
 
 
   registerEmployeeButton.addEventListener("click", function() {
     employeeModal.style.display = "flex";
   });
 
-  registerVendorButton.addEventListener("click", function() {
-    vendorModal.style.display = "flex";
-  });
+  // registerVendorButton.addEventListener("click", function() {
+  //   vendorModal.style.display = "flex";
+  // });
 
   closeModal.addEventListener("click", function() {
     employeeModal.style.display = "none";
   });
 
-  closeModalVendor.addEventListener("click", function() {
-    vendorModal.style.display = "none";
-  });
+  // closeModalVendor.addEventListener("click", function() {
+  //   vendorModal.style.display = "none";
+  // });
 
-  window.addEventListener('click', function(event) {
-    if (event.target === employeeModal) {
-      employeeModal.style.display = 'none';
-    }
-  });
+  // window.addEventListener('click', function(event) {
+  //   if (event.target === employeeModal) {
+  //     employeeModal.style.display = 'none';
+  //   }
+  // });
 
    viewEmployeeButton.addEventListener('click', () => {
-            window.location.href = `/all-employees/${shopId}`;
+      window.location.href = `/all-employees/${shopId}`;
    });
 
-   viewVendorButton.addEventListener('click', () => {
-        window.location.href =  `/all-vendors/${shopId}`;
-   });
+  //  viewVendorButton.addEventListener('click', () => {
+  //       window.location.href =  `/all-vendors/${shopId}`;
+  //  });
 
 });
 
@@ -167,43 +167,43 @@ document.querySelector('.registerEmployeeForm').addEventListener('submit',e=>{
 
 
 // register vendor
-const registerVendor = async (VendorName,VendorAddress,ContactInformation) => {
-  try {
-    const res = await axios({
-      method: 'POST',
-      url: `${BaseUrl}/register-vendors/${shopId}`,
-      data:{
-        vendorName:VendorName,
-        address:VendorAddress,
-        contactInformation:ContactInformation,
-      }
-    });
-    if (res.data.status === 'success') {
-        swal({
-            text:"Vendor registered successfully!",
-            icon: "success",
-            button: "OK",
-        }).then(() => {
-            location.reload()
-        });
-    }
-  } catch (err) {
-    swal({
-      text:err.response.data.message,
-      icon: "warning",
-      button: "OK",
-    })
-  }
-};
+// const registerVendor = async (VendorName,VendorAddress,ContactInformation) => {
+//   try {
+//     const res = await axios({
+//       method: 'POST',
+//       url: `${BaseUrl}/register-vendors/${shopId}`,
+//       data:{
+//         vendorName:VendorName,
+//         address:VendorAddress,
+//         contactInformation:ContactInformation,
+//       }
+//     });
+//     if (res.data.status === 'success') {
+//         swal({
+//             text:"Vendor registered successfully!",
+//             icon: "success",
+//             button: "OK",
+//         }).then(() => {
+//             location.reload()
+//         });
+//     }
+//   } catch (err) {
+//     swal({
+//       text:err.response.data.message,
+//       icon: "warning",
+//       button: "OK",
+//     })
+//   }
+// };
 
 
-document.querySelector('.registerVendorForm').addEventListener('submit',e=>{
-    e.preventDefault();
-    const VendorName = document.getElementById('vendorName').value;
-    const VendorAddress = document.getElementById('vendorAddress').value;
-    const ContactInformation = document.getElementById('vendorContactInformation').value;
-    registerVendor(VendorName,VendorAddress,ContactInformation);
-})
+// document.querySelector('.registerVendorForm').addEventListener('submit',e=>{
+//     e.preventDefault();
+//     const VendorName = document.getElementById('vendorName').value;
+//     const VendorAddress = document.getElementById('vendorAddress').value;
+//     const ContactInformation = document.getElementById('vendorContactInformation').value;
+//     registerVendor(VendorName,VendorAddress,ContactInformation);
+// })
 
 
 //  -------- OPEN Expense Modal ----------
@@ -236,7 +236,6 @@ basicExpenseButton.addEventListener("click", () => {
 closeBasicExpenseModalButton.addEventListener("click", () => {
   basicExpenseModal.style.display = "none";
 });
-
 
 
 // ----------- Employees ----------------------------
@@ -382,6 +381,10 @@ async function fetchIncome() {
                 ProductSoldQuantityCell.textContent = item.ProductSoldQuantity;
                 row.appendChild(ProductSoldQuantityCell);
 
+                const billNumberCell = document.createElement("td");
+                billNumberCell.textContent = item.billNumber;
+                row.appendChild(billNumberCell);
+
                 const incomeSourceCell = document.createElement("td");
                 incomeSourceCell.textContent = item.incomeSource;
                 row.appendChild(incomeSourceCell);
@@ -424,6 +427,7 @@ function openEditIncomeModal(income) {
     const amountInput = document.getElementById("updateAmount");
     const dateInput = document.getElementById("updateDate");
     const ProductSoldQuantityInput = document.getElementById("updateProductSoldQuantity");
+    const billNumberInput = document.getElementById("updateBillNumber");
     const incomeSourceNameInput = document.getElementById("updateIncomeSourceName");
     const descriptionInput = document.getElementById("updateDescription");
 
@@ -434,6 +438,7 @@ function openEditIncomeModal(income) {
     descriptionInput.value = income.description;
     incomeSourceNameInput.value=income.incomeSource;
     ProductSoldQuantityInput.value=income.ProductSoldQuantity;
+    billNumberInput.value=income.billNumber;
 
     modal.style.display = "block";
 

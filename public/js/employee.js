@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const card = document.createElement('div');
     card.className = 'employee-card';
     card.innerHTML = `
+      <img src='/images/bin.png' class="deleteemployeeId" style='float:right'>
       <img src="/images/employee_photo.jpg" alt="Employee Photo" class="employee-photo">
       <h2>${employee.name}</h2>
       <p><strong>Address:</strong> ${employee.address}</p>
@@ -43,6 +44,12 @@ document.addEventListener("DOMContentLoaded", function() {
       <button class="view-btn">View Details</button>
       <button class="pay-btn" id="paySalary">Pay Salary</button>
     `;
+
+    // delete employee
+    const deleteemployee = card.querySelector('.deleteemployeeId')
+    deleteemployee.addEventListener('click', () => {
+        deleteEmployee(employee._id)
+    });
 
     const viewDetailsButton = card.querySelector('.view-btn');
 
@@ -73,8 +80,35 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+const deleteEmployee = async (employeeId) => {
+  try {
+    const res = await axios({
+      method: 'DELETE',
+      url: `${BaseUrl}/delete-employee/${employeeId}`,
+      data:{
+      }
+    });
+    if (res.data.status === 'success') {
+        swal({
+            text:"employee deleted successfully!",
+            icon: "success",
+            button: "OK",
+        }).then(() => {
+            location.reload()
+        });
+    }
+  } catch (err) {
+    swal({
+      text:err.response.data.message,
+      icon: "warning",
+      button: "OK",
+    })
+  }
+};
 
-const createEmployerExpensee = async (salaryAmount,date,description,paymentMethod,employeeId) => {
+
+
+const createEmployerExpensee = async (salaryAmount,date,description,paymentMethod,employeeId,whichMonthSalary) => {
   try {
     const res = await axios({
       method: 'POST',
@@ -83,7 +117,8 @@ const createEmployerExpensee = async (salaryAmount,date,description,paymentMetho
         salaryAmount,
         date,
         paymentMethod,
-        description
+        description,
+        whichMonthSalary:whichMonthSalary
       }
     });
     if (res.data.status === 'success') {
@@ -113,7 +148,10 @@ document.querySelector('.employee-expense-form').addEventListener('submit',e=>{
     const date = document.getElementById('employeeExpenseDate').value;
     const paymentMethod = document.getElementById('paymentMethod').value;
     const employeeId = selectedEmployeeId;
-    createEmployerExpensee(salaryAmount,date,description,paymentMethod,employeeId);
+    const fromWhichMonth = document.getElementById('fromMonth').value;
+    const toWhichMonth = document.getElementById('toMonth').value;
+    const whichMonthSalary = `${fromWhichMonth}-${toWhichMonth}`
+    createEmployerExpensee(salaryAmount,date,description,paymentMethod,employeeId,whichMonthSalary);
 })
 
 

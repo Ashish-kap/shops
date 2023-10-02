@@ -231,3 +231,74 @@ const deleteShop = async (shopId) => {
   }
 };
 
+// register vendor
+
+
+
+//  ----------- register employee modal --------
+document.addEventListener('DOMContentLoaded', function() {
+  const registerVendorButton = document.getElementById("registerVendorButton");
+  const vendorModal = document.getElementById("vendorModal");
+  const closeModal = document.getElementById("closeModal");
+  const closeModalVendor = document.getElementById("closeModalVendor");
+
+  //  View vendor and employee button
+  const viewVendorButton = document.getElementById("viewVendorButton");
+
+
+  registerVendorButton.addEventListener("click", function() {
+    vendorModal.style.display = "flex";
+  });
+
+  closeModalVendor.addEventListener("click", function() {
+    vendorModal.style.display = "none";
+  });
+
+  viewVendorButton.addEventListener('click', () => {
+        window.location.href =  `/all-vendors`;
+  });
+
+});
+
+
+
+// register vendor
+const registerVendor = async (VendorName,VendorAddress,ContactInformation) => {
+  try {
+    const res = await axios({
+      method: 'POST',
+      url: `${BaseUrl}/register-vendors`,
+      data:{
+        vendorName:VendorName,
+        address:VendorAddress,
+        contactInformation:ContactInformation,
+      }
+    });
+    if (res.data.status === 'success') {
+        swal({
+            text:"Vendor registered successfully!",
+            icon: "success",
+            button: "OK",
+        }).then(() => {
+            location.reload()
+        });
+    }
+  } catch (err) {
+    swal({
+      text:err.response.data.message,
+      icon: "warning",
+      button: "OK",
+    })
+  }
+};
+
+
+document.querySelector('.registerVendorForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const VendorName = document.getElementById('vendorName').value;
+    const VendorAddress = document.getElementById('vendorAddress').value;
+    const ContactInformation = document.getElementById('vendorContactInformation').value;
+    registerVendor(VendorName,VendorAddress,ContactInformation);
+})
+
+

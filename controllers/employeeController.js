@@ -75,6 +75,7 @@ const Shop = require('../model/shop.js');
       date: req.body.date,
       description: req.body.description,
       paymentMethod: req.body.paymentMethod,
+      whichMonthSalary:req.body.whichMonthSalary,
       shopId,
       employeeId,
       userId:user._id,

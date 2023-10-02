@@ -18,6 +18,7 @@ router.get('/employee-expenses/yearlyEmployeeExpense/:shopId',authController.pro
 
 // Register EMployeee
 router.post('/register-employee/:shopId',authController.protect,registerEmployeeController.registerEmployee)
+router.delete('/delete-employee/:employeeId',authController.protect,registerEmployeeController.deleteEmployee)
 router.get('/get-register-employee/:shopId',authController.protect,registerEmployeeController.getRegisterEmployee)
 
 module.exports =router;

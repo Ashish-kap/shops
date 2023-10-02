@@ -3,14 +3,12 @@ const Income = require('../model/income.js');
 const Shop = require('./../model/shop');
 const VendorExpense = require('../model/vendor.js');
 const EmployeeSalary = require('../model/employee.js');
-
 const Employee = require('../model/registerEmployee.js');
 const Vendor = require('../model/registerVendor.js');
 
 const PDFDocument = require('pdfkit');
 // const { PDFDocument, rgb } = require('pdf-lib');
 // const fs = require('fs');
-
 
 exports.allBasicExpenses = async (req, res) => {
   try {
@@ -31,10 +29,10 @@ exports.allBasicExpenses = async (req, res) => {
 
 exports.allVendorExpenses = async (req, res) => {
   try {
-    const shopId = req.params.shopId
+
     const vendorId = req.params.vendorId
     const user = req.userr
-    const vendorExpenses = await VendorExpense.find({ shopId,vendorId,userId:user._id});
+    const vendorExpenses = await VendorExpense.find({ vendorId,userId:user._id});
 
     const vendor= await Vendor.findById(vendorId)
 
@@ -92,9 +90,11 @@ exports.allIncome = async (req, res) => {
 
 exports.allExpenses = async (req, res) => {
   try {
+
     const shopId = req.params.shopId;
-    const user = req.userr
-    const response = await fetch(`http://localhost:3000/demo/${shopId}`);
+    const user = req.userr;
+
+    const response = await fetch(`https://sugarcan-shop.onrender.com/demo/${shopId}/${user._id}`);
     const responseData = await response.json();
 
     const {
@@ -156,7 +156,6 @@ exports.allExpenses = async (req, res) => {
             }
           });
         }
-
         doc.moveDown();
       });
     }
@@ -169,8 +168,8 @@ exports.allExpenses = async (req, res) => {
     doc.font('Helvetica-Bold').fillColor('green').fontSize(16).text(`Total Profit: ${totalProfitByShop}`, { align: 'left' });
     doc.font('Helvetica-Bold').fillColor('blue').fontSize(16).text(`Total Income: ${totalIncomeByShop}`, { align: 'left' });
     doc.font('Helvetica-Bold').fillColor('red').fontSize(16).text(`Total Expense: ${totalExpenseByShop}`, { align: 'left' });
-
     doc.end();
+
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Internal server error' });
@@ -183,16 +182,17 @@ exports.allExpenses = async (req, res) => {
 exports.demo = async (req, res) => {
   try {
     const shopId = req.params.shopId;
-    const user = req.userr
-    const registerEmployee = await Employee.find({ userId:user._id, shopId });
-    const registerVendor = await Vendor.find({  userId:user._id,shopId });
-    const basicExpenses = await BasicExpense.find({  userId:user._id,shopId });
-    const vendorExpenses = await VendorExpense.find({  userId:user._id,shopId });
-    const employeeExpenses = await EmployeeSalary.find({  userId:user._id,shopId });
-    const incomeData = await Income.find({ userId:user._id, shopId });
+    const user = req.params.userId
+    const registerEmployee = await Employee.find({ userId:user, shopId });
+    const registerVendor = await Vendor.find({userId:user});
+    const basicExpenses = await BasicExpense.find({  userId:user,shopId });
+    const vendorExpenses = await VendorExpense.find({userId:user });
+    const employeeExpenses = await EmployeeSalary.find({  userId:user,shopId });
+    const incomeData = await Income.find({ userId:user, shopId });
 
-    const whichShop = await Shop.find({ userId:user._id,shopId});
+    const whichShop = await Shop.findOne({userId:user,_id:shopId});
     const shopName = whichShop.name
+ 
     // Map employee expenses to each employee
     const employeesWithExpenses = registerEmployee.map(employee => {
       const expenses = employeeExpenses.filter(expense => expense.employeeId.toString() === employee._id.toString());
@@ -325,7 +325,6 @@ exports.selectPeriodForShop=async (req, res) => {
     });
 
     const vendorExpenses = await VendorExpense.find({
-      shopId: shopId,
       userId:user._id,
       date: { $gte: startTime, $lte: endTime },
     });
@@ -387,7 +386,6 @@ exports.dailyProfitByShop= async (req, res) => {
     });
 
     const vendorExpenses = await VendorExpense.find({
-      shopId: shopId,
       userId:user._id,
       date: { $gte: startTime, $lte: endTime },
     });
@@ -501,7 +499,6 @@ exports.weeklyProfitByShop= async (req, res) => {
     });
 
     const vendorExpenses = await VendorExpense.find({
-      shopId: shopId,
       userId:user._id,
       date: { $gte: startOfWeek, $lte: endOfWeek },
     });
@@ -623,7 +620,6 @@ exports.monthlyProfitByShop= async (req, res) => {
     });
 
     const vendorExpenses = await VendorExpense.find({
-      shopId: shopId,
       userId:user._id,
       date: { $gte: startOfMonth, $lte: endOfMonth },
     });
@@ -713,14 +709,13 @@ exports.monthlyProfit= async (req, res) => {
 
 //  yearly profit by shop
 exports.yearlyProfitByShop= async (req, res) => {
-
   try {
+
     const user = req.userr
     const shopId = req.params.shopId;
     if(!shopId){
         return res.status(404).json({ error: 'shop not found' });
     }
-
     const oneShop = await Shop.findById(shopId)
     const name = oneShop.name;
     const address = oneShop.address
@@ -737,8 +732,6 @@ exports.yearlyProfitByShop= async (req, res) => {
     endOfYear.setFullYear(startOfYear.getFullYear() + 1); // Move to the first day of January of the next year
     endOfYear.setHours(0, 0, 0, 0);
     
-
-
     const basicExpenses = await BasicExpense.find({
       shopId: shopId,
       userId:user._id,
@@ -752,7 +745,6 @@ exports.yearlyProfitByShop= async (req, res) => {
     });
 
     const vendorExpenses = await VendorExpense.find({
-      shopId: shopId,
       userId:user._id,
       date: { $gte: startOfYear, $lte: endOfYear },
     });
@@ -773,7 +765,6 @@ exports.yearlyProfitByShop= async (req, res) => {
     const totalExpenseByShop = totalYearlyvendorExpenseByShop+totalYearlyemployeeExpenseByShop+totalYearlybasicExpenseByShop
 
     res.json({ totalProfitByShop,totalIncomeByShop,totalExpenseByShop,name,address,contactInformation });
-
 
   } catch (error) {
     console.log(error)

@@ -16,6 +16,10 @@ const vendorExpenseSchema = new mongoose.Schema({
     type: String,
     // required: true,
   },
+  billNumber: {
+    type: String,
+    required: true,
+  },
   date: {
     type: Date,
     default: Date.now, 
@@ -51,10 +55,6 @@ const vendorExpenseSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  },
-  shopId:{
-    type: String,
-    required: true,
   },
   userId: {
     type: String,

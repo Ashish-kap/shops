@@ -23,11 +23,11 @@ const app = express()
 require('dotenv').config();
 
 app.use(express.json())
+app.use(cors());
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 app.set('views', path.join(__dirname, 'views'))
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors());
 
 app.use(session({
     secret: 'keyboard cat',

@@ -5,13 +5,13 @@ const Shop = require('../model/shop.js');
 // Endpoint to add a new vendor expense
 exports.createVenderExpense= async (req, res) => {
   try {
-    const shopId = req.params.shopId;
     const user = req.userr;
     const vendorId = req.params.vendorId;
     const {
       productName,
       description,
       quantity,
+      billNumber,
       date,
       amount,
       category,
@@ -28,28 +28,15 @@ exports.createVenderExpense= async (req, res) => {
       amount,
       category,
       paymentDueDate,
+      billNumber,
       paymentStatus,
-      shopId,
       vendorId,
       userId:user._id
     });
 
-    
-    // Find the shop using the shopId
-    const shop = await Shop.findById(shopId);
-
-    if(!shop){
-        return res.status(404).json({ error: 'shop not found' });
-    }
 
     // Save the new vendor expense to the database
     const savedVendorExpense = await newVendorExpense.save();
-
-    // Add the new vendor expense to the Shop's VendorExpense array
-    shop.VendorExpense.push(savedVendorExpense._id);
-
-    // Save the updated Shop document with the associated vendor expense
-    await shop.save();
 
     res.status(201).json({
       status:"success",
@@ -136,11 +123,9 @@ exports.deleteVendorExpense =  async (req, res) => {
 exports.dailyBasicExpense= async (req, res) => {
   try {
     
-    const shopId = req.params.shopId;
+
     const user = req.userr;
-    if(!shopId){
-        return res.status(404).json({ error: 'shop not found' });
-    }
+
     const queryDate = req.query.date ? new Date(req.query.date) : new Date();
 
     // Set the start and end time for the queryDate (midnight to midnight)
@@ -150,7 +135,6 @@ exports.dailyBasicExpense= async (req, res) => {
     endTime.setHours(23, 59, 59, 999);
 
      const expenses = await VendorExpense.find({
-      shopId: shopId,
       userId:user._id,
       date: { $gte: startTime, $lte: endTime },
     });
@@ -166,10 +150,7 @@ exports.dailyBasicExpense= async (req, res) => {
 exports.weeklyBasicExpense =  async (req, res) => {
   try {
     const user = req.userr
-    const shopId = req.params.shopId;
-    if (!shopId) {
-      return res.status(404).json({ error: 'Shop not found' });
-    }
+
     const queryDate = req.query.date ? new Date(req.query.date) : new Date();
 
     // Calculate the start and end dates for the week containing the queryDate
@@ -183,7 +164,6 @@ exports.weeklyBasicExpense =  async (req, res) => {
 
     // Fetch all expenses for the specific shop and within the specified week
     const expenses = await VendorExpense.find({
-      shopId: shopId,
       userId:user._id,
       date: { $gte: startOfWeek, $lte: endOfWeek },
     });
@@ -199,10 +179,6 @@ exports.weeklyBasicExpense =  async (req, res) => {
 exports.monthlyBasicExpense = async (req, res) => {
   try {
     const user = req.userr
-    const shopId = req.params.shopId;
-    if (!shopId) {
-      return res.status(404).json({ error: 'Shop not found' });
-    }
     const queryDate = req.query.date ? new Date(req.query.date) : new Date();
 
     // Calculate the start and end dates for the month containing the queryDate
@@ -217,7 +193,6 @@ exports.monthlyBasicExpense = async (req, res) => {
 
     // Fetch all expenses for the specific shop and within the specified month
     const expenses = await VendorExpense.find({
-      shopId: shopId,
       userId:user._id,
       date: { $gte: startOfMonth, $lte: endOfMonth },
     });
@@ -232,11 +207,8 @@ exports.monthlyBasicExpense = async (req, res) => {
 
 exports.yearlyBasicExpense = async (req, res) => {
   try {
-    const shopId = req.params.shopId;
+
     const user = req.userr
-    if (!shopId) {
-      return res.status(404).json({ error: 'Shop not found' });
-    }
     const queryDate = req.query.date ? new Date(req.query.date) : new Date();
 
     // Calculate the start and end dates for the year containing the queryDate
@@ -250,7 +222,6 @@ exports.yearlyBasicExpense = async (req, res) => {
 
     // Fetch all expenses for the specific shop and within the specified year
     const expenses = await VendorExpense.find({
-      shopId: shopId,
       userId:user._id,
       date: { $gte: startOfYear, $lt: endOfYear },
     });

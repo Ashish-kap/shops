@@ -15,14 +15,14 @@ const vendorId = vendorIdMatch[1];
 
 
 async function fetchvendorDetails() {
-    const response = await fetch(`${BaseUrl}/shop/${shopId}/get-all-vendor-expenses/${vendorId}`);
+    const response = await fetch(`${BaseUrl}/shop/get-all-vendor-expenses/${vendorId}`);
     const data = await response.json();
     return data.vendor;
 }
 
 
 async function fetchVendorExpenses() {
-    const response = await fetch(`${BaseUrl}/shop/${shopId}/get-all-vendor-expenses/${vendorId}`);
+    const response = await fetch(`${BaseUrl}/shop/get-all-vendor-expenses/${vendorId}`);
     const data = await response.json();
     return data.allExpenses;
 }
@@ -48,6 +48,10 @@ async function populateVendorExpenseTable() {
                 const productNameCell = document.createElement("td");
                 productNameCell.textContent = item.productName;
                 row.appendChild(productNameCell);
+
+                const billNumberCell = document.createElement("td");
+                billNumberCell.textContent = item.billNumber;
+                row.appendChild(billNumberCell);
 
                 const descriptionCell = document.createElement("td");
                 descriptionCell.textContent = item.description;
@@ -102,6 +106,7 @@ function openEditVendorExpenseModal(expense) {
     vendorExpenseData=expense
     const modal = document.getElementById("UpdateVendorExpenseModal");
     const productNameInput = document.getElementById("updateProductName");
+    const BillNumberInput = document.getElementById("updateBillNumber");
     const quantityInput = document.getElementById("updateVendorQuantity");
     const amountInput = document.getElementById("updateVendorExpenseAmount");
     const expenseDateInput = document.getElementById("updateVendorExpenseDate");
@@ -112,6 +117,7 @@ function openEditVendorExpenseModal(expense) {
     const closeVendorExpenseModalButton = document.getElementById("closeUpdateVendorExpenseModalButton");
 
     productNameInput.value = expense.productName;
+    BillNumberInput.value = expense.billNumber
     quantityInput.value = expense.quantity;
     amountInput.value = expense.amount;
     expenseDateInput.value = expense.date.substring(0, 10);
@@ -129,7 +135,7 @@ function openEditVendorExpenseModal(expense) {
 
 populateVendorExpenseTable();
 
-const updateVendorExpense = async (productName,vendorExpenseDate,description,paymentDueDate,VendorQuantity,vendorExpenseAmount,vendorPaymentStatus,docId) => {
+const updateVendorExpense = async (productName,vendorExpenseDate,description,paymentDueDate,VendorQuantity,vendorExpenseAmount,vendorPaymentStatus,docId,billNumber) => {
   try {
     const res = await axios({
       method: 'PATCH',
@@ -142,7 +148,8 @@ const updateVendorExpense = async (productName,vendorExpenseDate,description,pay
         amount:vendorExpenseAmount,
         paymentStatus:vendorPaymentStatus,
         paymentDueDate:paymentDueDate,
-        quantity:VendorQuantity
+        quantity:VendorQuantity,
+        billNumber
       }
     });
     if (res.data.status === 'success') {
@@ -174,7 +181,8 @@ document.querySelector('.udpate-vendor-expense-form').addEventListener('submit',
     const vendorExpenseAmount = document.getElementById('updateVendorExpenseAmount').value;
     const vendorPaymentStatus =  document.getElementById('updateVendorPaymentStatus').value;
     const paymentDueDate =  document.getElementById('updateVendorPaymentDueDate').value;
-    updateVendorExpense(productName,vendorExpenseDate,description,paymentDueDate,VendorQuantity,vendorExpenseAmount,vendorPaymentStatus,docId);
+    const billNumber =  document.getElementById('updateBillNumber').value;
+    updateVendorExpense(productName,vendorExpenseDate,description,paymentDueDate,VendorQuantity,vendorExpenseAmount,vendorPaymentStatus,docId,billNumber);
 })
 
 

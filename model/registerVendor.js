@@ -21,10 +21,6 @@ const vendorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  shopId:{
-    type: String,
-    required: true,
-  }
 });
 
 const Vendor = mongoose.model('Vendor', vendorSchema);

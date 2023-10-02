@@ -232,3 +232,19 @@ button:hover {
     margin-left: 0.5rem;
     float: left;
 }
+
+/* monlthly salary range modal */
+
+.date-range-container {
+    display: flex;
+    align-items: center;
+}
+
+.date-range-container select {
+    padding: 10px;
+    font-size: 16px;
+}
+
+.date-range-container label {
+    margin-right: 10px;
+}

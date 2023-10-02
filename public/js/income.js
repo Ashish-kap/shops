@@ -9,7 +9,7 @@ const shopIndexx = urlSegmentss.indexOf("shop-overview");
 const shopIdd = urlSegmentss[shopIndexx + 1];
 
 
-const createIncome = async (amount,date,description,incomeSource,ProductSoldQuantity) => {
+const createIncome = async (amount,date,description,incomeSource,ProductSoldQuantity,billNumber) => {
   try {
     const res = await axios({
       method: 'POST',
@@ -19,7 +19,8 @@ const createIncome = async (amount,date,description,incomeSource,ProductSoldQuan
         date,
         description,
         incomeSource,
-        ProductSoldQuantity
+        ProductSoldQuantity,
+        billNumber
       }
     });
     if (res.data.status === 'success') {
@@ -48,13 +49,14 @@ document.querySelector('.incomeForm').addEventListener('submit',e=>{
     const description = document.getElementById('description').value;
     const incomeSource = document.getElementById('incomeSourceName').value;
     const ProductSoldQuantity = document.getElementById('ProductSoldQuantity').value;
-    createIncome(amount,date,description,incomeSource,ProductSoldQuantity);
+    const billNumber = document.getElementById('billNumber').value;
+    createIncome(amount,date,description,incomeSource,ProductSoldQuantity,billNumber);
 })
 
 
 // Update Income
 
-const updateIncome = async (amount,date,description,docId,incomeSource,ProductSoldQuantity) => {
+const updateIncome = async (amount,date,description,docId,incomeSource,ProductSoldQuantity,billNumber) => {
   try {
     const res = await axios({
       method: 'PATCH',
@@ -64,7 +66,8 @@ const updateIncome = async (amount,date,description,docId,incomeSource,ProductSo
         date,
         incomeSource,
         description,
-        ProductSoldQuantity
+        ProductSoldQuantity,
+        billNumber
       }
     });
     if (res.data.status === 'success') {
@@ -94,7 +97,8 @@ document.querySelector('.update-incomeForm').addEventListener('submit',e=>{
     const description = document.getElementById('updateDescription').value;
     const incomeSource = document.getElementById('updateIncomeSourceName').value;
     const ProductSoldQuantity = document.getElementById('updateProductSoldQuantity').value;
-    updateIncome(amount,date,description,docId,incomeSource,ProductSoldQuantity);
+    const billNumber = document.getElementById('updateBillNumber').value;
+    updateIncome(amount,date,description,docId,incomeSource,ProductSoldQuantity,billNumber);
 })
 
 

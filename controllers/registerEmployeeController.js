@@ -1,4 +1,5 @@
 const registerEmployee = require('../model/registerEmployee.js');
+const EmployeeSalary = require('../model/employee.js');
 const schedule = require('node-schedule');
 const Shop = require('../model/shop.js'); 
 
@@ -64,5 +65,27 @@ schedule.scheduleJob('0 0 1 * *', async () => {
     console.error('Error updating balances:', error);
   }
 });
+
+
+exports.deleteEmployee =  async (req, res) => {
+  const employeeId = req.params.employeeId;
+  try {
+    // Attempt to find the employee by its ID and delete it
+    const deletedemployee = await registerEmployee.findByIdAndDelete(employeeId);
+
+    if (!deletedemployee) {
+      return res.status(404).json({ 
+        message: 'Employee not found'
+       });
+    }
+
+    await EmployeeSalary.deleteMany({employeeId});
+
+    return res.status(200).json({status:"success",message: 'employee deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting employee:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
 
 

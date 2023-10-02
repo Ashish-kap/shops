@@ -18,12 +18,13 @@
         <p>Address: <span id="address"></span></p>
         <div class="registration-buttons">
           <a class="registration-button" id="registerEmployeeButton">Register Employee</a>
-          <a class="registration-button" id="registerVendorButton">Register Vendor</a>
-        </div>
-        <div class="registration-buttons">
           <a class="registration-button" id="viewEmployeeButton">View Employee</a>
-          <a class="registration-button" id="viewVendorButton">View Vendor</a>
+          <!-- <a class="registration-button" id="registerVendorButton">Register Vendor</a> -->
         </div>
+        <!-- <div class="registration-buttons"> -->
+          <!-- <a class="registration-button" id="viewEmployeeButton">View Employee</a> -->
+          <!-- <a class="registration-button" id="viewVendorButton">View Vendor</a> -->
+        <!-- </div> -->
           <select  class='select-timerange' id="timeRange">
             <option value="daily">Daily</option>
             <option value="weekly">Weekly</option>
@@ -94,6 +95,7 @@
               <tr>
                 <th>Amount</th>
                 <th>Product Sold Quantity</th>
+                <th>Bill Number</th>
                 <th>Income Source</th>
                 <th>Description</th>
                 <th>Date</th>
@@ -170,10 +172,12 @@
     <span class="income-close" id="closeIncomeModalButton">&times;</span>
     <h2>Add Income</h2>
     <form id="incomeForm" class="incomeForm">
-      <label for="amount">Amount:</label>
-      <input type="number" id="amount" name="amount" required>
-      <label for="ProductSoldQuantity">Product Sold Quantity:</label>
-      <input type="text" id="ProductSoldQuantity" name="ProductSoldQuantity" required>
+      <!-- <label for="amount">Amount:</label> -->
+      <input type="number" id="amount" name="amount" placeholder="Amount" required>
+      <!-- <label for="ProductSoldQuantity">Product Sold Quantity:</label> -->
+      <input type="text" id="ProductSoldQuantity" name="ProductSoldQuantity"  placeholder="Product Sold Quantity"required>
+      <!-- <label for="billNumber">Bill Number:</label> -->
+      <input type="text" id="billNumber" name="billNumber" placeholder="Bill Number" required>
       <label for="date">Date:</label>
       <input type="date" id="date" name="date" value="<?php echo date('Y-m-d'); ?>" required>
       <label for="amount">Income Source:</label>
@@ -196,10 +200,12 @@
     <span class="income-close" id="closeUpdateIncomeModalButton">&times;</span>
     <h2>Update Income</h2>
     <form id="update-incomeForm" class="update-incomeForm">
-      <label for="amount">Amount:</label>
-      <input type="number" id="updateAmount" name="amount" required>
-      <label for="ProductSoldQuantity">Product Sold Quantity:</label>
-      <input type="text" id="updateProductSoldQuantity" name="ProductSoldQuantity" required>
+      <!-- <label for="amount">Amount:</label> -->
+      <input type="number" id="updateAmount" name="amount" placeholder="Amount" required>
+      <!-- <label for="ProductSoldQuantity">Product Sold Quantity:</label> -->
+      <input type="text" id="updateProductSoldQuantity" name="ProductSoldQuantity" placeholder="Product Sold Quantity" required>
+      <!-- <label for="updateBillNumber">Bill Number:</label> -->
+      <input type="text" id="updateBillNumber" name="updateBillNumber" placeholder="Bill Number" required>
       <label for="date">Date:</label>
       <input type="date" id="updateDate" name="date" value="<?php echo date('Y-m-d'); ?>" required>
       <label for="amount">Income Source:</label>

@@ -17,6 +17,10 @@ const incomeSchema = new mongoose.Schema({
       message: 'Date cannot be in the future',
     },
   },
+  billNumber: {
+    type: String,
+    required: true,
+  },
   description: {
     type: String,
     maxlength: 500,

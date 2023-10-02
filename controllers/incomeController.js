@@ -11,6 +11,7 @@ exports.createIncome = async (req, res) => {
       incomeSource,
       ProductSoldQuantity,
       description,
+      billNumber
     } = req.body;
 
     // Create a new instance of the Income model with the request data
@@ -20,6 +21,7 @@ exports.createIncome = async (req, res) => {
       incomeSource,
       ProductSoldQuantity,
       description,
+      billNumber,
       shopId,
       userId:user._id,
     });

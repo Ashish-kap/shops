@@ -2,6 +2,7 @@ const Shop = require('./../model/shop');
 const Employee = require('./../model/registerEmployee');
 const Vendor = require('./../model/registerVendor');
 const mongoose = require('mongoose')
+const Userr = require('./../model/user');
 
 // rendering --
 exports.loginScreen= (req,res)=>{
@@ -53,16 +54,11 @@ exports.allEmployess= async (req,res)=>{
 
 exports.allVendors= async (req,res)=>{
   try{
-    const shopId = req.params.shopId;
- 
-    if (!mongoose.Types.ObjectId.isValid(shopId)) {
-      // Invalid userId format
-      return res.status(400).send('Shop not found');
-    }
-
-    const shp = await Shop.findById(shopId);
+    
+    const userId = req.userr._id
+    const shp = await Userr.findById(userId);
     if(!shp){
-      return res.status(404).send('Shop not found');
+      return res.status(404).send('user not found');
     }
     res.render('vendor')
   }catch(err){
@@ -98,22 +94,16 @@ exports.viewEmployee= async (req,res)=>{
 
 exports.viewVendors= async (req,res)=>{
   try{
-    const shopId = req.params.shopId;
+
     const vendorId = req.params.vendorId
- 
-    if (!mongoose.Types.ObjectId.isValid(shopId)) {
-      // Invalid userId format
-      return res.status(400).send('Shop not found');
-    }
 
      if (!mongoose.Types.ObjectId.isValid(vendorId)) {
       // Invalid userId format
       return res.status(400).send('vendor not found');
     }
 
-    const shp = await Shop.findById(shopId);
     const emp = await Vendor.findById(vendorId);
-    if(!shp || !emp){
+    if(!emp){
       return res.status(404).send('Shop or Vendor not found');
     }
     res.render('viewVendor')

@@ -16,7 +16,7 @@
                 <span class="navbar__name">Dashboard</span>
             </div>
         </div>
-        <div id="google_translate_element"></div>
+        <div id="google_translate_element" class="google_translate_element"></div>
     </nav>
     <div class="containerr">
         <div class="select-period">
@@ -25,6 +25,11 @@
             <label for="endDate">To:</label>
             <input type="date" id="endDate" name="endDate"  value="<?php echo date('Y-m-d'); ?>">
             <button id="applyDateRange" class="applyDateRange">Apply</button>
+        </div>
+
+        <div class="registration-buttons">
+          <a class="registration-button" id="registerVendorButton">Register Vendor</a>
+          <a class="registration-button" id="viewVendorButton">View Vendor</a>
         </div>
 
         <select class="select-timerange" id="timeRange">
@@ -71,7 +76,6 @@
     <!-- The Modal -->
     <div class="modal" id="addShopModal">
         <div class="modal-content">
-            
             <span class="close" id="closeModal">&times;</span>
             <h2>Add Shop</h2>
             <form class="create-shop">
@@ -83,6 +87,27 @@
     
                 <label for="contact">Contact Information:</label>
                 <input type="text" id="contactInformation" required>
+    
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!--  register vendor -->
+    
+    <div class="vendor-modal" id="vendorModal">
+        <div class="vendor-modal-content">
+            <span class="close" id="closeModalVendor">&times;</span>
+            <h2>Register Vendor</h2>
+            <form id="vendorForm" class="registerVendorForm">
+                <label for="vendorName">Vendor Name</label>
+                <input type="text" id="vendorName" required>
+    
+                <label for="vendorAddress">Vendor Address</label>
+                <input type="text" id="vendorAddress" required>
+    
+                <label for="vendorContactInformation">Vendor Contact Information</label>
+                <input type="text" id="vendorContactInformation" required>
     
                 <button type="submit">Submit</button>
             </form>

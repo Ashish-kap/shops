@@ -11,11 +11,11 @@ router.get('/yearly-profit-by-shop/:shopId',authController.protect,profitControl
 
 router.get('/get-all-basic-expenses/:shopId',authController.protect,profitController.allBasicExpenses)
 router.get('/shop/:shopId/get-all-employee-expenses/:employeeId',authController.protect,profitController.allEmployeeExpenses)
-router.get('/shop/:shopId/get-all-vendor-expenses/:vendorId',authController.protect,profitController.allVendorExpenses)
+router.get('/shop/get-all-vendor-expenses/:vendorId',authController.protect,profitController.allVendorExpenses)
 router.get('/get-all-income/:shopId',authController.protect,profitController.allIncome)
 
 router.get('/all-expenses-by-shop/:shopId',authController.protect,profitController.allExpenses)
-router.get('/demo/:shopId',authController.protect,profitController.demo)
+router.get('/demo/:shopId/:userId',profitController.demo)
 
 router.get('/select-period',authController.protect,profitController.selectPeriod)
 router.get('/select-period-for-shop/:shopId',authController.protect,profitController.selectPeriodForShop)

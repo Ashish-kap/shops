@@ -235,3 +235,19 @@
     margin-top: 32px;
     margin-right: 5rem;
 }
+
+/* monlthly salary range modal */
+
+.date-range-container {
+    display: flex;
+    align-items: center;
+}
+
+.date-range-container select {
+    padding: 10px;
+    font-size: 16px;
+}
+
+.date-range-container label {
+    margin-right: 10px;
+}

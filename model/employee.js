@@ -17,6 +17,11 @@ const employeeSalarySchema = new mongoose.Schema({
       message: 'Date cannot be in the future',
     },
   },
+  whichMonthSalary: {
+    type: String,
+    trim: true,
+    required: true,
+  },
   description: {
     type: String,
     maxlength: 500,

@@ -2,7 +2,6 @@
 // const BaseUrl = `http://localhost:3000`
 
 const BaseUrl = window.config.BaseUrl;
-
 const currentUrl = window.location.href;
 
 // Use regular expressions to extract shopId and employeeId
@@ -11,8 +10,6 @@ const employeeIdMatch = currentUrl.match(/\/employee-details\/([a-zA-Z0-9]+)/);
 
 const shopId = shopIdMatch[1]; 
 const employeeId = employeeIdMatch[1];
-
-
 
 //Fetch Employer expense table
 async function fetchEmployeeExpenses() {
@@ -53,6 +50,11 @@ async function fetchEmployeeDetails() {
                 const salaryAmountCell = document.createElement("td");
                 salaryAmountCell.textContent = item.salaryAmount;
                 row.appendChild(salaryAmountCell);
+
+                const whichMonthSalaryCell = document.createElement("td");
+                whichMonthSalaryCell.textContent = item.whichMonthSalary;
+                row.appendChild(whichMonthSalaryCell);
+
 
                 const descriptionCell = document.createElement("td");
                 descriptionCell.textContent = item.description;
@@ -97,12 +99,23 @@ function openEditEmployeeExpenseModal(expense) {
     const paymentMethodInput = document.getElementById("updatePaymentMethod");
     const expenseDescriptionInput = document.getElementById("updateEmployeeExpenseDescription");
 
+    const updateFromMonthInput = document.getElementById("updateFromMonth");
+    const updateToMonthInput = document.getElementById("updateToMonth");
+  
+
     const closeEmployeeExpenseModalButton = document.getElementById("closeUpdateEmployeeExpenseModalButton");
 
     salaryAmountInput.value = expense.salaryAmount;
     expenseDateInput.value = expense.date.substring(0, 10);
     paymentMethodInput.value = expense.paymentMethod;
     expenseDescriptionInput.value = expense.description;
+    // console.log(expense.whichMonthSalary.split('-')[0])
+    if(expense.whichMonthSalary){
+      updateFromMonthInput.value = expense.whichMonthSalary.split('-')[0];
+      updateToMonthInput.value = expense.whichMonthSalary.split('-')[1];
+    }
+    // updateFromMonthInput.value = expense.whichMonthSalary.split('-')[0];
+    // updateToMonthInput.value = expense.whichMonthSalary.split('-')[1];
 
     modal.style.display = "block";
     closeEmployeeExpenseModalButton.addEventListener("click", () => {
@@ -113,8 +126,7 @@ function openEditEmployeeExpenseModal(expense) {
 populateEmployeeExpenseTable();
 
 
-
-const updateEmployerExpense = async (salaryAmount,date,description,paymentMethod,docId) => {
+const updateEmployerExpense = async(salaryAmount,date,description,paymentMethod,updateFromMonthh,updateToMonthh,docId) => {
   try {
     const res = await axios({
       method: 'PATCH',
@@ -123,7 +135,8 @@ const updateEmployerExpense = async (salaryAmount,date,description,paymentMethod
         salaryAmount,
         date,
         paymentMethod,
-        description
+        description,
+        whichMonthSalary:`${updateFromMonthh}-${updateToMonthh}`
       }
     });
     if (res.data.status === 'success') {
@@ -152,7 +165,10 @@ document.querySelector('.update-employee-expense-form').addEventListener('submit
     const description = document.getElementById('updateEmployeeExpenseDescription').value;
     const date = document.getElementById('updateEmployeeExpenseDate').value;
     const paymentMethod = document.getElementById('updatePaymentMethod').value;
-    updateEmployerExpense(salaryAmount,date,description,paymentMethod,docId);
+    const updateFromMonthh = document.getElementById("updateFromMonth").value;
+    const updateToMonthh = document.getElementById("updateToMonth").value;
+    console.log(`${updateFromMonthh-updateToMonthh}`)
+    updateEmployerExpense(salaryAmount,date,description,paymentMethod,updateFromMonthh,updateToMonthh,docId);
 })
 
 

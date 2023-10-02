@@ -14,7 +14,7 @@ var selectedEmployeeId;
 
 document.addEventListener("DOMContentLoaded", function() {
   // Fetch employee data from the API
-  const apiUrl = `${BaseUrl}/get-register-vendors/${shopId}`;
+  const apiUrl = `${BaseUrl}/get-register-vendors`;
   fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const card = document.createElement('div');
     card.className = 'vendor-card';
     card.innerHTML = `
+      <img src='/images/bin.png' class="deleteVendorId" style='float:right'>
       <img src="/images/vendor_photo.jpg" alt="vendor Photo" class="vendor-photo">
       <h2>${vendor.vendorName}</h2>
       <p><strong>Address:</strong> ${vendor.address}</p>
@@ -44,12 +45,17 @@ document.addEventListener("DOMContentLoaded", function() {
       <button class="pay-btn" id="paySalary">Pay Vendor</button>
     `;
 
+    const deleteVendor = card.querySelector('.deleteVendorId')
+    deleteVendor.addEventListener('click', () => {
+        deletevendor(vendor._id)
+    });
+
     const viewDetailsButton = card.querySelector('.view-btn');
 
     // Add a click event listener to the button
     viewDetailsButton.addEventListener('click', () => {
         // Redirect to another site
-        window.location.href = `${BaseUrl}/shop/${shopId}/vendor-details/${vendor._id}`; // Replace with your desired URL
+        window.location.href = `${BaseUrl}/shop/vendor-details/${vendor._id}`; // Replace with your desired URL
     });
 
     // Add event listener to "Pay Salary" button on this vendor card
@@ -59,7 +65,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     payButton.addEventListener('click', function() {
       vendorExpenseModal.style.display = 'block';
-      
       selectedvendorId = vendor._id; 
       console.log("Selected vendor ID:", selectedvendorId);
     });
@@ -74,11 +79,39 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-const createVendorExpense = async (productName,vendorExpenseDate,description,paymentDueDate,VendorQuantity,vendorExpenseAmount,vendorPaymentStatus,vendorId) => {
+const deletevendor = async (vendorId) => {
+  try {
+    const res = await axios({
+      method: 'DELETE',
+      url: `${BaseUrl}/delete-vendor/${vendorId}`,
+      data:{
+      }
+    });
+    if (res.data.status === 'success') {
+        swal({
+            text:"vendor deleted successfully!",
+            icon: "success",
+            button: "OK",
+        }).then(() => {
+            location.reload()
+        });
+    }
+  } catch (err) {
+    swal({
+      text:err.response.data.message,
+      icon: "warning",
+      button: "OK",
+    })
+  }
+};
+
+
+
+const createVendorExpense = async (productName,vendorExpenseDate,description,paymentDueDate,VendorQuantity,vendorExpenseAmount,vendorPaymentStatus,vendorId,billNumber) => {
   try {
     const res = await axios({
       method: 'POST',
-      url: `${BaseUrl}/shops/${shopId}/vendor-expenses/${vendorId}`,
+      url: `${BaseUrl}/shops/vendor-expenses/${vendorId}`,
       data:{
         productName:productName,
         date:vendorExpenseDate,
@@ -86,7 +119,8 @@ const createVendorExpense = async (productName,vendorExpenseDate,description,pay
         amount:vendorExpenseAmount,
         paymentStatus:vendorPaymentStatus,
         paymentDueDate:paymentDueDate,
-        quantity:VendorQuantity
+        quantity:VendorQuantity,
+        billNumber
       }
     });
     if (res.data.status === 'success') {
@@ -117,6 +151,7 @@ document.querySelector('.vendor-expense-form').addEventListener('submit',e=>{
     const vendorExpenseAmount = document.getElementById('vendorExpenseAmount').value;
     const vendorPaymentStatus =  document.getElementById('vendorPaymentStatus').value;
     const paymentDueDate =  document.getElementById('vendorPaymentDueDate').value;
+    const billNumber =  document.getElementById('billNumber').value;
     const vendorId = selectedvendorId;
-    createVendorExpense(productName,vendorExpenseDate,description,paymentDueDate,VendorQuantity,vendorExpenseAmount,vendorPaymentStatus,vendorId);
+    createVendorExpense(productName,vendorExpenseDate,description,paymentDueDate,VendorQuantity,vendorExpenseAmount,vendorPaymentStatus,vendorId,billNumber);
 })

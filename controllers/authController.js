@@ -66,6 +66,13 @@ exports.signupp = async (req, res) => {
       });
     }
 
+     if (phoneNumber.length !== 10) {
+      return res.status(400).json({
+        status: "failed",
+        message: "Phone number must be 10 digits",
+      });
+    }
+
     if(password !== passwordConfirm){
         return res.status(406).json({
             status: "failed",
