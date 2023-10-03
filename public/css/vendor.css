@@ -192,16 +192,167 @@
     margin-right: 5rem;
 }
 
-/* mobile */
 
+
+/* Mobile */
 @media (max-width: 480px) {
 
-    .heading{
-        display: none;
+    .vendor-container {
+        justify-content: center;
+        align-items: center;
+        width: 29rem;
     }
 
-        .homelogo {
-            font-size: 100px;
-         
-        }
+    .vendor-card {
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin: 10px;
+        width: calc(80% - 20px);
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        box-sizing: border-box;
+        display: inline-block;
+        justify-content: center;
+        vertical-align: top;
+        margin-left: 3.5rem;
+    }
+
+    .google-translator {
+        position: relative;
+        top: 0;
+        right: -20%;
+        font-size: 10px;
+        margin-top: 0rem;
+        margin-right: 3rem;
+    }
+
+    .homelogo {
+        position: relative;
+        top: 0;
+        right: -15%;
+        font-size: 10px;
+        margin-top: -0.5rem;
+    }
+
+    .heading {
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .heading>h1 {
+        margin-left: 1rem;
+    }
+
+    .vendor-card h2 {
+        margin-top: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .vendor-photo {
+        max-width: 200px;
+        border-radius: 50%;
+        margin-left: 4rem;
+        display: block;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .view-btn,
+    .pay-btn {
+        background-color: #007BFF;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .view-btn:hover,
+    .pay-btn:hover {
+        background-color: #0056b3;
+    }
+}
+
+
+/* tablet */
+@media (max-width: 768px) and (min-width: 481px) {
+
+    .vendor-container {
+        justify-content: center;
+        align-items: center;
+        width: 47rem;
+    }
+
+    .vendor-card {
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin: 10px;
+        width: calc(43% - 20px);
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        box-sizing: border-box;
+        display: inline-block;
+        justify-content: center;
+        vertical-align: top;
+        margin-left: 3rem;
+    }
+
+    .google-translator {
+        position: relative;
+        font-size: 10px;
+        margin-top: 0rem;
+        right: -43%;
+    }
+
+    .homelogo {
+        position: relative;
+        font-size: 10px;
+        margin-top: -0.5rem;
+        right: -35%;
+    }
+
+    .heading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+        width: 47rem;
+    }
+
+    .heading>h1 {
+        margin-left: -12rem;
+    }
+
+    .vendor-card h2 {
+        margin-top: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .vendor-photo {
+        max-width: 200px;
+        border-radius: 50%;
+        margin-left: 2rem;
+        display: block;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .view-btn,
+    .pay-btn {
+        background-color: #007BFF;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .view-btn:hover,
+    .pay-btn:hover {
+        background-color: #0056b3;
+    }
 }
