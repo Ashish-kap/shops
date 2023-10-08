@@ -49,7 +49,7 @@ document.querySelector('.incomeForm').addEventListener('submit',e=>{
     const description = document.getElementById('description').value;
     const incomeSource = document.getElementById('incomeSourceName').value;
     const ProductSoldQuantity = document.getElementById('ProductSoldQuantity').value;
-    const billNumber = document.getElementById('billNumber').value;
+    const billNumber = document.getElementById('billNumberName').value;
     createIncome(amount,date,description,incomeSource,ProductSoldQuantity,billNumber);
 })
 
@@ -97,7 +97,7 @@ document.querySelector('.update-incomeForm').addEventListener('submit',e=>{
     const description = document.getElementById('updateDescription').value;
     const incomeSource = document.getElementById('updateIncomeSourceName').value;
     const ProductSoldQuantity = document.getElementById('updateProductSoldQuantity').value;
-    const billNumber = document.getElementById('updateBillNumber').value;
+    const billNumber = document.getElementById('updateBillNumberName').value;
     updateIncome(amount,date,description,docId,incomeSource,ProductSoldQuantity,billNumber);
 })
 
@@ -132,7 +132,7 @@ const deleteIncome = async (docId) => {
 
 
 // create basic expense
-const createBasicExpense = async (expenseName,expenseAmount,date,description) => {
+const createBasicExpense = async (expenseName,expenseAmount,date,description,forWhichEmployee) => {
   try {
     const res = await axios({
       method: 'POST',
@@ -141,7 +141,8 @@ const createBasicExpense = async (expenseName,expenseAmount,date,description) =>
         expenseName,
         amount:expenseAmount,
         date,
-        description 
+        description,
+        forWhichEmployee
       }
     });
     if (res.data.status === 'success') {
@@ -169,12 +170,13 @@ document.querySelector('.basic-expense-form').addEventListener('submit',e=>{
     const expenseAmount = document.getElementById('expenseAmount').value;
     const description = document.getElementById('expenseDescription').value;
     const date = document.getElementById('expenseDate').value;
-    createBasicExpense(expenseName,expenseAmount,date,description);
+    const forWhichEmployee = document.getElementById('basicExpenseForWhomName').value;
+    createBasicExpense(expenseName,expenseAmount,date,description,forWhichEmployee);
 })
 
 
 //  Update basic expense
-const updateBasicExpense = async (expenseName,expenseAmount,date,description,docId) => {
+const updateBasicExpense = async (expenseName,expenseAmount,date,description,docId,forWhichEmployee) => {
   try {
     const res = await axios({
       method: 'PATCH',
@@ -183,7 +185,8 @@ const updateBasicExpense = async (expenseName,expenseAmount,date,description,doc
         expenseName,
         amount:expenseAmount,
         date,
-        description 
+        description,
+        forWhichEmployee
       }
     });
     if (res.data.status === 'success') {
@@ -211,8 +214,9 @@ document.querySelector('.update-basic-expense-form').addEventListener('submit',e
     const expenseAmount = document.getElementById('updateExpenseAmount').value;
     const description = document.getElementById('updateExpenseDescription').value;
     const date = document.getElementById('updateExpenseDate').value;
+    const forWhichEmployee = document.getElementById('updateBasicExpenseForWhomName').value;
     const docId = expenseData._id;
-    updateBasicExpense(expenseName,expenseAmount,date,description,docId);
+    updateBasicExpense(expenseName,expenseAmount,date,description,docId,forWhichEmployee);
 })
 
 

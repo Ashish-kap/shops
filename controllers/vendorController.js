@@ -1,5 +1,6 @@
 
 const VendorExpense = require('../model/vendor.js');
+const BillModal = require('../model/billModel.js');
 const Shop = require('../model/shop.js'); 
 
 // Endpoint to add a new vendor expense
@@ -35,18 +36,26 @@ exports.createVenderExpense= async (req, res) => {
     });
 
 
+
+    const saveBillNumber = new BillModal({
+      BillNumber:billNumber,
+      userId:user._id
+    })
+
     // Save the new vendor expense to the database
     const savedVendorExpense = await newVendorExpense.save();
+    await saveBillNumber.save();
 
     res.status(201).json({
       status:"success",
       savedVendorExpense
     });
-  } catch (err) {
+
+  }catch(err) {
     res.status(400).json({ 
       error: err.message,
       message: err.message
-     });
+    });
   }
 };
 

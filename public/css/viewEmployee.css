@@ -61,8 +61,8 @@
 .container {
     display: flex;
     align-items: center;
-    height: 100vh;
-    margin-top: 1rem;
+    /* height: 100vh; */
+    /* margin-top: 1rem; */
     background-color: #f0f0f0;
     width: 100%;
 }
@@ -201,13 +201,18 @@ button:hover {
     border-color: #3498db;
 }
 
+.submit-button{
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
 .employee-expense-form button.submit-button {
     background-color: #3498db;
     border: none;
     border-radius: 12px;
     color: #fff;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 22px;
     padding: 15px 25px;
     transition: background-color 0.3s ease;
 }

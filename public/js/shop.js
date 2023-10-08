@@ -208,7 +208,7 @@ document.querySelector('.registerEmployeeForm').addEventListener('submit',e=>{
 
 //  -------- OPEN Expense Modal ----------
 // Get the modal and buttons
-const modal = document.getElementById("expenseModal");
+const modal = document.getElementById("basicExpenseModal");
 const openModalButton = document.getElementById("openModalButton");
 const closeModalButton = document.getElementById("closeModalButton");
 
@@ -304,6 +304,10 @@ async function populateTable() {
         amountCell.textContent = expense.amount;
         row.appendChild(amountCell);
 
+        const forWhichEmployeeCell = document.createElement("td");
+        forWhichEmployeeCell.textContent = expense.forWhichEmployee;
+        row.appendChild(forWhichEmployeeCell);
+
         const descriptionCell = document.createElement("td");
         descriptionCell.textContent = expense.description;
         row.appendChild(descriptionCell);
@@ -340,6 +344,7 @@ function openEditModal(expense) {
     const modal = document.getElementById("updateBasicExpenseModal");
     const expenseNameInput = document.getElementById("updateExpenseName");
     const expenseAmountInput = document.getElementById("updateExpenseAmount");
+    const forWhichEmployeeInput = document.getElementById("updateBasicExpenseForWhomName");
     const expenseDateInput = document.getElementById("updateExpenseDate");
     const expenseDescriptionInput = document.getElementById("updateExpenseDescription");
 
@@ -347,6 +352,7 @@ function openEditModal(expense) {
 
     expenseNameInput.value = expense.expenseName;
     expenseAmountInput.value = expense.amount;
+    forWhichEmployeeInput.value = expense.forWhichEmployee
     expenseDateInput.value = expense.date.substring(0, 10);
     expenseDescriptionInput.value = expense.description;
 
@@ -427,7 +433,7 @@ function openEditIncomeModal(income) {
     const amountInput = document.getElementById("updateAmount");
     const dateInput = document.getElementById("updateDate");
     const ProductSoldQuantityInput = document.getElementById("updateProductSoldQuantity");
-    const billNumberInput = document.getElementById("updateBillNumber");
+    const billNumberInput = document.getElementById("updateBillNumberName");
     const incomeSourceNameInput = document.getElementById("updateIncomeSourceName");
     const descriptionInput = document.getElementById("updateDescription");
 
@@ -439,7 +445,6 @@ function openEditIncomeModal(income) {
     incomeSourceNameInput.value=income.incomeSource;
     ProductSoldQuantityInput.value=income.ProductSoldQuantity;
     billNumberInput.value=income.billNumber;
-
     modal.style.display = "block";
 
     closeIncomeModalButton.addEventListener("click", () => {
@@ -450,17 +455,149 @@ function openEditIncomeModal(income) {
 populateIncomeTable();
 
 
+
+async function populateBillNumber() {
+  const selectElement = document.getElementById('billNumberName');
+  try {
+    const response = await fetch(`${BaseUrl}/get/all/billnumbers`);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch bill number');
+    }
+    var billNumberData = await response.json();
+    
+    // Iterate through the expense types and create options for the select element
+      billNumberData.billNumbers.forEach((billNumber) => {
+      const option = document.createElement('option');
+      option.value = billNumber.BillNumber;
+      option.textContent= billNumber.BillNumber;
+      option.className='select-option-billNumber';
+      option.id='billNumberName';
+      selectElement.appendChild(option);
+    });
+  } catch (error) {
+    console.error(error);
+    // Handle errors here, e.g., display an error message
+  }
+}
+
+
+async function populateBillNumberUpdate() {
+  const selectElement = document.getElementById('updateBillNumberName');
+  try {
+    const response = await fetch(`${BaseUrl}/get/all/billnumbers`);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch bill number');
+    }
+    var billNumberData = await response.json();
+    // Iterate through the expense types and create options for the select element
+      billNumberData.billNumbers.forEach((billNumber) => {
+      const option = document.createElement('option');
+      option.value = billNumber.BillNumber;
+      option.textContent= billNumber.BillNumber;
+      // option.className='select-option-billNumber';
+      // option.id='updateBillNumberName';
+      selectElement.appendChild(option);
+    });
+  } catch (error) {
+    console.error(error);
+    // Handle errors here, e.g., display an error message
+  }
+}
+
+document.addEventListener('DOMContentLoaded', populateBillNumber);
+document.addEventListener('DOMContentLoaded', populateBillNumberUpdate);
+
+
+
+
+// populate employees name in basic expense
+async function populateEmployeesNameInBasicExpense() {
+  const selectElement = document.getElementById('basicExpenseForWhomName');
+  try {
+    const response = await fetch(`${BaseUrl}/get-register-employee/${shopId}`);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch bill number');
+    }
+    var EmployeeData = await response.json();
+    // Iterate through the expense types and create options for the select element
+      EmployeeData.forEach((Employee) => {
+      const option = document.createElement('option');
+      option.value = Employee.name;
+      option.textContent= Employee.name;
+      option.className='select-option-basicExpenseForWhom';
+      // option.id='';
+      selectElement.appendChild(option);
+    });
+  } catch (error) {
+    console.error(error);
+    // Handle errors here, e.g., display an error message
+  }
+}
+
+
+
+
+async function populateEmployeesNameInBasicExpenseUpdate() {
+  const selectElement = document.getElementById('updateBasicExpenseForWhomName');
+  try {
+    const response = await fetch(`${BaseUrl}/get-register-employee/${shopId}`);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch bill number');
+    }
+    var EmployeeData = await response.json();
+    // Iterate through the expense types and create options for the select element
+      EmployeeData.forEach((Employee) => {
+      const option = document.createElement('option');
+      option.value = Employee.name;
+      option.textContent= Employee.name;
+      option.className='select-option-basicExpenseForWhom';
+      // option.id='';
+      selectElement.appendChild(option);
+    });
+  } catch (error) {
+    console.error(error);
+    // Handle errors here, e.g., display an error message
+  }
+}
+
+
+document.addEventListener('DOMContentLoaded', populateEmployeesNameInBasicExpense);
+document.addEventListener('DOMContentLoaded', populateEmployeesNameInBasicExpenseUpdate);
+
+
+
+
 //  DOWNLOAD EXPENSE REPORT
 document.addEventListener('DOMContentLoaded', function() {
   const downloadLink = document.getElementById('download-link');
+  const modal = document.getElementById('expenseReportModal');
+  const closeModal = document.getElementById('closeExpenseReportModal')
   downloadLink.addEventListener('click', async function(event) {
-    event.preventDefault(); // Prevent the default behavior of the anchor tag
-    window.location.href=`${BaseUrl}/all-expenses-by-shop/${shopId}`
+    modal.style.display = "block";
   });
+
+  closeModal.addEventListener('click', async function(event) {
+    modal.style.display = "none";
+  });
+
+  const applyDateRangeButton = document.getElementById("ExpenseApplyDateRange");
+  applyDateRangeButton.addEventListener("click", async () => {
+    const startDate = document.getElementById("expenseStartDate").value;
+    const endDate = document.getElementById("ExpenseEndDate").value;
+    event.preventDefault(); 
+    window.location.href=`${BaseUrl}/all-expenses-by-shop/${shopId}?start=${startDate}&end=${endDate}`
+  });
+
 });
 
 
+// BASIC EXPENSE
 async function populateExpenseTypes() {
+  
   const selectElement = document.getElementById('updateExpenseName');
   const selectElement2 = document.getElementById('ExpenseName');
 
@@ -470,12 +607,12 @@ async function populateExpenseTypes() {
       throw new Error('Failed to fetch expense types');
     }
     var expenseTypeData = await response.json();
-    
     // Iterate through the expense types and create options for the select element
     expenseTypeData.expenseTypes.forEach((expenseType) => {
       const option = document.createElement('option');
       option.value = expenseType.name;
       option.textContent= expenseType.name;
+      option.className='select-option-expense';
       option.id='expenseName';
       selectElement.appendChild(option);
       selectElement2.appendChild(option)
@@ -485,6 +622,7 @@ async function populateExpenseTypes() {
     // Handle errors here, e.g., display an error message
   }
 }
+
 
 async function populateExpenseTypesTwo() {
   const selectElement = document.getElementById('updateExpenseName');

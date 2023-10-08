@@ -93,8 +93,11 @@ exports.allExpenses = async (req, res) => {
 
     const shopId = req.params.shopId;
     const user = req.userr;
+    const startt = req.query.start;
+    const endd = req.query.end;
 
-    const response = await fetch(`https://sugarcan-shop.onrender.com/demo/${shopId}/${user._id}`);
+
+    const response = await fetch(`https://sugarcan-shop.onrender.com/demo/${shopId}/${user._id}?start=${startt}&end=${endd}`);
     const responseData = await response.json();
 
     const {
@@ -114,7 +117,8 @@ exports.allExpenses = async (req, res) => {
     doc.on('end', () => {
       const pdfBuffer = Buffer.concat(buffers);
 
-      res.setHeader('Content-Disposition', `attachment; filename="expenses_report.pdf"`);
+      // res.setHeader('Content-Disposition', `attachment; filename="expenses_report`${startt}-${endd}`.pdf"`);
+      res.setHeader('Content-Disposition', `attachment; filename="expenses_report_(${startt} to ${endd}).pdf"`);
       res.setHeader('Content-Type', 'application/pdf');
       res.end(pdfBuffer);
     });
@@ -181,16 +185,28 @@ exports.allExpenses = async (req, res) => {
 
 exports.demo = async (req, res) => {
   try {
+
     const shopId = req.params.shopId;
     const user = req.params.userId
-    const registerEmployee = await Employee.find({ userId:user, shopId });
+
+    const startDate = req.query.start
+    const endDate = req.query.end
+
+    // Set the start and end time for the queryDate (midnight to midnight)
+    const startTime = new Date(startDate);
+    startTime.setHours(0, 0, 0, 0);
+    const endTime = new Date(endDate);
+    endTime.setHours(23, 59, 59, 999);
+
+    const registerEmployee = await Employee.find({ userId:user,shopId});
     const registerVendor = await Vendor.find({userId:user});
-    const basicExpenses = await BasicExpense.find({  userId:user,shopId });
-    const vendorExpenses = await VendorExpense.find({userId:user });
-    const employeeExpenses = await EmployeeSalary.find({  userId:user,shopId });
-    const incomeData = await Income.find({ userId:user, shopId });
+    const basicExpenses = await BasicExpense.find({userId:user,shopId,date:{$gte:startTime,$lte:endTime } });
+    const vendorExpenses = await VendorExpense.find({userId:user,date: { $gte: startTime, $lte: endTime } });
+    const employeeExpenses = await EmployeeSalary.find({  userId:user,shopId,date: { $gte: startTime, $lte: endTime } });
+    const incomeData = await Income.find({userId:user,shopId,date:{ $gte: startTime, $lte: endTime } });
 
     const whichShop = await Shop.findOne({userId:user,_id:shopId});
+    
     const shopName = whichShop.name
  
     // Map employee expenses to each employee
@@ -299,7 +315,6 @@ exports.selectPeriodForShop=async (req, res) => {
         return res.status(404).json({ error: 'shop not found' });
     }
 
-    // const queryDate = req.query.date ? new Date(req.query.date) : new Date();
     const startDate = req.query.start
     const endDate = req.query.end
 

@@ -1,4 +1,5 @@
 const Income = require('../model/income.js');
+const BillModel = require('../model/billModel.js');
 const Shop = require('../model/shop.js'); 
 
 exports.createIncome = async (req, res) => {
@@ -250,5 +251,19 @@ exports.yearlyIncome = async (req, res) => {
     res.json({ totalExpense });
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+
+// get all bill numbers
+exports.getAllBillNumbers = async (req, res) => {
+  try {
+    // Find the document containing the expense types
+    const user = req.userr
+    const billNumbers = await BillModel.find({userId:user._id});
+    return res.status(200).json({billNumbers});
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' });
   }
 };

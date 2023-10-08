@@ -12,6 +12,7 @@ exports.createBasicExpense = async (req, res) => {
       amount,
       date,
       description,
+      forWhichEmployee,
     } = req.body;
 
     //Create a new instance of the BasicExpense model with the request data
@@ -21,6 +22,7 @@ exports.createBasicExpense = async (req, res) => {
       date,
       description,
       shopId,
+      forWhichEmployee,
       userId:user._id,
     });
 
@@ -223,6 +225,7 @@ exports.dailyBasicExpense= async (req, res) => {
     if(!shopId){
         return res.status(404).json({ error: 'shop not found' });
     }
+    
     const queryDate = req.query.date ? new Date(req.query.date) : new Date();
 
     // Set the start and end time for the queryDate (midnight to midnight)

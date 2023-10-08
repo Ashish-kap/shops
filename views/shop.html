@@ -74,6 +74,7 @@
               <tr>
                 <th>Expense Name</th>
                 <th>Amount</th>
+                <th>Employee</th>
                 <th>Description</th>
                 <th>Date</th>
                 <th>Action</th>
@@ -110,6 +111,26 @@
       </div>
     </div>
   </main>
+
+
+  <!-- expense report modal -->
+  <div id="expenseReportModal" class="expenseReportmodal">
+    <div class="expenseReport-modal-content">
+      <span class="closeExepnseReportModal" id="closeExpenseReportModal">&times;</span>
+      <h2>Download Expense Report</h2>
+      <!-- Select Period Section -->
+      <div class="select-period">
+        <label for="startDate">From:</label>
+        <input type="date" id="expenseStartDate" name="startDate" value="<?php echo date('Y-m-d'); ?>">
+        <label for="endDate">To:</label>
+        <input type="date" id="ExpenseEndDate" name="endDate" value="<?php echo date('Y-m-d'); ?>">
+        <button id="ExpenseApplyDateRange" class="applyDateRange">Download PDF</button>
+      </div>
+  
+      <!-- Download PDF Button -->
+      <!-- <button id="downloadPDF">Download PDF</button> -->
+    </div>
+  </div>
 
 
   <!-- Register Employee Modal -->
@@ -176,8 +197,11 @@
       <input type="number" id="amount" name="amount" placeholder="Amount" required>
       <!-- <label for="ProductSoldQuantity">Product Sold Quantity:</label> -->
       <input type="text" id="ProductSoldQuantity" name="ProductSoldQuantity"  placeholder="Product Sold Quantity"required>
-      <!-- <label for="billNumber">Bill Number:</label> -->
-      <input type="text" id="billNumber" name="billNumber" placeholder="Bill Number" required>
+      <label for="billNumber">Bill Number:</label>
+      <!-- <input type="text" id="billNumber" name="billNumber" placeholder="Bill Number" required> -->
+      <select class="select-billNumber" id="billNumberName" name="billNumberName" required>
+          <option class="select-option-billNumber" value="">Select an bill number</option>
+      </select>
       <label for="date">Date:</label>
       <input type="date" id="date" name="date" value="<?php echo date('Y-m-d'); ?>" required>
       <label for="amount">Income Source:</label>
@@ -204,8 +228,11 @@
       <input type="number" id="updateAmount" name="amount" placeholder="Amount" required>
       <!-- <label for="ProductSoldQuantity">Product Sold Quantity:</label> -->
       <input type="text" id="updateProductSoldQuantity" name="ProductSoldQuantity" placeholder="Product Sold Quantity" required>
-      <!-- <label for="updateBillNumber">Bill Number:</label> -->
-      <input type="text" id="updateBillNumber" name="updateBillNumber" placeholder="Bill Number" required>
+      <label for="updateBillNumber">Bill Number:</label>
+      <!-- <input type="text" id="updateBillNumber" name="updateBillNumber" placeholder="Bill Number" required> -->
+      <select class="select-billNumber" id="updateBillNumberName" name="billNumberName" required>
+        <option class="select-option-billNumber">Select an bill number</option>
+      </select>
       <label for="date">Date:</label>
       <input type="date" id="updateDate" name="date" value="<?php echo date('Y-m-d'); ?>" required>
       <label for="amount">Income Source:</label>
@@ -243,7 +270,7 @@
       </select> -->
 
       <select class="select-expense" id="ExpenseName" name="expenseName" required>
-        <option value="">Select an Expense Type</option>
+        <option class="select-option-expense" value="">Select an Expense Type</option>
       </select>
 
       <button id="deleteExpenseType">Delete Expense Type</button>
@@ -251,6 +278,11 @@
 
       <label for="expenseAmount">Amount:</label>
       <input type="number" id="expenseAmount" name="expenseAmount" required>
+
+      <label for="basicExpenseForWhom">Expense For Whom:</label>
+      <select class="select-basicExpenseForWhom" id="basicExpenseForWhomName" name="basicExpenseForWhomName" required>
+        <option class="select-option-basicExpenseForWhom" value="huu">All employees</option>
+      </select>
 
       <label for="expenseDate">Date:</label>
       <input type="date" id="expenseDate" name="expenseDate" value="<?php echo date('Y-m-d'); ?>" required>
@@ -302,6 +334,11 @@
 
       <label for="expenseAmount">Amount:</label>
       <input type="number" id="updateExpenseAmount" name="expenseAmount" required>
+
+      <label for="basicExpenseForWhom">Expense For Whom:</label>
+      <select class="select-basicExpenseForWhom" id="updateBasicExpenseForWhomName" name="basicExpenseForWhomName" required>
+        <option class="select-option-basicExpenseForWhom">All employees</option>
+      </select>
 
       <label for="expenseDate">Date:</label>
       <input type="date" id="updateExpenseDate" name="expenseDate" value="<?php echo date('Y-m-d'); ?>" required>

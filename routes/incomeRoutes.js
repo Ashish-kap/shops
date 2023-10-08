@@ -13,6 +13,7 @@ router.get('/income/weeklyincome/:shopId',authController.protect,incomeControlle
 router.get('/income/monthlyincome/:shopId',authController.protect,incomeController.monthlyIncome)
 router.get('/income/yearlyincome/:shopId',authController.protect,incomeController.yearlyIncome)
 
+router.get('/get/all/billnumbers',authController.protect,incomeController.getAllBillNumbers)
 
 module.exports=router;
 

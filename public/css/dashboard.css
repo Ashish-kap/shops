@@ -336,6 +336,7 @@ div.shop-heading-container::after {
 
 
 /* Style for modal */
+
 .modal {
     display: none;
     position: fixed;
@@ -368,7 +369,6 @@ div.shop-heading-container::after {
     cursor: pointer;
 }
 
-/* Style for form inside the modal */
 form {
     display: flex;
     flex-direction: column;
@@ -396,7 +396,10 @@ button {
 }
 
 
-/* vendor modal */
+
+
+
+
 /* Vendor modal styling */
 .vendor-modal {
     display: none;
@@ -667,77 +670,113 @@ button {
             margin-left: 5px;
         }
 
-        
-        /* Style for modal */
+
+        /* create shop modal */
         .modal {
             display: none;
             position: fixed;
             z-index: 1;
-            /* left: 0;
-            top: 0; */
-            margin-left: -22rem;
-            width: 100rem;
-            height: 100%;
-            /* background-color: rgba(0, 0, 0, 0.4); */
+            left: 0;
+            top: 0;
+            background-color: rgba(0, 0, 0, 0.4);
         }
-
+    
         .modal-content {
             background-color: #fff;
             margin: 10% auto;
-            padding: 30px;
+            padding: 40px 100px;
             border: 1px solid #888;
-            width: 100rem;
+            width: 60rem;
             border-radius: 8px;
+            position: relative;
         }
 
+        .modal-content h2{
+            font-size: 60px;
+        }
+    
         .close {
             color: #aaa;
             font-size: 60px;
             font-weight: bold;
             position: absolute;
-            top: 10px;
-            right: 20px;
+            top: 30px;
+            right: 30px;
             cursor: pointer;
         }
-
-        /* Style for form inside the modal */
-
-        .modal-content h2{
-            font-size: 50px;
-        }
-
+    
         form {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-
+    
         label {
-            font-size: 30px;
-            font-weight: bold;
+            font-size: 40px;
+            font-weight: lighter;
         }
-
-        .modal-content input {
+    
+        input {
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #444444;
             border-radius: 4px;
-            font-size: 35px;
-            border: 1px solid #888;
+            font-size: 40px;
         }
-
-        .modal-content button {
+    
+        button {
             background-color: #007bff;
             color: #fff;
-            padding: 10px 20px;
+            border: none;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            padding: 20px 20px;
+            font-size: 35px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 30px;
+        }
+
+        /* Vendor modal styling */
+        .vendor-modal {
+            display: none;
+                position: fixed;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                background-color: rgba(0, 0, 0, 0.4);
+        }
+    
+        .vendor-modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 40px 100px;
+            border: 1px solid #888;
+            width: 30rem;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .vendor-modal-content>h2{
+            font-size: 60px;
+        }
+    
+        #vendorForm {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+    
+        #vendorForm input {
+            padding: 20px 0px;
+            border: 1px solid #444444;
+            border-radius: 4px;
+            font-size: 40px;
         }
 
 }
 
 
 @media (max-width: 768px) and (min-width: 481px) {
+
     .navbar {
             background-color: #fff;
             /* background-color: #272829; */
@@ -940,70 +979,4 @@ button {
             margin-left: 5px;
         }
     
-    
-        /* Style for modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            /* left: 0;
-                top: 0; */
-            margin-left: -22rem;
-            width: 100rem;
-            height: 100%;
-            /* background-color: rgba(0, 0, 0, 0.4); */
-        }
-    
-        .modal-content {
-            background-color: #fff;
-            margin: 10% auto;
-            padding: 30px;
-            border: 1px solid #888;
-            width: 100rem;
-            border-radius: 8px;
-        }
-    
-        .close {
-            color: #aaa;
-            font-size: 60px;
-            font-weight: bold;
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            cursor: pointer;
-        }
-    
-        /* Style for form inside the modal */
-    
-        .modal-content h2 {
-            font-size: 50px;
-        }
-    
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-    
-        label {
-            font-size: 30px;
-            font-weight: bold;
-        }
-    
-        .modal-content input {
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 35px;
-            border: 1px solid #888;
-        }
-    
-        .modal-content button {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 30px;
-        }
 }
