@@ -249,10 +249,6 @@ exports.demo = async (req, res) => {
 };
 
 
-
-
-
-
 exports.selectPeriod=async (req, res) => {
   try {
     

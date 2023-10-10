@@ -132,47 +132,121 @@ const deleteIncome = async (docId) => {
 
 
 // create basic expense
-const createBasicExpense = async (expenseName,expenseAmount,date,description,forWhichEmployee) => {
+// const createBasicExpense = async (expenseName,expenseAmount,date,description,forWhichEmployee) => {
+//   try {
+//     const res = await axios({
+//       method: 'POST',
+//       url: `${BaseUrl}/create-basic-expenses/${shopIdd}`,
+//       data:{
+//         expenseName,
+//         amount:expenseAmount,
+//         date,
+//         description,
+//         forWhichEmployee
+//       }
+//     });
+//     if (res.data.status === 'success') {
+//         swal({
+//             text:"Baisc Expense Added successfully!",
+//             icon: "success",
+//             button: "OK",
+//         }).then(() => {
+//             location.reload()
+//         });
+//     }
+//   } catch (err) {
+//     swal({
+//       text:err.response.data.message,
+//       icon: "warning",
+//       button: "OK",
+//     })
+//   }
+// };
+
+
+// document.querySelector('.basic-expense-form').addEventListener('submit',e=>{
+//     e.preventDefault();
+//     const expenseName = document.getElementById('expenseName').value;
+//     const expenseAmount = document.getElementById('expenseAmount').value;
+//     const description = document.getElementById('expenseDescription').value;
+//     const date = document.getElementById('expenseDate').value;
+//     const forWhichEmployee = document.getElementById('basicExpenseForWhomName').value;
+//     createBasicExpense(expenseName,expenseAmount,date,description,forWhichEmployee);
+// })
+
+
+
+async function createBasicExpense(amountsAndNames, date, description, forWhichEmployee) {
   try {
     const res = await axios({
       method: 'POST',
       url: `${BaseUrl}/create-basic-expenses/${shopIdd}`,
-      data:{
-        expenseName,
-        amount:expenseAmount,
+      data: {
+        amountsAndNames,
         date,
         description,
         forWhichEmployee
       }
     });
     if (res.data.status === 'success') {
-        swal({
-            text:"Baisc Expense Added successfully!",
-            icon: "success",
-            button: "OK",
-        }).then(() => {
-            location.reload()
-        });
+      swal({
+        text: "Basic Expense Added successfully!",
+        icon: "success",
+        button: "OK",
+      }).then(() => {
+        location.reload();
+      });
     }
   } catch (err) {
     swal({
-      text:err.response.data.message,
+      text: err.response.data.message,
       icon: "warning",
       button: "OK",
-    })
+    });
   }
-};
+}
 
 
-document.querySelector('.basic-expense-form').addEventListener('submit',e=>{
-    e.preventDefault();
-    const expenseName = document.getElementById('expenseName').value;
-    const expenseAmount = document.getElementById('expenseAmount').value;
-    const description = document.getElementById('expenseDescription').value;
-    const date = document.getElementById('expenseDate').value;
-    const forWhichEmployee = document.getElementById('basicExpenseForWhomName').value;
-    createBasicExpense(expenseName,expenseAmount,date,description,forWhichEmployee);
-})
+document.querySelector('.basic-expense-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const checkedExpenses = [];
+
+  console.log(checkedExpenses)
+
+  // Get all checkboxes and amount inputs
+  const checkboxes = document.querySelectorAll('.checkbox-expense');
+  const amountInputs = document.querySelectorAll('.expense-amount');
+
+  // Iterate through checkboxes and collect checked ones with their respective amounts
+  checkboxes.forEach((checkbox, index) => {
+    if (checkbox.checked) {
+      const expenseName = checkbox.value;
+      const amount = parseFloat(amountInputs[index].value); // Parse as float to ensure it's a number
+      if (!isNaN(amount)) {
+        checkedExpenses.push({ amount, expenseName });
+      }
+    }
+  });
+
+  const description = document.getElementById('expenseDescription').value;
+  const date = document.getElementById('expenseDate').value;
+  const forWhichEmployee = document.getElementById('basicExpenseForWhomName').value;
+
+  try {
+    // Pass the checkedExpenses array to the createBasicExpense function
+    await createBasicExpense(checkedExpenses, date, description, forWhichEmployee);
+
+    // Reset form fields or perform other actions as needed
+    document.querySelector('.basic-expense-form').reset();
+  } catch (err) {
+    swal({
+      text: err.response.data.message,
+      icon: "warning",
+      button: "OK",
+    });
+  }
+});
 
 
 //  Update basic expense

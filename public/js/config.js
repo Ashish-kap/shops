@@ -1,6 +1,6 @@
 const config = {
-BaseUrl: 'https://sugarcan-shop.onrender.com',
-  // BaseUrl: `http://localhost:3000`,
+// BaseUrl: 'https://sugarcan-shop.onrender.com',
+  BaseUrl: `http://localhost:3000`,
 
 };
 

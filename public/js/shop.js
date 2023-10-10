@@ -596,11 +596,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 // BASIC EXPENSE
-async function populateExpenseTypes() {
+// async function populateExpenseTypes() {
   
-  const selectElement = document.getElementById('updateExpenseName');
-  const selectElement2 = document.getElementById('ExpenseName');
+//   const selectElement = document.getElementById('updateExpenseName');
+//   const selectElement2 = document.getElementById('ExpenseName');
 
+//   try {
+//     const response = await fetch(`${BaseUrl}/get-expense-type`);
+//     if (!response.ok) {
+//       throw new Error('Failed to fetch expense types');
+//     }
+//     var expenseTypeData = await response.json();
+//     // Iterate through the expense types and create options for the select element
+//     expenseTypeData.expenseTypes.forEach((expenseType) => {
+//       const option = document.createElement('option');
+//       option.value = expenseType.name;
+//       option.textContent= expenseType.name;
+//       option.className='select-option-expense';
+//       option.id='expenseName';
+//       selectElement.appendChild(option);
+//       selectElement2.appendChild(option)
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     // Handle errors here, e.g., display an error message
+//   }
+// }
+
+
+async function populateExpenseTypes() {
+  const expenseTypesContainer = document.getElementById('expenseTypesContainer');
   try {
     const response = await fetch(`${BaseUrl}/get-expense-type`);
     if (!response.ok) {
@@ -609,19 +634,37 @@ async function populateExpenseTypes() {
     var expenseTypeData = await response.json();
     // Iterate through the expense types and create options for the select element
     expenseTypeData.expenseTypes.forEach((expenseType) => {
-      const option = document.createElement('option');
-      option.value = expenseType.name;
-      option.textContent= expenseType.name;
-      option.className='select-option-expense';
-      option.id='expenseName';
-      selectElement.appendChild(option);
-      selectElement2.appendChild(option)
+      const expenseTypeDiv = document.createElement('div');
+      expenseTypeDiv.className = 'expense-type-section';
+      
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.className = 'checkbox-expense';
+      checkbox.id=`expenseName_${expenseType.name}`;
+      checkbox.value=expenseType.name;
+      expenseTypeDiv.appendChild(checkbox);
+
+      const label = document.createElement('label');
+      label.htmlFor = `expenseTypeCheckbox_${expenseType.name}`;
+      label.textContent = expenseType.name;
+      expenseTypeDiv.appendChild(label);
+
+      const amountInput = document.createElement('input');
+      amountInput.type = 'number';
+      amountInput.className = 'expense-amount';
+      amountInput.name = `expenseAmount_check`;
+      amountInput.id = `expenseAmount_${expenseType.name}`;
+      // amountInput.required = true; 
+      expenseTypeDiv.appendChild(amountInput);
+
+      expenseTypesContainer.appendChild(expenseTypeDiv);
+
     });
   } catch (error) {
     console.error(error);
-    // Handle errors here, e.g., display an error message
   }
 }
+
 
 
 async function populateExpenseTypesTwo() {
@@ -697,11 +740,11 @@ selectElement.addEventListener('change', () => {
   console.log(expenseTypeId)
 });
 
-const selectElement2 = document.getElementById('ExpenseName');
-selectElement2.addEventListener('change', () => {
-  expenseTypeId = selectElement2.value;
-  console.log(expenseTypeId)
-});
+// const selectElement2 = document.getElementById('ExpenseName');
+// selectElement2.addEventListener('change', () => {
+//   expenseTypeId = selectElement2.value;
+//   console.log(expenseTypeId)
+// });
 
 
 const addExpenseType = async(name)=>{

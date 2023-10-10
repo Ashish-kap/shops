@@ -50,3 +50,4 @@ const basicExpenseSchema = new mongoose.Schema({
 
 const BasicExpense = mongoose.model('BasicExpense', basicExpenseSchema);
 module.exports = BasicExpense;
+

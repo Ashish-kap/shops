@@ -126,9 +126,6 @@
         <input type="date" id="ExpenseEndDate" name="endDate" value="<?php echo date('Y-m-d'); ?>">
         <button id="ExpenseApplyDateRange" class="applyDateRange">Download PDF</button>
       </div>
-  
-      <!-- Download PDF Button -->
-      <!-- <button id="downloadPDF">Download PDF</button> -->
     </div>
   </div>
 
@@ -249,26 +246,14 @@
 </div>
 
 
-
-<!--  BAsic Expense Modal -->
-
+ <!-- BAsic Expense Modal
 <div id="basicExpenseModal" class="basic-expense-modal">
   <div class="basic-expense-modal-content">
     <span class="close" id="closeBasicExpenseModalButton">&times;</span>
     <h2>Add Basic Expense</h2>
     <form class="basic-expense-form" id="basicExpenseForm">
-      <label for="expenseName">Expense Name:</label>
-      <!-- <select class="select-expense" id="expenseName" name="expenseName" required>
-        <option class="option-expense" value="Tea(CHAI)">Tea(CHAI) </option>
-        <option class="option-expense" value="Breakfast(Nasta)">Breakfast(Nasta)</option>
-        <option class="option-expense" value="ICE(BARF)">ICE(BARF)</option>
-        <option class="option-expense" value="Garland(Phoolon Ka Haar)">Garland(Phoolon Ka Haar)</option>
-        <option class="option-expense" value="Vegetables(Bhaji)">Vegetables(Bhaji)</option>
-        <option class="option-expense" value="Police">Police</option>
-        <option class="option-expense" value="Medicine(DAVA)">Medicine(DAVA)</option>
-        <option class="option-expense" value="Other">Other</option>
-      </select> -->
 
+      <label for="expenseName">Expense Name:</label>
       <select class="select-expense" id="ExpenseName" name="expenseName" required>
         <option class="select-option-expense" value="">Select an Expense Type</option>
       </select>
@@ -294,7 +279,37 @@
 
     </form>
   </div>
+</div> -->
+
+<div id="basicExpenseModal" class="basic-expense-modal">
+  <div class="basic-expense-modal-content">
+    <span class="close" id="closeBasicExpenseModalButton">&times;</span>
+    <h2>Add Basic Expense</h2>
+    <form class="basic-expense-form" id="basicExpenseForm">
+
+      <!-- Expense Types Container -->
+      <label for="expenseTypesContainer">Expense Type:</label>
+      <div id="expenseTypesContainer" class="expense-types-container"></div>
+
+      <button id="deleteExpenseType">Delete Expense Type</button>
+      <button id="ExpenseOpenModalButton">Add Expense Type</button>
+
+      <label for="basicExpenseForWhom">Expense For Whom:</label>
+      <select class="select-basicExpenseForWhom" id="basicExpenseForWhomName" name="basicExpenseForWhomName" required>
+        <option class="select-option-basicExpenseForWhom">All employees</option>
+      </select>
+
+      <label for="expenseDate">Date:</label>
+      <input type="date" id="expenseDate" name="expenseDate" value="<?php echo date('Y-m-d'); ?>" required>
+
+      <label for="expenseDescription">Description:</label>
+      <textarea id="expenseDescription" name="expenseDescription" rows="4"></textarea>
+
+      <button type="submit" class="submit-button">Submit</button>
+    </form>
+  </div>
 </div>
+
 
 <!-- Expense Type Modal -->
 <div id="expenseTypeModal" class="expenseTypeModal">
@@ -383,16 +398,16 @@
     
     // Get the expense type input value
     const expenseTypeInput = document.getElementById('expenseType');
-    const expenseType = expenseTypeInput.value;
+    // const expenseType = expenseTypeInput.value;
     
     // Do something with the expense type (e.g., send it to the server)
-    console.log(`Expense Type submitted: ${expenseType}`);
+    // console.log(`Expense Type submitted: ${expenseType}`);
     
     // Close the modal
     expenseTypeModal.style.display = 'none';
     
     // Clear the input field
-    expenseTypeInput.value = '';
+    // expenseTypeInput.value = '';
     });
 
   </script>
