@@ -1,6 +1,8 @@
 // JS file
 // const BaseUrl = `https://sugarcan-shop.onrender.com`
 
+const BaseUrl = window.config.BaseUrl;
+
 const dropdown = document.getElementById("timeRange");
 const totalDailyProfit = document.getElementById("totalDailyProfit");
 const totalDailyIncome = document.getElementById("totalDailyIncome");
