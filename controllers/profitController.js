@@ -305,7 +305,7 @@ exports.downloadExcel = async (req, res) => {
     const startt = req.query.start;
     const endd = req.query.end;
 
-    const response = await fetch(`http://localhost:3000/demo/${shopId}/${user._id}?start=${startt}&end=${endd}`);
+    const response = await fetch(`https://sugarcan-shop.onrender.com/demo/${shopId}/${user._id}?start=${startt}&end=${endd}`);
     const responseData = await response.json();
 
     const data = [
