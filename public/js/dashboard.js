@@ -233,8 +233,6 @@ const deleteShop = async (shopId) => {
 
 // register vendor
 
-
-
 //  ----------- register employee modal --------
 document.addEventListener('DOMContentLoaded', function() {
   const registerVendorButton = document.getElementById("registerVendorButton");
@@ -302,3 +300,69 @@ document.querySelector('.registerVendorForm').addEventListener('submit',e=>{
 })
 
 
+
+  // ----------- register employee modal --------
+document.addEventListener('DOMContentLoaded', function() {
+  const registerEmployeeButton = document.getElementById("registerEmployeeButton");
+  const employeeModal = document.getElementById("employeeModal");
+  const closeModal = document.getElementById("employeeCloseModal");
+
+  //  View vendor and employee button
+  const viewEmployeeButton = document.getElementById("viewEmployeeButton");
+
+  registerEmployeeButton.addEventListener("click", function() {
+    employeeModal.style.display = "flex";
+  });
+
+
+  closeModal.addEventListener("click", function() {
+    employeeModal.style.display = "none";
+  });
+
+  viewEmployeeButton.addEventListener('click', () => {
+      window.location.href = `/all-employees`;
+   });
+
+});
+
+
+// register employeee
+const registerEmployee = async (employeeName,employeeAddress,phoneNumber,employeeSalary) => {
+  try {
+    const res = await axios({
+      method: 'POST',
+      url: `${BaseUrl}/register-employee`,
+      data:{
+        name:employeeName,
+        address:employeeAddress,
+        phoneNumber,
+        salary:employeeSalary
+      }
+    });
+    if (res.data.status === 'success') {
+        swal({
+            text:"Employee registered successfully!",
+            icon: "success",
+            button: "OK",
+        }).then(() => {
+            location.reload()
+        });
+    }
+  } catch (err) {
+    swal({
+      text:err.response.data.message,
+      icon: "warning",
+      button: "OK",
+    })
+  }
+};
+
+
+document.querySelector('.registerEmployeeForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const employeeName = document.getElementById('employeeName').value;
+    const employeeAddress = document.getElementById('employeeAddress').value;
+    const phoneNumber = document.getElementById('employeePhoneNumber').value;
+    const employeeSalary = document.getElementById('employeeSalary').value;
+    registerEmployee(employeeName,employeeAddress,phoneNumber,employeeSalary);
+})

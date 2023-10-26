@@ -13,13 +13,13 @@ const employeeId = employeeIdMatch[1];
 
 //Fetch Employer expense table
 async function fetchEmployeeExpenses() {
-            const response = await fetch(`${BaseUrl}/shop/${shopId}/get-all-employee-expenses/${employeeId}`);
+            const response = await fetch(`${BaseUrl}/shop/get-all-employee-expenses/${employeeId}`);
             const data = await response.json();
             return data.allExpenses;
         }
 
 async function fetchEmployeeDetails() {
-    const response = await fetch(`${BaseUrl}/shop/${shopId}/get-all-employee-expenses/${employeeId}`);
+    const response = await fetch(`${BaseUrl}/shop/get-all-employee-expenses/${employeeId}`);
     const data = await response.json();
     return data.employee;
 }

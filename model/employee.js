@@ -40,10 +40,6 @@ const employeeSalarySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  shopId:{
-    type: String,
-    required: true,
-  },
   employeeId:{
     type: String,
     required: true,

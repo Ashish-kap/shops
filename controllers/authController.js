@@ -164,11 +164,10 @@ exports.login = async(req,res,next)=>{
             return res.status(401).json({
                 status: 'failed',
                 message: 'Incorrect email or password'
-              });
+            });
         }
         //send data
         createSendToken(user,200,res)
-
     }catch(err){
         res.status(401).json({
             status:"failed",

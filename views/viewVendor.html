@@ -23,7 +23,25 @@
     </div>
     <div class="container">
         <div class="vendor-expense-table">
-            <h1>Vendor Expense</h1>
+            <!-- <h1>Vendor Expense</h1> -->
+            <div class="filterVendorExpensetable">
+                <h1>Vendor Expense</h1>
+                <select class="filterBillNumber" id="billNumberName" name="billNumberName" required>
+                    <option class="filter-option-billNumber" value="" disabled selected>Select an bill number</option>
+                </select>
+                <select class="filter-paymentStatus" id="paymentStatusName" name="paymentStatusName" required>
+                    <option class="option-paymentStatus" value="" disabled selected>select an payment status</option>
+                    <option class="option-paymentStatus" value="Paid">Paid </option>
+                    <option class="option-paymentStatus" value="Unpaid">Unpaid</option>
+                    <option class="option-paymentStatus" value="Partially Paid">Partially Paid</option>
+                </select>
+                <label for="startDate">From:</label>
+                <input type="date" id="filterStartDateVendor" name="startDate" value="<?php echo date('Y-m-d'); ?>">
+                <label for="endDate">To:</label>
+                <input type="date" id="filterEndDateVendor" name="endDate" value="<?php echo date('Y-m-d'); ?>">
+                <button id="filterVendorSource" class="filterVendorSource">Filter</button>
+                <button id="clearVendorExpense" class="clearVendorExpense">clear</button>
+            </div>
             <div class="table-container">
                 <table>
                     <thead>

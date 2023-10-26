@@ -8,7 +8,7 @@ const incomeRoutes = require('./routes/incomeRoutes.js')
 const profitRoutes = require('./routes/profitRoutes.js')
 const viewRoutes = require('./routes/viewRoutes.js')
 
-
+const{ xlsx, IJsonSheet, ISettings }= require('json-as-xlsx')
 const cookieParser = require("cookie-parser");
 const rateLimit = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
@@ -55,6 +55,50 @@ app.use((req, res, next) => {
     console.log(req.headers)
     next();
 });
+
+
+
+// app.get("/get", (_, res) => {
+
+    
+// const data = [
+//   {
+//     sheet: "Adults",
+//     columns: [
+//       { label: "Name", value: "name" },
+//       { label: "Age", value: "age", format: '# "years"' },
+//     ],
+//     content: [
+//       { name: "Monserrat", age: 21, more: { phone: "11111111" } },
+//       { name: "Luis", age: 22, more: { phone: "12345678" } },
+//     ],
+//   },
+//   {
+//     sheet: "Pets",
+//     columns: [
+//       { label: "Name", value: "name" },
+//       { label: "Age", value: "age" },
+//     ],
+//     content: [
+//       { name: "Malteada", age: 4, more: { phone: "99999999" } },
+//       { name: "Picadillo", age: 1, more: { phone: "87654321" } },
+//     ],
+//   },
+// ];
+
+//     const settings = {
+//     writeOptions: {
+//         type: "buffer",
+//         bookType: "xlsx",
+//     },
+//     };
+//   const buffer = xlsx(data, settings);
+//   res.writeHead(200, {
+//     "Content-Type": "application/octet-stream",
+//     "Content-disposition": "attachment; filename=MySheet.xlsx",
+//   });
+//   res.end(buffer);
+// });
 
 app.use('/',shopRoutes);
 app.use('/',vendorRoutes);

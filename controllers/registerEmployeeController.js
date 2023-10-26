@@ -5,7 +5,7 @@ const Shop = require('../model/shop.js');
 
 exports.registerEmployee = async (req, res) => {
   try {
-    const shopId = req.params.shopId
+ 
     const user = req.userr
     const { name, salary, address, phoneNumber } = req.body;
     // Create a new employee record
@@ -14,7 +14,6 @@ exports.registerEmployee = async (req, res) => {
       salary,
       address,
       phoneNumber,
-      shopId,
       userId:user._id,
     });
     // Save the new employee record to the database
@@ -38,10 +37,9 @@ exports.registerEmployee = async (req, res) => {
 
 exports.getRegisterEmployee = async (req, res) => {
   try {
-    const shopId = req.params.shopId;
+   
     const user = req.userr;
-    console.log(user._id.toString(),shopId)
-    const employees = await registerEmployee.find({shopId:shopId,userId:user._id.toString()});
+    const employees = await registerEmployee.find({userId:user._id.toString()});
     res.json(employees);
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });

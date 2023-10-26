@@ -3,64 +3,14 @@ const EmployeeSalary = require('../model/employee.js');
 const Employee = require('../model/registerEmployee.js');
 const Shop = require('../model/shop.js'); 
 
-// exports.createEmployeeSalaries =  async (req, res) => {
-//   try {
-//     const shopId = req.params.shopId;
-//     const {
-//       employeeName,
-//       salaryAmount,
-//       date,
-//       paymentMethod,
-//       description
-//     } = req.body;
 
-//     // Create a new instance of the EmployeeSalary model with the request data
-//     const newEmployeeSalary = new EmployeeSalary({
-//       employeeName,
-//       salaryAmount,
-//       date,
-//       paymentMethod,
-//       description,
-//       shopId
-//     });
-
-    
-//     // Find the shop using the shopId
-//     const shop = await Shop.findById(shopId);
-
-//     if(!shop){
-//         return res.status(404).json({ error: 'shop not found' });
-//     }
-
-//     // Save the new employee salary to the database
-//     const savedEmployeeSalary = await newEmployeeSalary.save();
-
-//     // Add the new vendor expense to the Shop's VendorExpense array
-//     shop.EmployeeSalary.push(savedEmployeeSalary._id);
-
-//     // Save the updated Shop document with the associated vendor expense
-//     await shop.save();
-
-//     res.status(201).json({
-//       status:"success",
-//       savedEmployeeSalary
-//     });
-//   } catch (err) {
-//     res.status(400).json({ 
-//       error: err.message,
-//       message: err.message
-//      });
-//   }
-// };
-
-
- exports.createEmployeeSalaries =async (req, res) => {
+exports.createEmployeeSalaries =async (req, res) => {
   try {
-    const shopId = req.params.shopId;
+    // const shopId = req.params.shopId;
     const user = req.userr
-    if(!shopId){
-        return res.status(404).json({ error: 'shop not found' });
-    }
+    // if(!shopId){
+    //     return res.status(404).json({ error: 'shop not found' });
+    // }
     const employeeId=req.params.employeeId
 
     // Get the employee's current balance from the database
@@ -76,7 +26,7 @@ const Shop = require('../model/shop.js');
       description: req.body.description,
       paymentMethod: req.body.paymentMethod,
       whichMonthSalary:req.body.whichMonthSalary,
-      shopId,
+      // shopId,
       employeeId,
       userId:user._id,
     });
@@ -178,11 +128,11 @@ exports.deleteEmployeeExpense = async (req, res) => {
 
 exports.dailyEmployeeExpense= async (req, res) => {
   try {
-    const shopId = req.params.shopId;
+    // const shopId = req.params.shopId;
     const user = req.userr
-    if(!shopId){
-      return res.status(404).json({ error: 'shop not found' });
-    }
+    // if(!shopId){
+    //   return res.status(404).json({ error: 'shop not found' });
+    // }
     const queryDate = req.query.date ? new Date(req.query.date) : new Date();
 
     // Set the start and end time for the queryDate (midnight to midnight)
@@ -192,7 +142,7 @@ exports.dailyEmployeeExpense= async (req, res) => {
     endTime.setHours(23, 59, 59, 999);
 
     const expenses = await EmployeeSalary.find({
-      shopId: shopId,
+      // shopId: shopId,
       userId:user._id,
       date: { $gte: startTime, $lte: endTime },
     });
@@ -207,11 +157,11 @@ exports.dailyEmployeeExpense= async (req, res) => {
 
 exports.weeklyEmployeeExpense =  async (req, res) => {
   try {
-    const shopId = req.params.shopId;
+    // const shopId = req.params.shopId;
     const user = req.userr
-    if (!shopId) {
-      return res.status(404).json({ error: 'Shop not found' });
-    }
+    // if (!shopId) {
+    //   return res.status(404).json({ error: 'Shop not found' });
+    // }
     const queryDate = req.query.date ? new Date(req.query.date) : new Date();
 
     // Calculate the start and end dates for the week containing the queryDate
@@ -225,7 +175,7 @@ exports.weeklyEmployeeExpense =  async (req, res) => {
 
     // Fetch all expenses for the specific shop and within the specified week
     const expenses = await EmployeeSalary.find({
-      shopId: shopId,
+      // shopId: shopId,
       userId:user._id,
       date: { $gte: startOfWeek, $lte: endOfWeek },
     });
@@ -240,11 +190,11 @@ exports.weeklyEmployeeExpense =  async (req, res) => {
 
 exports.monthlyEmployeeExpense = async (req, res) => {
   try {
-    const shopId = req.params.shopId;
+    // const shopId = req.params.shopId;
     const user = req.userr
-    if (!shopId) {
-      return res.status(404).json({ error: 'Shop not found' });
-    }
+    // if (!shopId) {
+    //   return res.status(404).json({ error: 'Shop not found' });
+    // }
     const queryDate = req.query.date ? new Date(req.query.date) : new Date();
 
     // Calculate the start and end dates for the month containing the queryDate
@@ -259,7 +209,7 @@ exports.monthlyEmployeeExpense = async (req, res) => {
 
     // Fetch all expenses for the specific shop and within the specified month
     const expenses = await EmployeeSalary.find({
-      shopId: shopId,
+      // shopId: shopId,
       userId:user._id,
       date: { $gte: startOfMonth, $lte: endOfMonth },
     });
@@ -274,11 +224,11 @@ exports.monthlyEmployeeExpense = async (req, res) => {
 
 exports.yearlyEmployeeExpense = async (req, res) => {
   try {
-    const shopId = req.params.shopId;
+    // const shopId = req.params.shopId;
     const user = req.userr
-    if (!shopId) {
-      return res.status(404).json({ error: 'Shop not found' });
-    }
+    // if (!shopId) {
+    //   return res.status(404).json({ error: 'Shop not found' });
+    // }
     const queryDate = req.query.date ? new Date(req.query.date) : new Date();
 
     // Calculate the start and end dates for the year containing the queryDate
@@ -292,7 +242,7 @@ exports.yearlyEmployeeExpense = async (req, res) => {
 
     // Fetch all expenses for the specific shop and within the specified year
     const expenses = await EmployeeSalary.find({
-      shopId: shopId,
+      // shopId: shopId,
       userId:user._id,
       date: { $gte: startOfYear, $lt: endOfYear },
     });

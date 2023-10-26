@@ -34,16 +34,10 @@ exports.signup= (req,res)=>{
 
 exports.allEmployess= async (req,res)=>{
   try{
-    const shopId = req.params.shopId;
- 
-    if (!mongoose.Types.ObjectId.isValid(shopId)) {
-      // Invalid userId format
-      return res.status(400).send('Shop not found');
-    }
-
-    const shp = await Shop.findById(shopId);
+    const userId = req.userr._id
+    const shp = await Userr.findById(userId);
     if(!shp){
-      return res.status(404).send('Shop not found');
+      return res.status(404).send('user not found');
     }
     res.render('employees')
   }catch(err){
@@ -54,7 +48,6 @@ exports.allEmployess= async (req,res)=>{
 
 exports.allVendors= async (req,res)=>{
   try{
-    
     const userId = req.userr._id
     const shp = await Userr.findById(userId);
     if(!shp){
@@ -68,23 +61,16 @@ exports.allVendors= async (req,res)=>{
 
 exports.viewEmployee= async (req,res)=>{
   try{
-    const shopId = req.params.shopId;
     const employeeId = req.params.employeeId
  
-    if (!mongoose.Types.ObjectId.isValid(shopId)) {
-      // Invalid userId format
-      return res.status(400).send('Shop not found');
-    }
-
      if (!mongoose.Types.ObjectId.isValid(employeeId)) {
       // Invalid userId format
-      return res.status(400).send('Shop not found');
+      return res.status(400).send('employee not found');
     }
-
-    const shp = await Shop.findById(shopId);
+   
     const emp = await Employee.findById(employeeId);
-    if(!shp || !emp){
-      return res.status(404).send('Shop or Employee not found');
+    if(!emp){
+      return res.status(404).send('Employee not found');
     }
     res.render('viewEmployee')
   }catch(err){

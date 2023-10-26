@@ -100,7 +100,7 @@ th {
     gap: 10px;
 }
 
-button {
+/* button {
     padding: 6px 12px;
     border: none;
     border-radius: 4px;
@@ -112,7 +112,86 @@ button {
 
 button:hover {
     background-color: #0056b3;
+} */
+
+.edit-button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #3498DB;
+    color: #fff;
+    transition: background-color 0.3s;
 }
+
+.delete-button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #E74C3C;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+/* filter body of vendor expense table */
+  .filterVendorExpensetable {
+      background-color: #f2f2f2;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+  }
+
+  .filterVendorExpensetable h1 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+  }
+
+  .filterVendorExpensetable select,
+  .filterVendorExpensetable input[type="date"] {
+      padding: 10px;
+      margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      outline: none;
+  }
+
+  .filterVendorExpensetable select.filterBillNumber {
+      width: 20%;
+  }
+
+  .filterVendorExpensetable select.filter-paymentStatus,
+  .filterVendorExpensetable select.filterBillNumber {
+      width: 20%;
+  }
+
+  .filterVendorExpensetable label {
+      font-size: 18px;
+      color: #333;
+      margin-right: 0px;
+  }
+
+  .filterVendorExpensetable button {
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 5px;
+  }
+
+  .filterVendorExpensetable button.clearVendorExpense {
+      background-color: #e74c3c;
+  }
+
+  .filterVendorExpensetable button:hover {
+      background-color: #2582b0;
+  }
 
 
 /* Styles for the vendor expense modal */

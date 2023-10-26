@@ -12,7 +12,7 @@ var selectedEmployeeId;
 
 document.addEventListener("DOMContentLoaded", function() {
   // Fetch employee data from the API
-  const apiUrl = `${BaseUrl}/get-register-employee/${shopId}`;
+  const apiUrl = `${BaseUrl}/get-register-employee`;
   fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Add a click event listener to the button
     viewDetailsButton.addEventListener('click', () => {
         // Redirect to another site
-        window.location.href = `${BaseUrl}/shop/${shopId}/employee-details/${employee._id}`; // Replace with your desired URL
+        window.location.href = `${BaseUrl}/shop/employee-details/${employee._id}`; // Replace with your desired URL
     });
 
     // Add event listener to "Pay Salary" button on this employee card
@@ -112,7 +112,7 @@ const createEmployerExpensee = async (salaryAmount,date,description,paymentMetho
   try {
     const res = await axios({
       method: 'POST',
-      url: `${BaseUrl}/create-employee-salaries/${shopId}/employee/${employeeId}`,
+      url: `${BaseUrl}/create-employee-salaries/employee/${employeeId}`,
       data:{
         salaryAmount,
         date,

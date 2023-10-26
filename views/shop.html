@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/shop.css">
   <title>Shop</title>
 </head>
@@ -16,58 +19,62 @@
         <h1><span id="shopName"></span></h1>
         <p>Contact Information: <span id="contactInformation"></span></p>
         <p>Address: <span id="address"></span></p>
-        <div class="registration-buttons">
-          <a class="registration-button" id="registerEmployeeButton">Register Employee</a>
-          <a class="registration-button" id="viewEmployeeButton">View Employee</a>
-          <!-- <a class="registration-button" id="registerVendorButton">Register Vendor</a> -->
-        </div>
-        <!-- <div class="registration-buttons"> -->
-          <!-- <a class="registration-button" id="viewEmployeeButton">View Employee</a> -->
-          <!-- <a class="registration-button" id="viewVendorButton">View Vendor</a> -->
-        <!-- </div> -->
-          <select  class='select-timerange' id="timeRange">
-            <option value="daily">Daily</option>
-            <option value="weekly">Weekly</option>
-            <option value="monthly">Monthly</option>
-            <option value="yearly">Yearly</option>
-            <!-- <option value="alltime">All Time</option> -->
-          </select>
     </section>
 
-    <div class="select-period">
-      <label for="startDate">From:</label>
-      <input type="date" id="startDate" name="startDate" value="<?php echo date('Y-m-d'); ?>">
-      <label for="endDate">To:</label>
-      <input type="date" id="endDate" name="endDate" value="<?php echo date('Y-m-d'); ?>">
-      <button id="applyDateRange" class="applyDateRange">Apply</button>
+    <div class="timeperiod">
+      <select class='select-timerange' id="timeRange">
+        <option value="daily">Daily</option>
+        <option value="weekly">Weekly</option>
+        <option value="monthly">Monthly</option>
+        <option value="yearly">Yearly</option>
+      </select>
+      
+      <div class="select-period">
+        <label for="startDate">From:</label>
+        <input type="date" id="startDate" name="startDate" value="<?php echo date('Y-m-d'); ?>">
+        <label for="endDate">To:</label>
+        <input type="date" id="endDate" name="endDate" value="<?php echo date('Y-m-d'); ?>">
+        <button id="applyDateRange" class="applyDateRange">Apply</button>
+      </div>
     </div>
+    
 
 
     <section class="blocks">
-      <div class="block-profit profit">
+      <div class="block profit">
         <h2 id="totalDailyProfit">0</h2>
         <h3>Profit</h3>
-        <!-- Add content for profit block here -->
       </div>
-    </section>
-    <section class="blockss">
-        <div class="block-expense expense">
-          <h2 id="totalDailyExpense">0</h2>
-          <h3>Expense</h3>
-          <img src="/images/add.png"  id="openModalButton">
-          <!-- Add content for expense block here -->
-        </div>
-        <div class="block-income income">
-          <h2 id="totalDailyIncome">0</h2>
-          <h3>Income</h3>
-          <img src="/images/add.png" id="openIncomeModalButton">
-          <!-- Add content for income block here -->
-        </div>
+      <div class="block expense">
+        <h2 id="totalDailyExpense">0</h2>
+        <h3>Expense</h3>
+        <img src="/images/add.png" id="openModalButton">
+      </div>
+      <div class="block income">
+        <h2 id="totalDailyIncome">0</h2>
+        <h3>Income</h3>
+        <img src="/images/add.png" id="openIncomeModalButton">
+      </div>
     </section>
    
     <div class="container">
       <div class="basic-expense-table">
-        <h1>Basic Expense</h1>
+        <div class="filterBasicExpenseTable">
+          <h1>Basic Expense</h1>
+          <select class="filter-basicExpenseForWhom" id="filterbasicExpenseForWhomName" name="filterBasicExpenseForWhomName" required>
+            <option class="filter-option-basicExpenseForWhom" value="" disabled selected>Select an employee</option>
+            <option class="filter-option-basicExpenseForWhom" value="All employees">All employees</option>
+          </select>
+          <select class="filter-expenseType" id="filterExpenseTypeName" name="filterExpenseTypeName" required>
+            <option class="filter-option-expenseType" value="" disabled selected>Select an expenseType</option>
+          </select>
+          <label for="startDate">From:</label>
+          <input type="date" id="filterStartDate" name="startDate" value="<?php echo date('Y-m-d'); ?>">
+          <label for="endDate">To:</label>
+          <input type="date" id="filterEndDate" name="endDate" value="<?php echo date('Y-m-d'); ?>">
+          <button id="filterBasicExpense" class="filterBasicExpense">Filter</button>
+          <button id="clearBasicExpense" class="clearBasicExpense">clear</button>
+        </div>
         <div class="table-container">
           <table>
             <thead>
@@ -86,10 +93,31 @@
           </table>
         </div>
       </div>
+    </div>
 
-      <!-- Income -->
+
+    <!-- Income -->
+    <div class="container-two">
       <div class="basic-income-table">
-        <h1>Income</h1>
+        <div class="filterIncomeExpenseTable">
+          <h1>Income</h1>
+          <select class="filterBillNumber" id="billNumberName" name="billNumberName" required>
+            <option class="filter-option-billNumber" value="" disabled selected>Select an bill number</option>
+          </select>
+          <select class="filter-incomeSource" id="incomeSourceName" name="incomeSourceName" required>
+            <option class="option-incomeSource" value="" disabled selected>select an income source</option>
+            <option class="option-incomeSource" value="CASH">CASH </option>
+            <option class="option-incomeSource" value="Bank Transfer">Bank Transfer</option>
+            <option class="option-incomeSource" value="Google Pay/Paytm/Phone Pe">Google Pay/Paytm/Phone Pe</option>
+          </select>
+          <label for="startDate">From:</label>
+          <input type="date" id="filterStartDateIncome" name="startDate" value="<?php echo date('Y-m-d'); ?>">
+          <label for="endDate">To:</label>
+          <input type="date" id="filterEndDateIncome" name="endDate" value="<?php echo date('Y-m-d'); ?>">
+          <button id="filterIncomeSource" class="filterIncomeSource">Filter</button>
+          <button id="clearIncomeExpense" class="clearIncomeExpense">clear</button>
+        </div>
+        
         <div class="table-container">
           <table>
             <thead>
@@ -124,7 +152,7 @@
         <input type="date" id="expenseStartDate" name="startDate" value="<?php echo date('Y-m-d'); ?>">
         <label for="endDate">To:</label>
         <input type="date" id="ExpenseEndDate" name="endDate" value="<?php echo date('Y-m-d'); ?>">
-        <button id="ExpenseApplyDateRange" class="applyDateRange">Download PDF</button>
+        <button id="ExpenseApplyDateRange" class="applyDateRange">Download Excel</button>
       </div>
     </div>
   </div>
@@ -138,23 +166,18 @@
       <form id="employeeForm" class="registerEmployeeForm">
         <label for="employeeName">Employee Name</label>
         <input type="text" id="employeeName" required>
-  
         <label for="employeeAddress">Address</label>
         <input type="text" id="employeeAddress" required>
-  
         <label for="employeePhoneNumber">Phone Number</label>
         <input type="tel" id="employeePhoneNumber" required>
-  
         <label for="employeeSalary">Salary</label>
         <input type="number" id="employeeSalary" required>
-  
         <button type="submit">Submit</button>
       </form>
     </div>
   </div>
 
   <!--  register vendor -->
-
   <div class="vendor-modal" id="vendorModal">
     <div class="vendor-modal-content">
       <span class="close" id="closeModalVendor">&times;</span>
@@ -193,7 +216,7 @@
       <!-- <label for="amount">Amount:</label> -->
       <input type="number" id="amount" name="amount" placeholder="Amount" required>
       <!-- <label for="ProductSoldQuantity">Product Sold Quantity:</label> -->
-      <input type="text" id="ProductSoldQuantity" name="ProductSoldQuantity"  placeholder="Product Sold Quantity"required>
+      <input type="text" id="ProductSoldQuantity" name="ProductSoldQuantity"  placeholder="Product Sold Quantity">
       <label for="billNumber">Bill Number:</label>
       <!-- <input type="text" id="billNumber" name="billNumber" placeholder="Bill Number" required> -->
       <select class="select-billNumber" id="billNumberName" name="billNumberName" required>
@@ -224,7 +247,7 @@
       <!-- <label for="amount">Amount:</label> -->
       <input type="number" id="updateAmount" name="amount" placeholder="Amount" required>
       <!-- <label for="ProductSoldQuantity">Product Sold Quantity:</label> -->
-      <input type="text" id="updateProductSoldQuantity" name="ProductSoldQuantity" placeholder="Product Sold Quantity" required>
+      <input type="text" id="updateProductSoldQuantity" name="ProductSoldQuantity" placeholder="Product Sold Quantity">
       <label for="updateBillNumber">Bill Number:</label>
       <!-- <input type="text" id="updateBillNumber" name="updateBillNumber" placeholder="Bill Number" required> -->
       <select class="select-billNumber" id="updateBillNumberName" name="billNumberName" required>
@@ -286,7 +309,6 @@
     <span class="close" id="closeBasicExpenseModalButton">&times;</span>
     <h2>Add Basic Expense</h2>
     <form class="basic-expense-form" id="basicExpenseForm">
-
       <!-- Expense Types Container -->
       <label for="expenseTypesContainer">Expense Type:</label>
       <div id="expenseTypesContainer" class="expense-types-container"></div>

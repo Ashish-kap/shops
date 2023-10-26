@@ -77,134 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-// //  ----------- register employee modal --------
-document.addEventListener('DOMContentLoaded', function() {
-  const registerEmployeeButton = document.getElementById("registerEmployeeButton");
-  // const registerVendorButton = document.getElementById("registerVendorButton");
-  const employeeModal = document.getElementById("employeeModal");
-  // const vendorModal = document.getElementById("vendorModal");
-  const closeModal = document.getElementById("closeModal");
-  const closeModalVendor = document.getElementById("closeModalVendor");
-
-  //  View vendor and employee button
-  const viewEmployeeButton = document.getElementById("viewEmployeeButton");
-  // const viewVendorButton = document.getElementById("viewVendorButton");
-
-
-  registerEmployeeButton.addEventListener("click", function() {
-    employeeModal.style.display = "flex";
-  });
-
-  // registerVendorButton.addEventListener("click", function() {
-  //   vendorModal.style.display = "flex";
-  // });
-
-  closeModal.addEventListener("click", function() {
-    employeeModal.style.display = "none";
-  });
-
-  // closeModalVendor.addEventListener("click", function() {
-  //   vendorModal.style.display = "none";
-  // });
-
-  // window.addEventListener('click', function(event) {
-  //   if (event.target === employeeModal) {
-  //     employeeModal.style.display = 'none';
-  //   }
-  // });
-
-   viewEmployeeButton.addEventListener('click', () => {
-      window.location.href = `/all-employees/${shopId}`;
-   });
-
-  //  viewVendorButton.addEventListener('click', () => {
-  //       window.location.href =  `/all-vendors/${shopId}`;
-  //  });
-
-});
-
-
-// register employeee
-const registerEmployee = async (employeeName,employeeAddress,phoneNumber,employeeSalary) => {
-  try {
-    const res = await axios({
-      method: 'POST',
-      url: `${BaseUrl}/register-employee/${shopId}`,
-      data:{
-        name:employeeName,
-        address:employeeAddress,
-        phoneNumber,
-        salary:employeeSalary
-      }
-    });
-    if (res.data.status === 'success') {
-        swal({
-            text:"Employee registered successfully!",
-            icon: "success",
-            button: "OK",
-        }).then(() => {
-            location.reload()
-        });
-    }
-  } catch (err) {
-    swal({
-      text:err.response.data.message,
-      icon: "warning",
-      button: "OK",
-    })
-  }
-};
-
-
-document.querySelector('.registerEmployeeForm').addEventListener('submit',e=>{
-    e.preventDefault();
-    const employeeName = document.getElementById('employeeName').value;
-    const employeeAddress = document.getElementById('employeeAddress').value;
-    const phoneNumber = document.getElementById('employeePhoneNumber').value;
-    const employeeSalary = document.getElementById('employeeSalary').value;
-    registerEmployee(employeeName,employeeAddress,phoneNumber,employeeSalary);
-})
-
-
-// register vendor
-// const registerVendor = async (VendorName,VendorAddress,ContactInformation) => {
-//   try {
-//     const res = await axios({
-//       method: 'POST',
-//       url: `${BaseUrl}/register-vendors/${shopId}`,
-//       data:{
-//         vendorName:VendorName,
-//         address:VendorAddress,
-//         contactInformation:ContactInformation,
-//       }
-//     });
-//     if (res.data.status === 'success') {
-//         swal({
-//             text:"Vendor registered successfully!",
-//             icon: "success",
-//             button: "OK",
-//         }).then(() => {
-//             location.reload()
-//         });
-//     }
-//   } catch (err) {
-//     swal({
-//       text:err.response.data.message,
-//       icon: "warning",
-//       button: "OK",
-//     })
-//   }
-// };
-
-
-// document.querySelector('.registerVendorForm').addEventListener('submit',e=>{
-//     e.preventDefault();
-//     const VendorName = document.getElementById('vendorName').value;
-//     const VendorAddress = document.getElementById('vendorAddress').value;
-//     const ContactInformation = document.getElementById('vendorContactInformation').value;
-//     registerVendor(VendorName,VendorAddress,ContactInformation);
-// })
-
 
 //  -------- OPEN Expense Modal ----------
 // Get the modal and buttons
@@ -243,7 +115,7 @@ closeBasicExpenseModalButton.addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", async function () {
   const employeeNameSelect = document.getElementById("employeeName");
 
-  const response = await fetch(`${BaseUrl}/get-register-employee/${shopId}`);
+  const response = await fetch(`${BaseUrl}/get-register-employee`);
   const employees = await response.json();
 
   employees.forEach(function (employee) {
@@ -281,20 +153,40 @@ closeIncomeModalButton.addEventListener("click", () => {
   incomeModal.style.display = "none";
 });
 
+
+
+
 // show all basic expenses tabel
-async function fetchExpenses() {
-    const response = await fetch(`${BaseUrl}/get-all-basic-expenses/${shopId}`);
-    const data = await response.json();
-    return data.allExpenses;
-}
+// async function fetchExpenses() {
+//     const startDate = document.getElementById("filterStartDate");
+//     const endDate = document.getElementById("filterEndDate");
+//     const expenseType = document.getElementById("filterExpenseTypeName");
+//     const employeeName = document.getElementById("filterbasicExpenseForWhomName");
+
+//     const selectedExpenseType = expenseType.value;
+//     console.log(selectedExpenseType)
+//     // &forWhichEmployee=${employeeName.value}
+//     if (selectedExpenseType !== 'Select an expenseType') {
+//       const response = await fetch(`${BaseUrl}/get-all-basic-expenses/${shopId}?start=${startDate.value}&end=${endDate.value}&expenseName=${selectedExpenseType}`);
+//       const data = await response.json();
+//       console.log(data);
+//       return data.allExpenses;
+//     }
+// }
+// document.addEventListener('DOMContentLoaded', fetchExpenses);
+
 
 
 async function populateTable() {
-    const expenses = await fetchExpenses();
+    // const expenses = await fetchExpenses();
     const expenseTableBody = document.getElementById("expenseTableBody");
 
+    const response = await fetch(`${BaseUrl}/get-all-basic-expenses/${shopId}`);
+    const data = await response.json();
+    console.log("here is your data"+data)
+    const expenses = data.allExpenses;
+    
     expenses.forEach(expense => {
-
         const row = document.createElement("tr");
         const expenseNameCell = document.createElement("td");
         expenseNameCell.textContent = expense.expenseName;
@@ -322,11 +214,13 @@ async function populateTable() {
 
         const editButton = document.createElement("button");
         editButton.textContent = "Edit";
+        editButton.classList.add("edit-button");
         editButton.addEventListener("click", () => openEditModal(expense));
         actionButtons.appendChild(editButton);
 
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";
+        deleteButton.classList.add("delete-button");
         deleteButton.addEventListener("click", () => deleteBasicExpense(expense._id));
         actionButtons.appendChild(deleteButton);
 
@@ -336,6 +230,81 @@ async function populateTable() {
         expenseTableBody.appendChild(row);
     });
 }
+
+
+async function filterPopulateTable() {
+const filterButton = document.getElementById("filterBasicExpense");
+filterButton.addEventListener("click", async() => {
+    // const expenses = await fetchExpenses();
+    const startDate = document.getElementById("filterStartDate");
+    const endDate = document.getElementById("filterEndDate");
+    const expenseType = document.getElementById("filterExpenseTypeName");
+    const employeeName = document.getElementById("filterbasicExpenseForWhomName");
+    const expenseTableBody = document.getElementById("expenseTableBody");
+
+    // Clear existing rows in the table
+    expenseTableBody.innerHTML = '';
+
+    const selectedExpenseType = expenseType.value;
+    console.log(selectedExpenseType)
+    const response = await fetch(`${BaseUrl}/get-all-basic-expenses/${shopId}?start=${startDate.value}&end=${endDate.value}&forWhichEmployee=${employeeName.value}&expenseName=${selectedExpenseType}`);
+    const data = await response.json();
+    console.log("here is your data"+data)
+    const expenses = data.allExpenses;
+    
+      expenses.forEach(expense => {
+        const row = document.createElement("tr");
+        const expenseNameCell = document.createElement("td");
+        expenseNameCell.textContent = expense.expenseName;
+        row.appendChild(expenseNameCell);
+
+        const amountCell = document.createElement("td");
+        amountCell.textContent = expense.amount;
+        row.appendChild(amountCell);
+
+        const forWhichEmployeeCell = document.createElement("td");
+        forWhichEmployeeCell.textContent = expense.forWhichEmployee;
+        row.appendChild(forWhichEmployeeCell);
+
+        const descriptionCell = document.createElement("td");
+        descriptionCell.textContent = expense.description;
+        row.appendChild(descriptionCell);
+
+        const dateCell = document.createElement("td");
+        dateCell.textContent = new Date(expense.date).toLocaleDateString('en-GB');
+        row.appendChild(dateCell);
+
+        const actionCell = document.createElement("td");
+        const actionButtons = document.createElement("div");
+        actionButtons.classList.add("action-buttons");
+
+        const editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+        editButton.classList.add("edit-button");
+        editButton.addEventListener("click", () => openEditModal(expense));
+        actionButtons.appendChild(editButton);
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.classList.add("delete-button");
+        deleteButton.addEventListener("click", () => deleteBasicExpense(expense._id));
+        actionButtons.appendChild(deleteButton);
+
+        actionCell.appendChild(actionButtons);
+        row.appendChild(actionCell);
+
+        expenseTableBody.appendChild(row);
+    });
+});
+}
+
+const clearButton = document.getElementById("clearBasicExpense");
+clearButton.addEventListener("click", () => {
+window.location.reload();
+});
+
+document.addEventListener('DOMContentLoaded', populateTable);
+document.addEventListener('DOMContentLoaded', filterPopulateTable);
 
 
 let expenseData = null
@@ -367,18 +336,20 @@ populateTable();
 
 
 // fetch Income table
-async function fetchIncome() {
-            const response = await fetch(`${BaseUrl}/get-all-income/${shopId}`);
-            const data = await response.json();
-            return data.allIncome;
-        }
+// async function fetchIncome() {
+//         const response = await fetch(`${BaseUrl}/get-all-income/${shopId}`);
+//         const data = await response.json();
+//         return data.allIncome;
+// }
 
-        async function populateIncomeTable() {
-            const income = await fetchIncome();
-            const incomeTableBody = document.getElementById("incomeTableBody");
-
-            income.forEach(item => {
-                const row = document.createElement("tr");
+async function populateIncomeTable() {
+    // const income = await fetchIncome();
+    const incomeTableBody = document.getElementById("incomeTableBody");
+    const response = await fetch(`${BaseUrl}/get-all-income/${shopId}`);
+    const data = await response.json();
+    const income = data.allIncome;
+    income.forEach(item => {
+    const row = document.createElement("tr");
                 const amountCell = document.createElement("td");
                 amountCell.textContent = item.amount;
                 row.appendChild(amountCell);
@@ -410,11 +381,13 @@ async function fetchIncome() {
 
                 const editButton = document.createElement("button");
                 editButton.textContent = "Edit";
+                editButton.classList.add("edit-button");
                 editButton.addEventListener("click", () => openEditIncomeModal(item));
                 actionButtons.appendChild(editButton);
 
                 const deleteButton = document.createElement("button");
                 deleteButton.textContent = "Delete";
+                deleteButton.classList.add("delete-button");
                 deleteButton.addEventListener("click", () => deleteIncome(item._id));
                 actionButtons.appendChild(deleteButton);
 
@@ -422,9 +395,87 @@ async function fetchIncome() {
                 row.appendChild(actionCell);
 
                 incomeTableBody.appendChild(row);
-            });
+    });
 }
 
+
+async function filterPopulateIncomeTable() {
+const filterButtonIncome = document.getElementById("filterIncomeSource");
+filterButtonIncome.addEventListener("click", async() => {
+    // const expenses = await fetchExpenses();
+    const startDate = document.getElementById("filterStartDateIncome");
+    const endDate = document.getElementById("filterEndDateIncome");
+    const incomeSource = document.getElementById("incomeSourceName");
+    const billNumber = document.getElementById("billNumberName");
+    const incomeTableBody = document.getElementById("incomeTableBody");
+
+    // Clear existing rows in the table
+    incomeTableBody.innerHTML = '';
+
+    const response = await fetch(`${BaseUrl}/get-all-income/${shopId}?start=${startDate.value}&end=${endDate.value}&incomeSource=${incomeSource.value}&billNumber=${billNumber.value}`);
+    const data = await response.json();
+    const income = data.allIncome;
+
+    income.forEach(item => {
+    const row = document.createElement("tr");
+                const amountCell = document.createElement("td");
+                amountCell.textContent = item.amount;
+                row.appendChild(amountCell);
+
+                const ProductSoldQuantityCell = document.createElement("td");
+                ProductSoldQuantityCell.textContent = item.ProductSoldQuantity;
+                row.appendChild(ProductSoldQuantityCell);
+
+                const billNumberCell = document.createElement("td");
+                billNumberCell.textContent = item.billNumber;
+                row.appendChild(billNumberCell);
+
+                const incomeSourceCell = document.createElement("td");
+                incomeSourceCell.textContent = item.incomeSource;
+                row.appendChild(incomeSourceCell);
+
+                const descriptionCell = document.createElement("td");
+                descriptionCell.textContent = item.description;
+                row.appendChild(descriptionCell);
+
+
+                const dateCell = document.createElement("td");
+                dateCell.textContent = new Date(item.date).toLocaleDateString('en-GB');
+                row.appendChild(dateCell);
+
+                const actionCell = document.createElement("td");
+                const actionButtons = document.createElement("div");
+                actionButtons.classList.add("action-buttons");
+
+                const editButton = document.createElement("button");
+                editButton.textContent = "Edit";
+                editButton.classList.add("edit-button");
+                editButton.addEventListener("click", () => openEditIncomeModal(item));
+                actionButtons.appendChild(editButton);
+
+                const deleteButton = document.createElement("button");
+                deleteButton.textContent = "Delete";
+                deleteButton.classList.add("delete-button");
+                deleteButton.addEventListener("click", () => deleteIncome(item._id));
+                actionButtons.appendChild(deleteButton);
+
+                actionCell.appendChild(actionButtons);
+                row.appendChild(actionCell);
+
+                incomeTableBody.appendChild(row);
+    });
+    
+});
+}
+
+const clearButtonIncomeTable = document.getElementById("clearIncomeExpense");
+clearButtonIncomeTable.addEventListener("click", () => {
+window.location.reload();
+});
+
+
+document.addEventListener('DOMContentLoaded', populateIncomeTable);
+document.addEventListener('DOMContentLoaded', filterPopulateIncomeTable);
 
 let updateIncomeData=null;
 function openEditIncomeModal(income) {
@@ -516,10 +567,10 @@ document.addEventListener('DOMContentLoaded', populateBillNumberUpdate);
 async function populateEmployeesNameInBasicExpense() {
   const selectElement = document.getElementById('basicExpenseForWhomName');
   try {
-    const response = await fetch(`${BaseUrl}/get-register-employee/${shopId}`);
+    const response = await fetch(`${BaseUrl}/get-register-employee`);
 
     if (!response.ok) {
-      throw new Error('Failed to fetch bill number');
+      throw new Error('Failed to fetch Employees');
     }
     var EmployeeData = await response.json();
     // Iterate through the expense types and create options for the select element
@@ -528,12 +579,34 @@ async function populateEmployeesNameInBasicExpense() {
       option.value = Employee.name;
       option.textContent= Employee.name;
       option.className='select-option-basicExpenseForWhom';
-      // option.id='';
+      option.id='select-option-basicExpenseForWhom';
       selectElement.appendChild(option);
     });
   } catch (error) {
     console.error(error);
-    // Handle errors here, e.g., display an error message
+  }
+}
+
+async function filterEmployeesNameInBasicExpense() {
+  const selectElement1 = document.getElementById('filterbasicExpenseForWhomName');
+  try {
+    const response = await fetch(`${BaseUrl}/get-register-employee`);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch Employees');
+    }
+    var EmployeeData = await response.json();
+    // Iterate through the expense types and create options for the select element
+      EmployeeData.forEach((Employee) => {
+      const option = document.createElement('option');
+      option.value = Employee.name;
+      option.textContent= Employee.name;
+      option.className='filter-option-basicExpenseForWhom';
+      option.id='filter-option-basicExpenseForWhom';
+      selectElement1.appendChild(option);
+    });
+  } catch (error) {
+    console.error(error);
   }
 }
 
@@ -543,7 +616,7 @@ async function populateEmployeesNameInBasicExpense() {
 async function populateEmployeesNameInBasicExpenseUpdate() {
   const selectElement = document.getElementById('updateBasicExpenseForWhomName');
   try {
-    const response = await fetch(`${BaseUrl}/get-register-employee/${shopId}`);
+    const response = await fetch(`${BaseUrl}/get-register-employee`);
 
     if (!response.ok) {
       throw new Error('Failed to fetch bill number');
@@ -567,6 +640,7 @@ async function populateEmployeesNameInBasicExpenseUpdate() {
 
 document.addEventListener('DOMContentLoaded', populateEmployeesNameInBasicExpense);
 document.addEventListener('DOMContentLoaded', populateEmployeesNameInBasicExpenseUpdate);
+document.addEventListener('DOMContentLoaded', filterEmployeesNameInBasicExpense);
 
 
 
@@ -589,39 +663,34 @@ document.addEventListener('DOMContentLoaded', function() {
     const startDate = document.getElementById("expenseStartDate").value;
     const endDate = document.getElementById("ExpenseEndDate").value;
     event.preventDefault(); 
-    window.location.href=`${BaseUrl}/all-expenses-by-shop/${shopId}?start=${startDate}&end=${endDate}`
+    window.location.href=`${BaseUrl}/download/excel/${shopId}?start=${startDate}&end=${endDate}`
   });
 
 });
 
 
-// BASIC EXPENSE
-// async function populateExpenseTypes() {
-  
-//   const selectElement = document.getElementById('updateExpenseName');
-//   const selectElement2 = document.getElementById('ExpenseName');
 
-//   try {
-//     const response = await fetch(`${BaseUrl}/get-expense-type`);
-//     if (!response.ok) {
-//       throw new Error('Failed to fetch expense types');
-//     }
-//     var expenseTypeData = await response.json();
-//     // Iterate through the expense types and create options for the select element
-//     expenseTypeData.expenseTypes.forEach((expenseType) => {
-//       const option = document.createElement('option');
-//       option.value = expenseType.name;
-//       option.textContent= expenseType.name;
-//       option.className='select-option-expense';
-//       option.id='expenseName';
-//       selectElement.appendChild(option);
-//       selectElement2.appendChild(option)
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     // Handle errors here, e.g., display an error message
-//   }
-// }
+async function filterExpenseTypes() {
+  const selectElement = document.getElementById('filterExpenseTypeName');
+  try {
+    const response = await fetch(`${BaseUrl}/get-expense-type`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch expense types');
+    }
+    var expenseTypeData = await response.json();
+    // Iterate through the expense types and create options for the select element
+    expenseTypeData.expenseTypes.forEach((expenseType) => {
+      const option = document.createElement('option');
+      option.value = expenseType.name;
+      option.textContent= expenseType.name;
+      option.className='filter-option-expenseType';
+      option.id='filter-option-expenseType';
+      selectElement.appendChild(option);
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 
 async function populateExpenseTypes() {
@@ -693,7 +762,9 @@ async function populateExpenseTypesTwo() {
 
 // Call the function to populate expense types when the page loads
 document.addEventListener('DOMContentLoaded', populateExpenseTypes);
+document.addEventListener('DOMContentLoaded', filterExpenseTypes);
 document.addEventListener('DOMContentLoaded', populateExpenseTypesTwo);
+
 // Define a variable to store the selected expense type ID
 let expenseTypeId;
 

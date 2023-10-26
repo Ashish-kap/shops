@@ -2,59 +2,6 @@ const BasicExpense = require('../model/basicExpense.js');
 const Shop = require('../model/shop.js'); 
 const Item = require('../model/expenseType.js'); 
 
-//Endpoint to add a new basic expense
-// exports.createBasicExpense = async (req, res) => {
-//   try {
-//     const shopId = req.params.shopId;
-//     const user = req.userr
-//     const {
-//       expenseName,
-//       amount,
-//       date,
-//       description,
-//       forWhichEmployee,
-//     } = req.body;
-
-//     //Create a new instance of the BasicExpense model with the request data
-//     const newBasicExpense = new BasicExpense({
-//       expenseName,
-//       amount,
-//       date,
-//       description,
-//       shopId,
-//       forWhichEmployee,
-//       userId:user._id,
-//     });
-
-//     //Find the shop using the shopId
-//     const shop = await Shop.findById(shopId);
-
-//     if(!shop){
-//       return res.status(404).json({ error: 'shop not found' });
-//     }
-
-//     //Save the new basic expense to the database
-//     const savedBasicExpense = await newBasicExpense.save();
-
-//     //Add the new vendor expense to the Shop's VendorExpense array
-//     shop.BasicExpense.push(savedBasicExpense._id);
-
-//     //Save the updated Shop document with the associated vendor expense
-//     await shop.save();
-
-//     res.status(201).json({
-//       status:"success",
-//       savedBasicExpense
-//     });
-//   } catch (err) {
-//     res.status(400).json({ 
-//       error: err.message,
-//       message:err.message
-//      });
-//   }
-// };
-
-
 
 // Endpoint to add new basic expenses
 exports.createBasicExpense = async (req, res) => {
@@ -126,6 +73,7 @@ exports.getAllExpenseTypes = async (req, res) => {
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 
 exports.addExpenseType = async (req, res) => {
   try {

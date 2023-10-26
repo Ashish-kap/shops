@@ -5,16 +5,54 @@ const VendorExpense = require('../model/vendor.js');
 const EmployeeSalary = require('../model/employee.js');
 const Employee = require('../model/registerEmployee.js');
 const Vendor = require('../model/registerVendor.js');
-
+const { Readable } = require("stream");
 const PDFDocument = require('pdfkit');
-// const { PDFDocument, rgb } = require('pdf-lib');
-// const fs = require('fs');
+let xlsx = require("json-as-xlsx")
+//const { PDFDocument, rgb } = require('pdf-lib');
+//const fs = require('fs');
 
 exports.allBasicExpenses = async (req, res) => {
   try {
     const shopId = req.params.shopId
     const user = req.userr
-    const basicExpenses = await BasicExpense.find({ shopId,userId:user._id});
+
+    const startDate = req.query.start;
+    const endDate = req.query.end;
+
+    const expenseName = req.query.expenseName; 
+    const forWhichEmployee = req.query.forWhichEmployee;
+
+    let startTime, endTime;
+
+    // Check if startDate and endDate are provided
+    if (startDate && endDate) {
+      // Set the start and end time for the queryDate (midnight to midnight)
+      startTime = new Date(startDate);
+      startTime.setHours(0, 0, 0, 0);
+      endTime = new Date(endDate);
+      endTime.setHours(23, 59, 59, 999);
+    }
+
+    const query = {
+      shopId,
+      userId: user._id,
+    };
+
+    // Add date filters only if both startDate and endDate are provided
+    if (startTime && endTime) {
+      query.date = { $gte: startTime, $lte: endTime };
+    }
+
+    // Add expenseName and forWhichEmployee to the query
+    if (expenseName) {
+      query.expenseName = expenseName;
+    }
+
+    if (forWhichEmployee) {
+      query.forWhichEmployee = forWhichEmployee;
+    }
+
+    const basicExpenses = await BasicExpense.find(query);
 
     const allExpenses = [...basicExpenses];
 
@@ -27,12 +65,52 @@ exports.allBasicExpenses = async (req, res) => {
   }
 };
 
+
+
 exports.allVendorExpenses = async (req, res) => {
   try {
 
     const vendorId = req.params.vendorId
     const user = req.userr
-    const vendorExpenses = await VendorExpense.find({ vendorId,userId:user._id});
+
+
+    const startDate = req.query.start;
+    const endDate = req.query.end;
+
+    const billNumber = req.query.billNumber; 
+    const paymentStatus = req.query.paymentStatus;
+
+    let startTime, endTime;
+
+    // Check if startDate and endDate are provided
+    if (startDate && endDate) {
+      // Set the start and end time for the queryDate (midnight to midnight)
+      startTime = new Date(startDate);
+      startTime.setHours(0, 0, 0, 0);
+      endTime = new Date(endDate);
+      endTime.setHours(23, 59, 59, 999);
+    }
+
+    const query = {
+      vendorId,
+      userId: user._id,
+    };
+
+    // Add date filters only if both startDate and endDate are provided
+    if (startTime && endTime) {
+      query.date = { $gte: startTime, $lte: endTime };
+    }
+
+    // Add expenseName and forWhichEmployee to the query
+    if (billNumber) {
+      query.billNumber = billNumber;
+    }
+
+    if (paymentStatus) {
+      query.paymentStatus = paymentStatus;
+    }
+    
+    const vendorExpenses = await VendorExpense.find(query);
 
     const vendor= await Vendor.findById(vendorId)
 
@@ -50,10 +128,10 @@ exports.allVendorExpenses = async (req, res) => {
 
 exports.allEmployeeExpenses = async (req, res) => {
   try {
-    const shopId = req.params.shopId
+    // const shopId = req.params.shopId
     const employeeId = req.params.employeeId
     const user = req.userr
-    const employeeExpenses = await EmployeeSalary.find({shopId,employeeId,userId:user._id });
+    const employeeExpenses = await EmployeeSalary.find({employeeId,userId:user._id });
 
     const employee = await Employee.findById(employeeId)
 
@@ -73,7 +151,44 @@ exports.allIncome = async (req, res) => {
   try {
     const shopId = req.params.shopId
     const user = req.userr
-    const allIncomes = await Income.find({ shopId, userId:user._id });
+
+    const startDate = req.query.start;
+    const endDate = req.query.end;
+
+    const incomeSource = req.query.incomeSource; 
+    const billNumber = req.query.billNumber;
+
+    let startTime, endTime;
+
+    // Check if startDate and endDate are provided
+    if (startDate && endDate) {
+      // Set the start and end time for the queryDate (midnight to midnight)
+      startTime = new Date(startDate);
+      startTime.setHours(0, 0, 0, 0);
+      endTime = new Date(endDate);
+      endTime.setHours(23, 59, 59, 999);
+    }
+
+    const query = {
+      shopId,
+      userId: user._id,
+    };
+
+    // Add date filters only if both startDate and endDate are provided
+    if (startTime && endTime) {
+      query.date = { $gte: startTime, $lte: endTime };
+    }
+
+    // Add incomeSource and billNumber to the query
+    if (incomeSource) {
+      query.incomeSource = incomeSource;
+    }
+
+    if (billNumber) {
+      query.billNumber = billNumber;
+    }
+
+    const allIncomes = await Income.find(query);
 
     const allIncome = [...allIncomes];
 
@@ -182,6 +297,166 @@ exports.allExpenses = async (req, res) => {
 
 
 
+exports.downloadExcel = async (req, res) => {
+  try {
+
+    const shopId = req.params.shopId;
+    const user = req.userr;
+    const startt = req.query.start;
+    const endd = req.query.end;
+
+    const response = await fetch(`http://localhost:3000/demo/${shopId}/${user._id}?start=${startt}&end=${endd}`);
+    const responseData = await response.json();
+
+    const data = [
+      // employee
+        {
+        sheet: "All Employee",
+        columns: [
+          { label: "EMPLOYEE NAME", value: "name" },
+          { label: "SALARY", value: "salary" },
+          { label: "ADDRESS", value: "address" },
+          { label: "BALANCE", value: "balanced" },
+          { label: "PHONE NUMBER", value: "phoneNumber" },
+        ],
+        content: responseData.registerEmployee.map(employee => {
+            return {
+              name: employee.name,
+              salary: employee.salary,
+              address: employee.address,
+              balanced: employee.balanced,
+              phoneNumber: employee.phoneNumber,
+            };
+          }),
+        },
+      {
+        sheet: "Employee Expenses",
+        columns: [
+            { label: "EMPLOYEE NAME", value: "name" },
+            { label: "SALARY AMOUNT", value: "salaryAmount" },
+            { label: "DATE", value: "date" },
+            { label: "DESCRIPTION", value: "description" },
+            { label: "PAYMENT METHOD", value: "paymentMethod" },
+        ],
+        
+        content: responseData.registerEmployee.reduce((expenses, employee) => {
+          return expenses.concat(employee.expenses.map(expense => {
+            return {
+              name: employee.name,
+              salaryAmount: expense.salaryAmount,
+              date: expense.date,
+              description: expense.description,
+              paymentMethod: expense.paymentMethod,
+            };
+          }));
+        }, []),
+      },
+
+      // vendor
+
+      {
+        sheet: "All Vendors",
+        columns: [
+          { label: "VENDOR NAME", value: "vendorName" },
+          { label: "ADDRESS", value: "address" },
+          { label: "CONTACT INFORMATION", value: "contactInformation" },
+        ],
+        content: responseData.registerVendor,
+      },
+
+       {
+        sheet: "Vendor Expenses",
+        columns: [
+            { label: "VENDOR NAME", value: "vendorName" },
+            { label: "PRODUCT NAME", value: "productName" },
+            { label: "DESCRIPTION", value: "description" },
+            { label: "QUANTITY", value: "quantity" },
+            { label: "BILL NUMBER", value: "billNumber" },
+            { label: "DATE", value: "date" },
+            { label: "AMOUNT", value: "amount" },
+            { label: "PAYMENT DUE DATE", value: "paymentDueDate" },
+            { label: "PAYMENT STATUS", value: "paymentStatus" },
+        ],
+        content: responseData.registerVendor.reduce((expenses, vendor) => {
+          return expenses.concat(vendor.expenses.map(expense => {
+            return {
+              vendorName: vendor.vendorName,
+              productName: expense.productName,
+              description: expense.description,
+              quantity: expense.quantity,
+              billNumber: expense.billNumber,
+              date: expense.date,
+              amount: expense.amount,
+              paymentDueDate: new Date(expense.paymentDueDate).toISOString().split('T')[0],
+              paymentStatus: expense.paymentStatus,
+              };
+            }));
+          }, []),
+        },
+
+      {
+        sheet: "Basic Expenses",
+        columns: [
+            { label: "EXPENSE NAME", value: "expenseName" },
+            { label: "AMOUNT", value: "amount" },
+            { label: "DATE", value: "date" },
+            { label: "DESCRIPTION", value: "description" },
+        ],
+        content: responseData.basicExpenses,
+      },
+      {
+        sheet: "Income Data",
+        columns: [
+            { label: "AMOUNT", value: "amount" },
+            { label: "DATE", value: "date" },
+            { label: "BILL NUMBER", value: "billNumber" },
+            { label: "DESCRIPTION", value: "description" },
+            { label: "INCOME SOURCE", value: "incomeSource" },
+            { label: "PRODUCT SOLD QUANTITY", value: "ProductSoldQuantity" },
+        ],
+        content: responseData.incomeData,
+      },
+      {
+        sheet: "Shop Overview",
+        columns: [
+          { label: "SHOP NAME", value: "shopName" },
+          { label: "TOTAL INCOME BY SHOP", value: "totalIncomeByShop" },
+          { label: "TOTAL PROFIT BY SHOP", value: "totalProfitByShop" },
+          { label: "TOTAL EXPENSE BY SHOP", value: "totalExpenseByShop" },
+        ],
+        content: [responseData], // Shop-level data
+      },
+    ];
+
+
+    // Additional settings
+    const settings = {
+      writeOptions:{
+        type: "buffer",
+        bookType: "xlsx",
+      },
+    };
+
+
+    console.log('Data Array:', data);
+
+    const buffer = xlsx(data, settings);
+
+
+    // Set the appropriate headers for file download
+    res.setHeader('Content-Type', 'application/octet-stream');
+    res.setHeader('Content-Disposition', `attachment; filename="${responseData.shopName}_expenses_report_(${startt} to ${endd}).xlsx"`);
+
+    // Send the Excel file as a response
+    res.end(buffer);
+
+    } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
 
 exports.demo = async (req, res) => {
   try {
@@ -198,27 +473,43 @@ exports.demo = async (req, res) => {
     const endTime = new Date(endDate);
     endTime.setHours(23, 59, 59, 999);
 
-    const registerEmployee = await Employee.find({ userId:user,shopId});
+    const registerEmployee = await Employee.find({ userId:user});
     const registerVendor = await Vendor.find({userId:user});
-    const basicExpenses = await BasicExpense.find({userId:user,shopId,date:{$gte:startTime,$lte:endTime } });
-    const vendorExpenses = await VendorExpense.find({userId:user,date: { $gte: startTime, $lte: endTime } });
-    const employeeExpenses = await EmployeeSalary.find({  userId:user,shopId,date: { $gte: startTime, $lte: endTime } });
-    const incomeData = await Income.find({userId:user,shopId,date:{ $gte: startTime, $lte: endTime } });
+    const basicExpenses = await BasicExpense.find({userId:user,shopId,date:{$gte:startTime,$lte:endTime } }).lean();;
+    const vendorExpenses = await VendorExpense.find({userId:user,date: { $gte: startTime, $lte: endTime } }).lean();;
+    const employeeExpenses = await EmployeeSalary.find({userId:user,date: { $gte: startTime, $lte: endTime } }).lean();;
+    const incomeData = await Income.find({userId:user,shopId,date:{ $gte: startTime, $lte: endTime } }).lean();;
 
     const whichShop = await Shop.findOne({userId:user,_id:shopId});
     
     const shopName = whichShop.name
+
+    const formatDate = (dateString) => {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    };
  
     // Map employee expenses to each employee
     const employeesWithExpenses = registerEmployee.map(employee => {
       const expenses = employeeExpenses.filter(expense => expense.employeeId.toString() === employee._id.toString());
-      return { ...employee.toObject(), expenses };
+      const formattedExpenses = expenses.map(expense => ({
+        ...expense,
+        date: formatDate(expense.date),
+      }));
+      return { ...employee.toObject(), expenses: formattedExpenses };
     });
 
     // Map vendor expenses to each vendor
     const vendorsWithExpenses = registerVendor.map(vendor => {
       const expenses = vendorExpenses.filter(expense => expense.vendorId.toString() === vendor._id.toString());
-      return { ...vendor.toObject(), expenses };
+      const formattedExpenses = expenses.map(expense => ({
+        ...expense,
+        date: formatDate(expense.date)
+      }));
+      return { ...vendor.toObject(), expenses: formattedExpenses };
     });
 
 
@@ -231,12 +522,24 @@ exports.demo = async (req, res) => {
     const totalExpenseByShop = totalDailyVendorExpenseByShop+totalDailyEmployeeExpenseByShop+totalDailyBasicExpenseByShop
 
 
+
+    const formattedIncomeData = incomeData.map((income) => ({
+      ...income,
+      date: formatDate(income.date),
+    }));
+
+
+    const formattedBasicExpenses = basicExpenses.map((income) => ({
+      ...income,
+      date: formatDate(income.date),
+    }));
+
     res.status(200).json({
       shopName,
-      registerEmployee: employeesWithExpenses,
-      registerVendor: vendorsWithExpenses,
-      basicExpenses,
-      incomeData,
+      registerEmployee:employeesWithExpenses,
+      registerVendor:vendorsWithExpenses,
+      basicExpenses:formattedBasicExpenses,
+      incomeData:formattedIncomeData,
       totalIncomeByShop,
       totalProfitByShop,
       totalExpenseByShop
@@ -302,6 +605,7 @@ exports.selectPeriod=async (req, res) => {
   }
 };
 
+
 exports.selectPeriodForShop=async (req, res) => {
   try {
     
@@ -330,7 +634,6 @@ exports.selectPeriodForShop=async (req, res) => {
     });
 
     const employeeExpenses = await EmployeeSalary.find({
-      shopId: shopId,
       userId:user._id,
       date: { $gte: startTime, $lte: endTime },
     });
@@ -391,7 +694,6 @@ exports.dailyProfitByShop= async (req, res) => {
     });
 
     const employeeExpenses = await EmployeeSalary.find({
-      shopId: shopId,
       userId:user._id,
       date: { $gte: startTime, $lte: endTime },
     });
@@ -504,7 +806,7 @@ exports.weeklyProfitByShop= async (req, res) => {
     });
 
     const employeeExpenses = await EmployeeSalary.find({
-      shopId: shopId,
+      // shopId: shopId,
       userId:user._id,
       date: { $gte: startOfWeek, $lte: endOfWeek },
     });
@@ -625,7 +927,7 @@ exports.monthlyProfitByShop= async (req, res) => {
     });
 
     const employeeExpenses = await EmployeeSalary.find({
-      shopId: shopId,
+      // shopId: shopId,
       userId:user._id,
       date: { $gte: startOfMonth, $lte: endOfMonth },
     });
@@ -750,7 +1052,7 @@ exports.yearlyProfitByShop= async (req, res) => {
     });
 
     const employeeExpenses = await EmployeeSalary.find({
-      shopId: shopId,
+      // shopId: shopId,
       userId:user._id,
       date: { $gte: startOfYear, $lte: endOfYear },
     });

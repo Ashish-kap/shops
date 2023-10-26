@@ -33,7 +33,6 @@ const basicExpenseSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  
   forWhichEmployee:{
     type: String,
     maxlength: 500,
