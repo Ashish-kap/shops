@@ -1,10 +1,7 @@
+const createDbConnection = require('./db'); 
+const connection = createDbConnection();
 
-const VendorExpense = require('../model/vendor.js');
-const BillModal = require('../model/billModel.js');
-const Shop = require('../model/shop.js'); 
-
-// Endpoint to add a new vendor expense
-exports.createVenderExpense= async (req, res) => {
+exports.createVenderExpense = async (req, res) => {
   try {
     const user = req.userr;
     const vendorId = req.params.vendorId;
@@ -15,46 +12,68 @@ exports.createVenderExpense= async (req, res) => {
       billNumber,
       date,
       amount,
-      category,
       paymentDueDate,
       paymentStatus,
     } = req.body;
 
-    // Create a new instance of the VendorExpense model with the request data
-    const newVendorExpense = new VendorExpense({
-      productName,
-      description,
-      quantity,
-      date,
-      amount,
-      category,
-      paymentDueDate,
-      billNumber,
-      paymentStatus,
-      vendorId,
-      userId:user._id
-    });
+    // Insert a new vendor expense record
+    const createVendorExpenseQuery = `
+      INSERT INTO vendor_expense (productName, description, quantity, billNumber, date, amount, paymentDueDate, paymentStatus, userId, vendorId)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
 
+    connection.query(
+      createVendorExpenseQuery,
+      [productName, description, quantity, billNumber, date, amount, paymentDueDate, paymentStatus, user.id, vendorId],
+      (error, results) => {
+        if (error) {
+          console.log(error)
+          return res.status(500).json({
+            status: 'error',
+            message: 'Database vendor error. Please try again later.',
+          });
+        }
 
+        const savedVendorExpenseId = results.insertId;
 
-    const saveBillNumber = new BillModal({
-      BillNumber:billNumber,
-      userId:user._id
-    })
+        // Insert the bill number into the 'bill_modal' table
+        const createBillNumberQuery = `
+          INSERT INTO bill_modal (BillNumber, userId)
+          VALUES (?, ?)
+        `;
 
-    // Save the new vendor expense to the database
-    const savedVendorExpense = await newVendorExpense.save();
-    await saveBillNumber.save();
+        connection.query(createBillNumberQuery, [billNumber, user.id], (billError) => {
+          if (billError) {
+            return res.status(500).json({
+              status: 'error',
+              message: 'Database bill error. Please try again later.',
+            });
+          }
 
-    res.status(201).json({
-      status:"success",
-      savedVendorExpense
-    });
-
-  }catch(err) {
-    res.status(400).json({ 
-      error: err.message,
-      message: err.message
+          res.status(201).json({
+            status: 'success',
+            savedVendorExpense: {
+              id: savedVendorExpenseId,
+              productName,
+              description,
+              quantity,
+              billNumber,
+              date,
+              amount,
+              paymentDueDate,
+              paymentStatus,
+              userId: user.id,
+              vendorId,
+            },
+          });
+        });
+      }
+    );
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: error.message,
+      error: 'An error occurred while creating the vendor expense',
     });
   }
 };
@@ -67,61 +86,88 @@ exports.updateVenderExpense = async (req, res) => {
     const updates = req.body;
 
     // Find the vendor expense using the expenseId
-    const vendorExpense = await VendorExpense.findById(expenseId);
+    const findVendorExpenseQuery = 'SELECT * FROM vendor_expense WHERE id = ?';
+    connection.query(findVendorExpenseQuery, [expenseId], (error, results) => {
+      if (error) {
+        return res.status(500).json({
+          status: 'error',
+          message: 'Database error. Please try again later.',
+        });
+      }
 
-    // Check if the vendor expense exists
-    if (!vendorExpense) {
-      return res.status(404).json({ error: 'Vendor expense not found' });
-    }
+      if (results.length === 0) {
+        return res.status(404).json({ status: 'failed', message: 'Vendor expense not found' });
+      }
 
-    // Update the vendor expense with the provided updates
-    Object.assign(vendorExpense, updates);
+      const vendorExpense = results[0];
 
-    // Save the updated vendor expense
-    const updatedVendorExpense = await vendorExpense.save();
+      // Update the vendor expense with the provided updates
+      const updateVendorExpenseQuery = 'UPDATE vendor_expense SET ? WHERE id = ?';
+      connection.query(updateVendorExpenseQuery, [updates, expenseId], (updateError) => {
+        if (updateError) {
+          console.log(updateError)
+          return res.status(500).json({
+            status: 'error',
+            message: 'Database vendor error. Please try again later.',
+          });
+        }
 
-    res.status(200).json({
-      status:"success",
-      updatedVendorExpense
+        res.status(200).json({
+          status: 'success',
+          updatedVendorExpense: { ...vendorExpense, ...updates },
+        });
+      });
     });
-
-  } catch (err) {
+  } catch (error) {
+    console.error(error);
     res.status(400).json({ 
-      message:err.message,
-      error: err.message 
+      message: error.message,
+      error: error.message 
     });
   }
 };
 
 
 
-exports.deleteVendorExpense =  async (req, res) => {
+exports.deleteVendorExpense = async (req, res) => {
   try {
     const expenseId = req.params.expenseId;
 
     // Find the vendor expense using the expenseId
-    const vendorExpense = await VendorExpense.findById(expenseId);
+    const findVendorExpenseQuery = 'SELECT * FROM vendor_expense WHERE id = ?';
+    connection.query(findVendorExpenseQuery, [expenseId], (error, results) => {
+      if (error) {
+        return res.status(500).json({
+          status: 'error',
+          message: 'Database error. Please try again later.',
+        });
+      }
 
-    // Check if the vendor expense exists
-    if (!vendorExpense) {
-      return res.status(404).json({ error: 'Vendor expense not found' });
-    }
+      if (results.length === 0) {
+        return res.status(404).json({ status: 'failed', message: 'Vendor expense not found' });
+      }
 
-     // Delete the vendor expense from the database
-    await VendorExpense.deleteOne({ _id: expenseId });
+      // Delete the vendor expense from the database
+      const deleteVendorExpenseQuery = 'DELETE FROM vendor_expense WHERE id = ?';
+      connection.query(deleteVendorExpenseQuery, [expenseId], (deleteError) => {
+        if (deleteError) {
+          return res.status(500).json({
+            status: 'error',
+            message: 'Database error. Please try again later.',
+          });
+        }
 
-    // Remove the basic expense reference from the associated shop
-    await Shop.updateMany({}, { $pull: { VendorExpense: expenseId } });
-
-    res.status(200).json({
-      status:"success",
-       message: 'Vendor expense deleted successfully'
-   });
-  } catch (err) {
-    console.log(err)
-    res.status(500).json({ 
-      message:err.message,
-      error: 'An error occurred while deleting the vendor expense'
+        res.status(200).json({
+          status: 'success',
+          message: 'Vendor expense deleted successfully',
+        });
+      });
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: error.message,
+      error: 'An error occurred while deleting the vendor expense',
     });
   }
 };
@@ -131,13 +177,10 @@ exports.deleteVendorExpense =  async (req, res) => {
 
 exports.dailyBasicExpense= async (req, res) => {
   try {
-    
 
     const user = req.userr;
-
     const queryDate = req.query.date ? new Date(req.query.date) : new Date();
 
-    // Set the start and end time for the queryDate (midnight to midnight)
     const startTime = new Date(queryDate);
     startTime.setHours(0, 0, 0, 0);
     const endTime = new Date(queryDate);

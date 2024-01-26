@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     background-color: #EEEEEE;
     color: #333;
     margin: 0;
@@ -41,7 +41,138 @@ h1 {
     margin-top: 30px;
 }
 
+/* download report */
+.downloadReport {
+    font-size: 16px;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #3498db, #2980b9);
+    color: #fff;
+    cursor: pointer;
+    margin-left: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
 
+.downloadReport:hover {
+    background: linear-gradient(90deg, #2980b9, #3498db);
+}
+
+/* download report - modal */
+/* Modal styles */
+.customModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.customModal .modalContent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    width:100%;
+    height: 100%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.downloadReportColumn{
+    display:flex;
+    flex-direction: row;
+}
+
+.customSelectPeriod {
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    justify-content: center;
+}
+.customSelectPeriod1{
+    width:100%;
+    padding-left: 20px;
+    padding-right: 30px;
+}
+
+
+.customEmpAndShopName,.customVendorSelect,.customEmployeeSelect,.customExpenseTypeSelect{
+    display: flex;
+    flex-direction: column;
+    width:40%;
+    padding: 20px;
+}
+
+.customModal .closeModal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 35px;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.customModal .closeModal:hover {
+    color: #e74c3c;
+}
+
+/* Form styles */
+.customModal label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+.customModal input[type="date"],
+.customModal select {
+    width:100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #555;
+    background-color: #f8f8f8;
+}
+
+.divDonwloadPdf{
+   display: flex;
+   flex-direction: column;
+   padding:10px 300px;
+}
+
+.customModal .downloadPDF {
+    background-color: #27ae60;
+    color: #fff;
+    padding: 15px 50px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.customModal .downloadPDF:hover {
+    background-color: #219d54;
+}
+
+
+.select-period{
+    text-align: center;
+    border-left: 3px solid #000;
+    border-right: 3px solid #000;
+    border-radius: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
 
 .applyDateRange{
     margin-left: 5px;
@@ -54,7 +185,7 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 50px auto;
+    margin: 15px auto;
 }
 
 /* vendor register button */
@@ -69,21 +200,32 @@ h1 {
 
 .registration-button {
     flex-direction: row;
-    padding: 15px 50px;
-    margin: 10px;
+    padding: 10px 40px;
+    margin: 0px 10px;
     border: none;
-    border-radius: 30px;
+    border-radius: 10px;
     text-align: center;
     font-size: 15px;
     font-weight: bold;
-    color: #fff;
-    background-color: #444444;
+    color: #444;
+    background-color: #fff;
     text-decoration: none;
     transition: background-color 0.3s, transform 0.2s;
 }
 
+.registration-button a{
+    position: relative;
+    top: -1.5rem;
+}
+
+.registration-button img {
+    position: relative;
+    right:1rem
+}
+
+
 .registration-button:hover {
-    background-color: #2980b9;
+    background-color: #e5e5e5;
     transform: scale(1.05);
 }
 
@@ -118,73 +260,114 @@ h1 {
     color: #fff;
 }
 
-
-/* Drop Down */
-.select-timerange {
-     appearance: none;
-     -webkit-appearance: none;
-     -moz-appearance: none;
-     background: none;
-     border: none;
-     outline: none;
-     padding: 12px 30px;
-     font-size: 16px;
-     color: #fff;
-     font-weight: bold;
-     margin-top: 50px;
-     text-align: center;
-     border-radius: 8px;
-     background-color: #F3AA60;;
-     cursor: pointer;
-     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.timeperiod{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 6rem;
 }
 
- /* Custom styles for the select dropdown arrow */
- select::-ms-expand {
-     display: none;
- }
+/* Dropdown styles */
+.select-timerange {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 12px 60px;
+    font-size: 16px;
 
- select::after {
-     content: "\25BC";
-     position: absolute;
-     right: 12px;
-     top: 50%;
-     transform: translateY(-50%);
-     pointer-events: none;
- }
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    background-color: #F3AA60;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
- /* Style the options */
- option {
+    border-radius: 8px;
+    margin-right: 30px;
+}
+
+
+select::-ms-expand {
+    display: none;
+}
+
+select::after {
+    content: "\25BC";
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+
+option {
     background-color: #fff;
     color: #333;
     text-align: left;
-    /* padding: 8px; */
- }
+}
 
- /* Hover effect on options */
- option:hover {
+
+option:hover {
     background-color: #f9f9f9;
- }
+}
 
- /* Style the selected option */
- option:checked {
+
+option:checked {
     background-color: #007bff;
     color: #fff;
- }
+}
 
- /* Remove default focus outline on select element */
- select:focus {
-     outline: none;
- }
 
- /* Create a fancy border for the select */
- .custom-select {
-     position: relative;
-     display: inline-block;
-     border: 2px solid #007bff;
-     border-radius: 8px;
-     overflow: hidden;
- }
+select:focus {
+    outline: none;
+}
+
+
+.timeperiod.custom-select {
+    position: relative;
+    display: inline-block;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+
+.select-period {
+    text-align: center;
+
+    border-left: 3px solid #000;
+    border-right: 3px solid #000;
+    border-radius: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.select-period label {
+    margin: 0px 2px;
+    font-weight: bold;
+}
+
+.select-period input[type="date"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 3px 0;
+}
+
+.select-period button {
+    padding: 10px 20px;
+    margin-left: 5px;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
 
 
 .shop-row {
@@ -244,8 +427,8 @@ h1 {
 
 .card.expense {
     background-color: #F1416C;;
-    /* Light blue */
 }
+
 .shop-card button {
     background-color: #61677A;
     color: #fff;
@@ -293,6 +476,7 @@ div.shop-heading-container::after {
 }
 
 .add-shop {
+    width: 33px;
     margin-right: 8rem;
     float: right;
     cursor: pointer;
@@ -350,58 +534,124 @@ div.shop-heading-container::after {
 
 .modal-content {
     background-color: #fff;
-    margin: 10% auto;
     padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 400px;
-    border-radius: 8px;
+    height: 100%;
     position: relative;
+}
+
+.add-shop-heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .close {
     color: #aaa;
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
     position: absolute;
-    top: 10px;
     right: 20px;
     cursor: pointer;
 }
 
-form {
+.modal-content form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    align-items: center;
 }
 
-label {
+.modal-content label {
     font-size: 16px;
     font-weight: bold;
+    width: 50%;
 }
 
-input {
-    padding: 8px;
+.modal-content input {
+    padding: 10px 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    width: 50%;
 }
 
-button {
+.shopModalSubmitButton{
+    background-color: #007bff;
+        color: #fff;
+        border: none;
+        margin-top: 2rem;
+        padding: 15px 40px;
+        border-radius: 4px;
+        cursor: pointer;
+}
+
+/* button {
     background-color: #007bff;
     color: #fff;
     border: none;
-    padding: 10px 20px;
+    margin-top:2rem;
+    padding: 15px 40px;
     border-radius: 4px;
     cursor: pointer;
-}
-
-
-
-
+}  */
 
 
 /* Vendor modal styling */
 .vendor-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.vendor-modal-content {
+    background-color: #fff;
+    padding: 30px;
+    height: 100%;
+    position: relative; 
+
+}
+
+.registerVendorHeading{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.centered-form-container{
+    margin-left: 20rem;
+    width: 50%;
+}
+
+.registerVendorForm label{
+    width: 100%;
+}
+.registerVendorForm input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.vendorSubmitButton{
+    margin-left: 15rem;
+    background-color: #007bff;
+        color: #fff;
+        border: none;
+        margin-top: 2rem;
+        padding: 15px 40px;
+        border-radius: 4px;
+        cursor: pointer;
+}
+
+
+/* Styles for the Employee Modal */
+.employee-modal {
     display: none;
     position: fixed;
     top: 0;
@@ -414,30 +664,133 @@ button {
     z-index: 9999;
 }
 
-.vendor-modal-content {
+.employee-modal-content {
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
     padding: 30px;
-    width: 400px;
+    width: 100%;
+    height: 100%;
     position: relative;
 }
 
-#vendorForm {
-    display: grid;
-    gap: 15px;
-}
-
-#vendorForm input {
-    width: 100%;
+.shopNameIncomeModal{
+    width:84%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
 }
 
-/* mobile */
+.close {
+    position: absolute;
+    top:7%;
+    right: 3%;
+    font-size: 35px;
+    color: #999;
+    cursor: pointer;
+}
 
+.employee-modal-content h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+#employeeForm {
+    display: grid;
+    gap: 15px;
+}
+
+label {
+    margin-top: 1rem;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #555;
+}
+
+#employeeForm input {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.empAndShopName{
+    display: flex;
+}
+
+.empAndShopName1 {
+    display: flex;
+    flex-direction: column;
+    margin-left: 4rem;
+    width: 50%;
+}
+.empAndShopName2 {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.AddAndNumber{
+    display: flex;
+}
+.AddAndNumber1{
+    display: flex;
+    flex-direction: column;
+    margin-left: 4rem;
+    width: 50%;
+}
+
+.AddAndNumber2 {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.dateAndSalary{
+    display: flex;
+}
+.dateAndSalary1{
+    display: flex;
+    margin-left: 4rem;
+    flex-direction: column;
+    width: 50%;
+}
+
+.dateAndSalary2 {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.employeeModalButton{
+    display: flex;
+    margin: 0 auto;
+}
+
+.employee-modal button[type="submit"] {
+    /* justify-content: center; */
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    width: 100%;
+    margin-top: 3rem;
+    border-radius: 5px;
+    padding: 10px 80px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+
+/* mobile */
 @media (max-width: 480px) {
 
     .navbar {

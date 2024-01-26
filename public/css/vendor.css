@@ -1,3 +1,6 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+}
 .vendor-card {
     border: 1px solid #ccc;
     padding: 20px;
@@ -63,15 +66,13 @@
 }
 
 .vendorExpenseModal-modal-content {
-    background-color: #f0f0f0;
-    border-radius: 30px;
-    box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.6);
-    max-width: 400px;
-    margin: 0.3% auto;
+    background-color: #fff;
     padding: 10px 30px;
     position: relative;
     text-align: center;
+    height: 100%;
 }
+
 
 .close {
     color: #aaa;
@@ -94,20 +95,82 @@
     color: #333;
 }
 
+.productNameAndVendorQuantity{
+    display: flex;
+}
+.productNameAndVendorQuantity1{
+    width: 50%;
+}
+.productNameAndVendorQuantity2{
+    width: 50%;
+}
+
+.billnumberAndExpenseAmount{
+    display: flex;
+}
+
+.billnumberAndExpenseAmount1{
+    width: 50%;
+}
+
+.billnumberAndExpenseAmount2 {
+    width: 50%;
+    float: left;
+}
+
+
+
+.expenseDateAndPaymentStatus {
+    display: flex;
+}
+
+.expenseDateAndPaymentStatus1 {
+    width: 50%;
+}
+
+.expenseDateAndPaymentStatus2 {
+    width: 50%;
+    float: left;
+}
+
+
+.duedateAndDesc {
+    display: flex;
+}
+
+.duedateAndDesc1 {
+    width: 50%;
+}
+
+.duedateAndDesc2 {
+    float: left;
+    width: 50%;
+}
+
+
 .vendor-expense-form input[type="text"],
 .vendor-expense-form input[type="number"],
-.vendor-expense-form input[type="date"],
 .vendor-expense-form select,
 .vendor-expense-form textarea {
-    width: 90%;
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 5px;
+    width: 60%;
+    padding: 10px 15px;
+    /* display: flex; */
+    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
     transition: border-color 0.3s ease;
+}
+
+.vendor-expense-form input[type="date"]{
+        width: 60%;
+        padding: 10px 15px;
+        /* display: flex; */
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
 }
 
 
@@ -121,21 +184,20 @@
 
 
 .vendor-expense-form label {
-    display: block;
+    display: flex;
     font-size: 16px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    margin-left: 7rem;
     color: #555;
-    text-align: left;
 }
 
 .select-paymentStatus {
-    margin-top: -3px;
-    padding: 0px;
+    margin-left: -20px;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
-    width: 80%;
+    width: 100%;
     color: #555;
     transition: border-color 0.3s ease;
 }
@@ -164,7 +226,7 @@
     color: #fff;
     cursor: pointer;
     font-size: 16px;
-    padding: 10px 15px;
+    padding: 10px 50px;
     transition: background-color 0.3s ease;
 }
 

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Report</title>
+    <style>
+    body {
+      font-family: 'Helvetica', 'Arial', sans-serif;
+      margin: 20px;
+      color: #333;
+      background-color: #f7f7f7;
+    }
+
+    h1{
+      color: #2c3e50;
+      text-align: left;
+    }
+    h2 {
+      color: #2c3e50;
+      text-align: left;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      border-radius: 8px;
+      background-color: #fff;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 15px;
+      text-align: left;
+      font-size: 16px;
+    }
+
+    th {
+      background-color: #3498db;
+      color: #000;
+      font-size: 16px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    p {
+      margin-top: 20px;
+      text-align: left;
+      font-weight: bold;
+      font-size:18px;
+    }
+
+    /* .summary-container {
+      display: flex;
+    }
+
+    .summary-block {
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      width:30%
+    }
+
+    .total-income {
+      background-color: #27ae60; Green 
+    }
+
+    .total-profit {
+      background-color: #3498db; 
+    }
+
+    .total-expense {
+      background-color: #e74c3c; 
+    } */
+    </style>
+</head>
+
+<body>
+    <h1>Expense Report : <%= info.shopName || "" %></h1>  
+
+    <!-------------------------- employee  ----------------------->
+
+
+    <% if (info.registerEmployee && info.registerEmployee.length> 0) { %>
+        <h1>Employee Report</h1>
+        <h2>Employee Information</h2>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Join Date</th>
+                <th>Salary</th>
+                <th>Address</th>
+                <th>Balance</th>
+                <th>Phone Number</th>
+            </tr>
+            <% info.registerEmployee.forEach(employee=> { %>
+                <tr>
+                    <td>
+                        <%= employee.name %>
+                    </td>
+                    <td>
+                        <%= employee.joinDate %>
+                    </td>
+                    <td>
+                        <%= employee.salary %>
+                    </td>
+                    <td>
+                        <%= employee.address %>
+                    </td>
+                    <td>
+                        <%= employee.balanced %>
+                    </td>
+                    <td>
+                        <%= employee.phoneNumber %>
+                    </td>
+                </tr>
+                <% }); %>
+        </table>
+        <% } %>
+    
+            <% if (info.registerEmployee && info.registerEmployee.length> 0 && info.registerEmployee[0].expenses &&
+                info.registerEmployee[0].expenses.length > 0) { %>
+                <h2>Employee Expenses</h2>
+                <table>
+                    <tr>
+                        <th>Salary Amount</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Payment Method</th>
+                    </tr>
+                    <% info.registerEmployee.forEach(employee=> { %>
+                        <% employee.expenses.forEach(expense=> { %>
+                            <tr>
+                                <td>
+                                    <%= expense.salaryAmount %>
+                                </td>
+                                <td>
+                                    <%= expense.date %>
+                                </td>
+                                <td>
+                                    <%= expense.description %>
+                                </td>
+                                <td>
+                                    <%= expense.paymentMethod %>
+                                </td>
+                            </tr>
+                            <% }); %>
+                                <% }); %>
+                </table>
+                <% } %>
+
+    <!----------------------- vendor------------------------ -->
+
+    <% if (info.registerVendor && info.registerVendor.length> 0) { %>
+        <h1>Vendor Report</h1>
+        <h2>Vendor Information</h2>
+        <table>
+            <tr>
+                <th>Vendor Name</th>
+                <th>Address</th>
+                <th>Contact Information</th>
+            </tr>
+            <% info.registerVendor.forEach(vendor=> { %>
+                <tr>
+                    <td>
+                        <%= vendor.vendorName %>
+                    </td>
+                    <td>
+                        <%= vendor.address %>
+                    </td>
+                    <td>
+                        <%= vendor.contactInformation %>
+                    </td>
+                </tr>
+                <% }); %>
+        </table>
+        <% } %>
+    
+            <% if (info.registerVendor && info.registerVendor.length> 0 && info.registerVendor[0].expenses &&
+                info.registerVendor[0].expenses.length > 0) { %>
+                <h2>Vendor Expenses</h2>
+                <table>
+                    <tr>
+                        <th>Expense ID</th>
+                        <th>Product Name</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Bill Number</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Payment Due Date</th>
+                        <th>Payment Status</th>
+                    </tr>
+                    <% info.registerVendor.forEach(vendor=> { %>
+                        <% vendor.expenses.forEach(expense=> { %>
+                            <tr>
+                                <td>
+                                    <%= expense.id %>
+                                </td>
+                                <td>
+                                    <%= expense.productName %>
+                                </td>
+                                <td>
+                                    <%= expense.description %>
+                                </td>
+                                <td>
+                                    <%= expense.quantity %>
+                                </td>
+                                <td>
+                                    <%= expense.billNumber %>
+                                </td>
+                                <td>
+                                    <%= expense.date %>
+                                </td>
+                                <td>
+                                    <%= expense.amount %>
+                                </td>
+                                <td>
+                                    <%= expense.paymentDueDate %>
+                                </td>
+                                <td>
+                                    <%= expense.paymentStatus %>
+                                </td>
+                            </tr>
+                            <% }); %>
+                                <% }); %>
+                </table>
+                <% } %>
+
+    <!---------------------- basic expenses -------------------------->
+    <% if (info.basicExpenses && info.basicExpenses.length> 0) { %>
+        <h1>Basic Expenses Report</h1>
+        <table>
+            <tr>
+                <th>Expense Name</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>For Which Employee</th>
+            </tr>
+            <% info.basicExpenses.forEach(expense=> { %>
+                <tr>
+                    <td>
+                        <%= expense.expenseName %>
+                    </td>
+                    <td>
+                        <%= expense.amount %>
+                    </td>
+                    <td>
+                        <%= expense.date %>
+                    </td>
+                    <td>
+                        <%= expense.description %>
+                    </td>
+                    <td>
+                        <%= expense.forWhichEmployee %>
+                    </td>
+                </tr>
+                <% }); %>
+        </table>
+        <% } %>
+
+    <!----------------------- income data ---------------- -->
+    <% if (info.incomeData && info.incomeData.length> 0) { %>
+        <h1>Income Data Report</h1>
+        <table>
+            <tr>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Bill Number</th>
+                <th>Description</th>
+                <th>Income Source</th>
+                <th>Product Sold Quantity</th>
+            </tr>
+            <% info.incomeData.forEach(income=> { %>
+                <tr>
+                    <td>
+                        <%= income.amount %>
+                    </td>
+                    <td>
+                        <%= income.date %>
+                    </td>
+                    <td>
+                        <%= income.billNumber %>
+                    </td>
+                    <td>
+                        <%= income.description %>
+                    </td>
+                    <td>
+                        <%= income.incomeSource %>
+                    </td>
+                    <td>
+                        <%= income.ProductSoldQuantity %>
+                    </td>
+                </tr>
+                <% }); %>
+        </table>
+    <% } %>
+
+
+    <h1>Summary</h1>
+    <p style="color:green;">Total Income: <%= info.totalIncomeByShop %>
+    </p>
+    <p style="color:blue;">Total Profit: <%= info.totalProfitByShop %>
+    </p>
+    <p style="color:red;">Total Expense: <%= info.totalExpenseByShop %>
+    </p>
+    <!-- <div class="summary-container">
+        <div class="summary-block total-income">
+            <p>Total Income</p>
+            <p>
+                <%= info.totalIncomeByShop %>
+            </p>
+        </div>
+    
+        <div class="summary-block total-profit">
+            <p>Total Profit</p>
+            <p>
+                <%= info.totalProfitByShop %>
+            </p>
+        </div>
+    
+        <div class="summary-block total-expense">
+            <p>Total Expense</p>
+            <p>
+                <%= info.totalExpenseByShop %>
+            </p>
+        </div>
+    </div> -->
+
+</body>
+</html>

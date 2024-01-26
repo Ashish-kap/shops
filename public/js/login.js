@@ -20,7 +20,7 @@ const login = async (loginPhoneNumber,loginPassword) => {
           icon: "success",
           button: "OK",
       }).then(() => {
-          // const userId = res.data.data.user._id;
+          // const userId = res.data.data.user.id;
           window.setTimeout(() => {
             //location.assign('/home');
             window.location.href = `/dashboard`; 

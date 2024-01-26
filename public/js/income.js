@@ -47,9 +47,9 @@ document.querySelector('.incomeForm').addEventListener('submit',e=>{
     const amount = document.getElementById('amount').value;
     const date = document.getElementById('date').value;
     const description = document.getElementById('description').value;
-    const incomeSource = document.getElementById('incomeSourceName').value;
+    const incomeSource = document.getElementById('incomeSourceNameForModal').value;
     const ProductSoldQuantity = document.getElementById('ProductSoldQuantity').value;
-    const billNumber = document.getElementById('billNumberName').value;
+    const billNumber = document.getElementById('searchInputForIncomeModal').value;
     createIncome(amount,date,description,incomeSource,ProductSoldQuantity,billNumber);
 })
 
@@ -91,13 +91,13 @@ const updateIncome = async (amount,date,description,docId,incomeSource,ProductSo
 
 document.querySelector('.update-incomeForm').addEventListener('submit',e=>{
     e.preventDefault();
-    const docId = updateIncomeData._id
+    const docId = updateIncomeData.id
     const amount = document.getElementById('updateAmount').value;
     const date = document.getElementById('updateDate').value;
     const description = document.getElementById('updateDescription').value;
     const incomeSource = document.getElementById('updateIncomeSourceName').value;
     const ProductSoldQuantity = document.getElementById('updateProductSoldQuantity').value;
-    const billNumber = document.getElementById('updateBillNumberName').value;
+    const billNumber = document.getElementById('searchInputForIncomeModalUpdate').value;
     updateIncome(amount,date,description,docId,incomeSource,ProductSoldQuantity,billNumber);
 })
 
@@ -289,7 +289,7 @@ document.querySelector('.update-basic-expense-form').addEventListener('submit',e
     const description = document.getElementById('updateExpenseDescription').value;
     const date = document.getElementById('updateExpenseDate').value;
     const forWhichEmployee = document.getElementById('updateBasicExpenseForWhomName').value;
-    const docId = expenseData._id;
+    const docId = expenseData.id;
     updateBasicExpense(expenseName,expenseAmount,date,description,docId,forWhichEmployee);
 })
 
@@ -362,7 +362,7 @@ const deleteBasicExpense = async (docId) => {
 
 // document.querySelector('.update-employee-expense-form').addEventListener('submit',e=>{
 //     e.preventDefault();
-//     const docId = employeeExpenseData._id
+//     const docId = employeeExpenseData.id
 //     const employeeName = document.getElementById('updateEmployeeName').value;
 //     const salaryAmount = document.getElementById('updateSalaryAmount').value;
 //     const description = document.getElementById('updateEmployeeExpenseDescription').value;
@@ -492,7 +492,7 @@ const deleteBasicExpense = async (docId) => {
 
 // document.querySelector('.udpate-vendor-expense-form').addEventListener('submit',e=>{
 //     e.preventDefault();
-//     const docId = vendorExpenseData._id
+//     const docId = vendorExpenseData.id
 //     const productName = document.getElementById('updateProductName').value;
 //     const vendorName = document.getElementById('updateVendorName').value;
 //     const description = document.getElementById('updateVendorDescription').value;

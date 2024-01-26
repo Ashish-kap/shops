@@ -1,9 +1,3 @@
-const Shop = require('./../model/shop');
-const Employee = require('./../model/registerEmployee');
-const Vendor = require('./../model/registerVendor');
-const mongoose = require('mongoose')
-const Userr = require('./../model/user');
-
 // rendering --
 exports.loginScreen= (req,res)=>{
     res.status(200).json({
@@ -34,17 +28,11 @@ exports.signup= (req,res)=>{
 
 exports.allEmployess= async (req,res)=>{
   try{
-    const shopId = req.params.shopId;
- 
-    if (!mongoose.Types.ObjectId.isValid(shopId)) {
-      // Invalid userId format
-      return res.status(400).send('Shop not found');
-    }
-
-    const shp = await Shop.findById(shopId);
-    if(!shp){
-      return res.status(404).send('Shop not found');
-    }
+    // const userId = req.userr._id
+    // const shp = await Userr.findById(userId);
+    // if(!shp){
+    //   return res.status(404).send('user not found');
+    // }
     res.render('employees')
   }catch(err){
     console.log(err)
@@ -52,14 +40,15 @@ exports.allEmployess= async (req,res)=>{
 }
 
 
+
+
 exports.allVendors= async (req,res)=>{
   try{
-    
-    const userId = req.userr._id
-    const shp = await Userr.findById(userId);
-    if(!shp){
-      return res.status(404).send('user not found');
-    }
+    // const userId = req.userr._id
+    // const shp = await Userr.findById(userId);
+    // if(!shp){
+    //   return res.status(404).send('user not found');
+    // }
     res.render('vendor')
   }catch(err){
     console.log(err)
@@ -68,24 +57,17 @@ exports.allVendors= async (req,res)=>{
 
 exports.viewEmployee= async (req,res)=>{
   try{
-    const shopId = req.params.shopId;
-    const employeeId = req.params.employeeId
+    // const employeeId = req.params.employeeId
  
-    if (!mongoose.Types.ObjectId.isValid(shopId)) {
-      // Invalid userId format
-      return res.status(400).send('Shop not found');
-    }
-
-     if (!mongoose.Types.ObjectId.isValid(employeeId)) {
-      // Invalid userId format
-      return res.status(400).send('Shop not found');
-    }
-
-    const shp = await Shop.findById(shopId);
-    const emp = await Employee.findById(employeeId);
-    if(!shp || !emp){
-      return res.status(404).send('Shop or Employee not found');
-    }
+    //  if (!mongoose.Types.ObjectId.isValid(employeeId)) {
+    //   // Invalid userId format
+    //   return res.status(400).send('employee not found');
+    // }
+   
+    // const emp = await Employee.findById(employeeId);
+    // if(!emp){
+    //   return res.status(404).send('Employee not found');
+    // }
     res.render('viewEmployee')
   }catch(err){
     console.log(err)
@@ -95,17 +77,17 @@ exports.viewEmployee= async (req,res)=>{
 exports.viewVendors= async (req,res)=>{
   try{
 
-    const vendorId = req.params.vendorId
+    // const vendorId = req.params.vendorId
 
-     if (!mongoose.Types.ObjectId.isValid(vendorId)) {
-      // Invalid userId format
-      return res.status(400).send('vendor not found');
-    }
+    //  if (!mongoose.Types.ObjectId.isValid(vendorId)) {
+    //   // Invalid userId format
+    //   return res.status(400).send('vendor not found');
+    // }
 
-    const emp = await Vendor.findById(vendorId);
-    if(!emp){
-      return res.status(404).send('Shop or Vendor not found');
-    }
+    // const emp = await Vendor.findById(vendorId);
+    // if(!emp){
+    //   return res.status(404).send('Shop or Vendor not found');
+    // }
     res.render('viewVendor')
   }catch(err){
     console.log(err)
@@ -114,18 +96,18 @@ exports.viewVendors= async (req,res)=>{
 
 exports.shop= async(req,res)=>{
   try{
-    const shopId = req.params.shopId;
+    // const shopId = req.params.shopId;
  
-    if (!mongoose.Types.ObjectId.isValid(shopId)) {
-      // Invalid userId format
-      return res.status(400).send('Shop not found');
-    }
+    // if (!mongoose.Types.ObjectId.isValid(shopId)) {
+    //   // Invalid userId format
+    //   return res.status(400).send('Shop not found');
+    // }
 
-    const shp = await Shop.findById(shopId);
+    // const shp = await Shop.findById(shopId);
 
-    if(!shp){
-      return res.status(404).send('Shop not found');
-    }
+    // if(!shp){
+    //   return res.status(404).send('Shop not found');
+    // }
     res.render('shop')
   }catch(err){
     console.log(err)

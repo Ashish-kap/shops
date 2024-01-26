@@ -70,6 +70,33 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+async function populateShopNameForEmployeeModal() {
+  const selectElement = document.getElementById('shopNameIncomeModal');
+  try {
+    const response = await fetch(`${BaseUrl}/all-shops`);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch shops');
+    }
+    var shopData = await response.json();
+    
+      shopData.forEach((shop) => {
+      const option = document.createElement('option');
+      option.value = shop.name;
+      option.textContent= shop.name;
+      option.className='select-shopNameIncomeModal';
+      option.id='shopNameIncomeModal';
+      selectElement.appendChild(option);
+    });
+  } catch (error) {
+    console.error(error);
+    // Handle errors here, e.g., display an error message
+  }
+}
+
+document.addEventListener('DOMContentLoaded', populateShopNameForEmployeeModal);
+
+
 // Get the modal and the button that opens it
 const modal = document.getElementById("addShopModal");
 const btn = document.getElementById("addShopBtn");
@@ -184,13 +211,13 @@ async function populateShopCards() {
         viewButton.textContent = 'View';
         viewButton.style.marginLeft = '10px'; 
         viewButton.addEventListener('click', () => {
-            window.location.href = `/shop-overview/${shop._id}`;
+            window.location.href = `/shop-overview/${shop.id}`;
         });
 
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
         deleteButton.addEventListener('click', () => {
-            deleteShop(shop._id)
+            deleteShop(shop.id)
         });
 
         shopCard.appendChild(deleteButton);
@@ -232,8 +259,6 @@ const deleteShop = async (shopId) => {
 };
 
 // register vendor
-
-
 
 //  ----------- register employee modal --------
 document.addEventListener('DOMContentLoaded', function() {
@@ -302,3 +327,194 @@ document.querySelector('.registerVendorForm').addEventListener('submit',e=>{
 })
 
 
+
+  // ----------- register employee modal --------
+document.addEventListener('DOMContentLoaded', function() {
+  const registerEmployeeButton = document.getElementById("registerEmployeeButton");
+  const employeeModal = document.getElementById("employeeModal");
+  const closeModal = document.getElementById("employeeCloseModal");
+
+  //  View vendor and employee button
+  const viewEmployeeButton = document.getElementById("viewEmployeeButton");
+
+  registerEmployeeButton.addEventListener("click", function() {
+    employeeModal.style.display = "flex";
+  });
+
+
+  closeModal.addEventListener("click", function() {
+    employeeModal.style.display = "none";
+  });
+
+  viewEmployeeButton.addEventListener('click', () => {
+      window.location.href = `/all-employees`;
+   });
+
+});
+
+
+// register employeee
+const registerEmployee = async (employeeName,employeeAddress,phoneNumber,employeeSalary,shopName,employeeJoinDate) => {
+  try {
+    const res = await axios({
+      method: 'POST',
+      url: `${BaseUrl}/register-employee`,
+      data:{
+        name:employeeName,
+        address:employeeAddress,
+        shopName,
+        phoneNumber,
+        salary:employeeSalary,
+        joinDate:employeeJoinDate
+      }
+    });
+    if (res.data.status === 'success') {
+        swal({
+            text:"Employee registered successfully!",
+            icon: "success",
+            button: "OK",
+        }).then(() => {
+            location.reload()
+        });
+    }
+  } catch (err) {
+    swal({
+      text:err.response.data.message,
+      icon: "warning",
+      button: "OK",
+    })
+  }
+};
+
+
+document.querySelector('.registerEmployeeForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const employeeName = document.getElementById('employeeName').value;
+    const employeeAddress = document.getElementById('employeeAddress').value;
+    const phoneNumber = document.getElementById('employeePhoneNumber').value;
+    const shopName = document.getElementById('shopNameIncomeModal').value;
+    const employeeSalary = document.getElementById('employeeSalary').value;
+    const employeeJoinDate = document.getElementById('employeeJoinDate').value;
+
+    registerEmployee(employeeName,employeeAddress,phoneNumber,employeeSalary,shopName,employeeJoinDate);
+})
+
+
+
+// ---------------- download report - modal --------------------
+
+var customModal = document.getElementById("customModal");
+
+var customButton = document.getElementById("downloadReport");
+
+var closeModalSpan = document.getElementsByClassName("closeModal")[0];
+
+customButton.onclick = function() {
+  customModal.style.display = "block";
+};
+
+closeModalSpan.onclick = function() {
+  closeCustomModal();
+};
+
+window.onclick = function(event) {
+  if (event.target === customModal) {
+    closeCustomModal();
+  }
+};
+
+// Function to close the modal
+function closeCustomModal() {
+  customModal.style.display = "none";
+}
+
+
+// shop selection
+async function populateShopNameForEmployeeModalCustom() {
+  const selectElement = document.getElementById('customShopName');
+  try {
+    const response = await fetch(`${BaseUrl}/all-shops`);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch shops');
+    }
+    var shopData = await response.json();
+      shopData.forEach((shop) => {
+      const option = document.createElement('option');
+      option.value = shop.id;
+      option.textContent= shop.name;
+      option.className='customSelectShopName';
+      option.id='customShopName';
+      selectElement.appendChild(option);
+    });
+  } catch (error) {
+    console.error(error);
+    // Handle errors here, e.g., display an error message
+  }
+}
+
+document.addEventListener('DOMContentLoaded', populateShopNameForEmployeeModalCustom);
+
+
+
+const vendorSelect = document.getElementById('customVendorSelect');
+let selectedVendorId;
+fetch(`${BaseUrl}/get-register-vendors`)
+    .then(response => response.json())
+    .then(apiResponse => {
+        // Loop through the API response and add options to the select dropdown
+        apiResponse.forEach(vendor => {
+            const option = document.createElement('option');
+            option.value = vendor.id; // You can set the value to the vendor ID if needed
+            option.text = vendor.vendorName;
+            vendorSelect.appendChild(option);
+        });
+    })
+.catch(error => console.error('Error fetching data:', error));
+
+
+
+// Update the selectedVendorId when the dropdown value changes
+vendorSelect.addEventListener('change', () => {
+    selectedVendorId = vendorSelect.value;
+});
+
+
+
+async function populateEmployeesNameInBasicExpenseUpdate() {
+  const selectElement = document.getElementById('customBasicExpenseForWhom');
+  try {
+    const response = await fetch(`${BaseUrl}/get-register-employee`);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch bill number');
+    }
+    var EmployeeData = await response.json();
+      EmployeeData.forEach((Employee) => {
+      const option = document.createElement('option');
+      option.value = Employee.id;
+      option.textt= Employee.name;
+      option.className='select-option-basicExpenseForWhom';
+      // option.id='';
+      selectElement.appendChild(option);
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', populateEmployeesNameInBasicExpenseUpdate);
+
+
+const applyDateRangeButton = document.getElementById("downloadPdf");
+applyDateRangeButton.addEventListener("click", async () => {
+    const shopId = document.getElementById("customShopName").value;
+    const employeeId = document.getElementById("customBasicExpenseForWhom").value;
+    const venderId = document.getElementById("customVendorSelect").value;
+    const startDate = document.getElementById("customStartDate").value;
+    const endDate = document.getElementById("customEndDate").value;
+    const expenseType =document.getElementById("customExpenseType").value; 
+
+    event.preventDefault(); 
+    window.location.href=`${BaseUrl}/download/excel?type=${expenseType}&shopId=${shopId}&vendorId=${venderId}&employeeId=${employeeId}&start=${startDate}&end=${endDate}`
+});

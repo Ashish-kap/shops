@@ -12,7 +12,7 @@ var selectedEmployeeId;
 
 document.addEventListener("DOMContentLoaded", function() {
   // Fetch employee data from the API
-  const apiUrl = `${BaseUrl}/get-register-employee/${shopId}`;
+  const apiUrl = `${BaseUrl}/get-register-employee`;
   fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
@@ -37,18 +37,20 @@ document.addEventListener("DOMContentLoaded", function() {
       <img src='/images/bin.png' class="deleteemployeeId" style='float:right'>
       <img src="/images/employee_photo.jpg" alt="Employee Photo" class="employee-photo">
       <h2>${employee.name}</h2>
-      <p><strong>Address:</strong> ${employee.address}</p>
-      <p><strong>Phone:</strong> ${employee.phoneNumber}</p>
+      <p><strong>Shop Name:</strong> ${employee.shopName}</p>
       <p><strong>Salary:</strong> ${employee.salary.toLocaleString()} Rs</p>
       <p><strong>Balanced:</strong> ${employee.balanced.toLocaleString()} Rs</p>
       <button class="view-btn">View Details</button>
       <button class="pay-btn" id="paySalary">Pay Salary</button>
     `;
 
+      // <p><strong>Address:</strong> ${employee.address}</p>
+      // <p><strong>Phone:</strong> ${employee.phoneNumber}</p>
+
     // delete employee
     const deleteemployee = card.querySelector('.deleteemployeeId')
     deleteemployee.addEventListener('click', () => {
-        deleteEmployee(employee._id)
+        deleteEmployee(employee.id)
     });
 
     const viewDetailsButton = card.querySelector('.view-btn');
@@ -56,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Add a click event listener to the button
     viewDetailsButton.addEventListener('click', () => {
         // Redirect to another site
-        window.location.href = `${BaseUrl}/shop/${shopId}/employee-details/${employee._id}`; // Replace with your desired URL
+        window.location.href = `${BaseUrl}/shop/employee-details/${employee.id}`; // Replace with your desired URL
     });
 
     // Add event listener to "Pay Salary" button on this employee card
@@ -67,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function() {
     payButton.addEventListener('click', function() {
       employeeExpenseModal.style.display = 'block';
       
-      selectedEmployeeId = employee._id; 
+      selectedEmployeeId = employee.id; 
       console.log("Selected employee ID:", selectedEmployeeId);
     });
 
@@ -112,7 +114,7 @@ const createEmployerExpensee = async (salaryAmount,date,description,paymentMetho
   try {
     const res = await axios({
       method: 'POST',
-      url: `${BaseUrl}/create-employee-salaries/${shopId}/employee/${employeeId}`,
+      url: `${BaseUrl}/create-employee-salaries/employee/${employeeId}`,
       data:{
         salaryAmount,
         date,

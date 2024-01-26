@@ -5,11 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/viewVendor.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+
     <title>Document</title>
 </head>
 <body>
-    <a href="/dashboard" class="homelogo"><img src="/images/home.png"></a>
-    <div class='google-translator' id="google_translate_element"></div>
+    <div class="homeAndGoogle">
+        <div class="homeAndGoogle1">
+            <div class='google-translator' id="google_translate_element"></div>
+        </div>
+        <div class="homeAndGoogle2">
+            <a href="/dashboard" class="homelogo"><img src="/images/home.png"></a>
+        </div>
+    </div>
     <div class="vendor-card">
         <div class="profile-photo">
             <img src="/images/vendor_photo.jpg" alt="vendor Photo" width="150">
@@ -23,7 +33,25 @@
     </div>
     <div class="container">
         <div class="vendor-expense-table">
-            <h1>Vendor Expense</h1>
+            <!-- <h1>Vendor Expense</h1> -->
+            <div class="filterVendorExpensetable">
+                <h1>Vendor Expense</h1>
+                <select class="filterBillNumber" id="billNumberName" name="billNumberName" required>
+                    <option class="filter-option-billNumber" value="" disabled selected>Select an bill number</option>
+                </select>
+                <select class="filter-paymentStatus" id="paymentStatusName" name="paymentStatusName" required>
+                    <option class="option-paymentStatus" value="" disabled selected>select an payment status</option>
+                    <option class="option-paymentStatus" value="Paid">Paid </option>
+                    <option class="option-paymentStatus" value="Unpaid">Unpaid</option>
+                    <option class="option-paymentStatus" value="Partially Paid">Partially Paid</option>
+                </select>
+                <label for="startDate">From:</label>
+                <input type="date" id="filterStartDateVendor" name="startDate" value="<?php echo date('Y-m-d'); ?>">
+                <label for="endDate">To:</label>
+                <input type="date" id="filterEndDateVendor" name="endDate" value="<?php echo date('Y-m-d'); ?>">
+                <button id="filterVendorSource" class="filterVendorSource">Filter</button>
+                <button id="clearVendorExpense" class="clearVendorExpense">clear</button>
+            </div>
             <div class="table-container">
                 <table>
                     <thead>
@@ -54,23 +82,52 @@
             <span class="close" id="closeUpdateVendorExpenseModalButton">&times;</span>
             <h2>Update Vendor Expense</h2>
             <form class="udpate-vendor-expense-form" id="vendorExpenseForm">
-                <input type="text" id="updateProductName" name="productName" placeholder="Product Name" required>
-                <input type="text" id="updateVendorQuantity" name="quantity" placeholder="Quantity" required>
-                <input type="text" id="updateBillNumber" name="billNumber" placeholder="Bill Number" required>
-                <input type="number" id="updateVendorExpenseAmount" name="amount" placeholder="Amount" required>
-                <label for="expenseDate">Date:</label>
-                <input type="date" id="updateVendorExpenseDate" name="expenseDate" value="<?php echo date('Y-m-d'); ?>"
-                    required>
-                <label for="paymentStatus">Payment Status:</label>
-                <select class="select-paymentStatus" id="updateVendorPaymentStatus" name="paymentStatus" required>
-                    <option class="option-paymentStatus" value="Paid">Paid</option>
-                    <option class="option-paymentStatus" value="Unpaid">Unpaid</option>
-                    <option class="option-paymentStatus" value="Partially Paid">Partially Paid</option>
-                </select>
-                <label for="paymentDueDate">Payment Due Date:</label>
-                <input type="date" id="updateVendorPaymentDueDate" name="paymentDueDate"
-                    value="<?php echo date('Y-m-d'); ?>">
-                <textarea id="updateVendorDescription" name="description" rows="4" placeholder="Description"></textarea>
+                <div class="productNameAndVendorQuantity">
+                    <div class="productNameAndVendorQuantity1">
+                        <label for="">Product name:</label>
+                        <input type="text" id="updateProductName" name="productName" placeholder="Product Name" required>
+                    </div>
+                    <div class="productNameAndVendorQuantity2">
+                        <label for="">Quantity:</label>
+                        <input type="text" id="updateVendorQuantity" name="quantity" placeholder="Quantity" required>
+                    </div>
+                </div>
+                <div class="billnumberAndExpenseAmount">
+                    <div class="billnumberAndExpenseAmount1">
+                        <label for="">Bill number:</label>
+                        <input type="text" id="updateBillNumber" name="billNumber" placeholder="Bill Number" required>
+                    </div>
+                    <div class="billnumberAndExpenseAmount2">
+                        <label for="">Expense Amount:</label>
+                        <input type="number" id="updateVendorExpenseAmount" name="amount" placeholder="Amount" required>
+                    </div>
+                </div>
+                <div class="expenseDateAndPaymentStatus">
+                    <div class="expenseDateAndPaymentStatus1">
+                    <label for="expenseDate">Date:</label>
+                    <input type="date" id="updateVendorExpenseDate" name="expenseDate" value="<?php echo date('Y-m-d'); ?>">
+                    </div>
+                    <div class="expenseDateAndPaymentStatus2">
+                        <label for="paymentStatus">Payment Status:</label>
+                        <select class="select-paymentStatus" id="updateVendorPaymentStatus" name="paymentStatus" required>
+                            <option class="option-paymentStatus" value="Paid">Paid</option>
+                            <option class="option-paymentStatus" value="Unpaid">Unpaid</option>
+                            <option class="option-paymentStatus" value="Partially Paid">Partially Paid</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="duedateAndDesc">
+                    <div class="duedateAndDesc1" >
+                        <label for="paymentDueDate">Payment Due Date:</label>
+                        <input type="date" id="updateVendorPaymentDueDate" name="paymentDueDate"
+                            value="<?php echo date('Y-m-d'); ?>">
+                    </div>
+                    <div class="duedateAndDesc2">
+                        <label for="">Description:</label>
+                        <textarea id="updateVendorDescription" name="description" rows="4" placeholder="Description"></textarea>
+                    </div>
+                </div>
+            
                 <button type="submit" class="submit-button">Update</button>
             </form>
         </div>

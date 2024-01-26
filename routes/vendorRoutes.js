@@ -16,11 +16,13 @@ router.get('/vendor-expenses/weeklyVendorExpense',authController.protect,vendorC
 router.get('/vendor-expenses/monthlyVendorExpense',authController.protect,vendorController.monthlyBasicExpense)
 router.get('/vendor-expenses/yearlyVendorExpense',authController.protect,vendorController.yearlyBasicExpense)
 
-
 // register vendor
 router.post('/register-vendors',authController.protect,registerVendorController.registerVendor)
 router.delete('/delete-vendor/:vendorId',authController.protect,registerVendorController.deleteVendor)
 router.get('/get-register-vendors',authController.protect,registerVendorController.getRegisterVendors)
+
+
+
 
 module.exports =router;
 

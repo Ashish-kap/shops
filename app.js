@@ -7,17 +7,10 @@ const employeeRoutes = require('./routes/employeeRoutes.js')
 const incomeRoutes = require('./routes/incomeRoutes.js')
 const profitRoutes = require('./routes/profitRoutes.js')
 const viewRoutes = require('./routes/viewRoutes.js')
-
+const port = process.env.PORT || 3000;
 
 const cookieParser = require("cookie-parser");
-const rateLimit = require('express-rate-limit');
-const mongoSanitize = require('express-mongo-sanitize');
-// const xss = require('xss-clean');
-// const hpp = require('hpp');
 
-
-var session = require('express-session');
-const MongoStore = require('connect-mongo');
 const path = require('path')
 const app = express()
 require('dotenv').config();
@@ -29,23 +22,23 @@ app.set('view engine', 'html');
 app.set('views', path.join(__dirname, 'views'))
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({
-        mongoUrl: 'mongodb+srv://srigbok:test1234@cluster0.oj5qw.mongodb.net/session-store',
-        ttl: 14 * 24 * 60 * 60 // 14 days
-    })
-}));
 
 
+const mysql = require('mysql2');
 
-// Data sanitization against NoSQL query injection
-app.use(mongoSanitize());
+ const connection = mysql.createConnection({
+    host: 'cloud.racknetweb.com',
+    user: 'erpmanifestsolut_root',
+    password: 'Erpsolution@123',
+    database: 'erpmanifestsolut_nodejs',
+});
 
-// Data sanitization against XSS
-// app.use(xss());
+// const connection = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: 'pass1234',
+//   database: 'sugarcaneco',
+// });
 
 
 app.use(cors());
@@ -64,4 +57,19 @@ app.use('/',incomeRoutes);
 app.use('/',profitRoutes);
 app.use('/',viewRoutes);
 
-module.exports = app;
+// module.exports = app;
+
+
+connection.connect((err) => {
+  if (err) {
+    console.error('MySQL connection error:', err);
+  } else {
+    console.log('database connection successful');
+    
+    app.listen(port, () => {
+      console.log(`Server listening on port ${port}`);
+    });
+  }
+});
+
+

@@ -1,5 +1,10 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+    /* margin: auto; */
+}
 .vendor-card {
     display: flex;
+    margin-top: 10px;
     background-color: white;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -12,7 +17,8 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
-    background-color: #f2f2f2;
+    /* background-color: #f2f2f2; */
+    background-color: #FF0060;
 }
 
 .profile-photo img {
@@ -24,22 +30,28 @@
 .profile-details {
     flex: 2;
     padding: 20px;
+    /* background-color: #f2f2f2; */
+    background-color: #FF0060;
 }
 
 .profile-details h2 {
     margin-top: 0;
     font-size: 24px;
-    color: #333;
+    color: #fff;
 }
 
 .profile-details p {
     margin: 10px 0;
     font-size: 16px;
-    color: #666;
+    color: #fff;
+   
 }
 
+
+
 .profile-details p strong {
-    color: #222;
+    color: #fff;
+    margin-right: 3px;
 }
 
 @media (max-width: 768px) {
@@ -100,7 +112,7 @@ th {
     gap: 10px;
 }
 
-button {
+/* button {
     padding: 6px 12px;
     border: none;
     border-radius: 4px;
@@ -112,7 +124,86 @@ button {
 
 button:hover {
     background-color: #0056b3;
+} */
+
+.edit-button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #3498DB;
+    color: #fff;
+    transition: background-color 0.3s;
 }
+
+.delete-button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #E74C3C;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+/* filter body of vendor expense table */
+  .filterVendorExpensetable {
+      background-color: #f2f2f2;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+  }
+
+  .filterVendorExpensetable h1 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+  }
+
+  .filterVendorExpensetable select,
+  .filterVendorExpensetable input[type="date"] {
+      padding: 10px;
+      margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      outline: none;
+  }
+
+  .filterVendorExpensetable select.filterBillNumber {
+      width: 20%;
+  }
+
+  .filterVendorExpensetable select.filter-paymentStatus,
+  .filterVendorExpensetable select.filterBillNumber {
+      width: 20%;
+  }
+
+  .filterVendorExpensetable label {
+      font-size: 18px;
+      color: #333;
+      margin-right: 0px;
+  }
+
+  .filterVendorExpensetable button {
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 5px;
+  }
+
+  .filterVendorExpensetable button.clearVendorExpense {
+      background-color: #e74c3c;
+  }
+
+  .filterVendorExpensetable button:hover {
+      background-color: #2582b0;
+  }
 
 
 /* Styles for the vendor expense modal */
@@ -129,14 +220,11 @@ button:hover {
 }
 
 .vendorExpenseModal-modal-content {
-    background-color: #f0f0f0;
-    border-radius: 30px;
-    box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.6);
-    max-width: 400px;
-    margin: 0.3% auto;
+    background-color: #fff;
     padding: 10px 30px;
     position: relative;
     text-align: center;
+    height: 100%;
 }
 
 .close {
@@ -160,20 +248,83 @@ button:hover {
     color: #333;
 }
 
+.productNameAndVendorQuantity {
+    display: flex;
+}
+
+.productNameAndVendorQuantity1 {
+    width: 50%;
+}
+
+.productNameAndVendorQuantity2 {
+    width: 50%;
+}
+
+.billnumberAndExpenseAmount {
+    display: flex;
+}
+
+.billnumberAndExpenseAmount1 {
+    width: 50%;
+}
+
+.billnumberAndExpenseAmount2 {
+    width: 50%;
+    float: left;
+}
+
+
+
+.expenseDateAndPaymentStatus {
+    display: flex;
+}
+
+.expenseDateAndPaymentStatus1 {
+    width: 50%;
+}
+
+.expenseDateAndPaymentStatus2 {
+    width: 50%;
+    float: left;
+}
+
+
+.duedateAndDesc {
+    display: flex;
+}
+
+.duedateAndDesc1 {
+    width: 50%;
+}
+
+.duedateAndDesc2 {
+    float: left;
+    width: 50%;
+}
+
 .udpate-vendor-expense-form input[type="text"],
 .udpate-vendor-expense-form input[type="number"],
-.udpate-vendor-expense-form input[type="date"],
 .udpate-vendor-expense-form select,
 .udpate-vendor-expense-form textarea {
     width: 90%;
-    padding: 5px;
+    padding: 10px 15px;
     display: flex;
-    flex-direction: column;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
     transition: border-color 0.3s ease;
+}
+
+.udpate-vendor-expense-form input[type="date"]{
+        width: 92%;
+        padding: 10px 10px;
+        margin-left: -25px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
 }
 
 
@@ -249,18 +400,24 @@ button:hover {
     }
 }
 
+
+.homeAndGoogle{
+    display: flex;
+}
+.homeAndGoogle1{
+    width: 50%;
+}
+.homeAndGoogle2{
+    width: 50%;
+}
+
 .homelogo {
-    top: 0;
-    right: 0;
     font-size: 10px;
+    margin-top: 7px;
     margin-right: 0.5rem;
-    margin-left: 0.5rem;
     float: right;
 }
 
 .google-translator {
-    position: relative;
-    top: 0;
-    right: 0;
-    font-size: 10px;
+    margin-left: 10px;
 }

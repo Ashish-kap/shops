@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/shop.css">
   <title>Shop</title>
 </head>
@@ -12,62 +15,80 @@
     <section class="shop-details">
         <div class="google-translator" id="google_translate_element"></div>
         <a href="/dashboard" class="homelogo"><img src="/images/home.png"></a>
-        <a class="donwloadlogo" id="download-link"><img src="/images/download.png"></a>
+        <!-- <a class="donwloadlogo" id="download-link"><img src="/images/download.png"></a> -->
         <h1><span id="shopName"></span></h1>
         <p>Contact Information: <span id="contactInformation"></span></p>
         <p>Address: <span id="address"></span></p>
-        <div class="registration-buttons">
-          <a class="registration-button" id="registerEmployeeButton">Register Employee</a>
-          <a class="registration-button" id="viewEmployeeButton">View Employee</a>
-          <!-- <a class="registration-button" id="registerVendorButton">Register Vendor</a> -->
-        </div>
-        <!-- <div class="registration-buttons"> -->
-          <!-- <a class="registration-button" id="viewEmployeeButton">View Employee</a> -->
-          <!-- <a class="registration-button" id="viewVendorButton">View Vendor</a> -->
-        <!-- </div> -->
-          <select  class='select-timerange' id="timeRange">
-            <option value="daily">Daily</option>
-            <option value="weekly">Weekly</option>
-            <option value="monthly">Monthly</option>
-            <option value="yearly">Yearly</option>
-            <!-- <option value="alltime">All Time</option> -->
-          </select>
     </section>
 
-    <div class="select-period">
-      <label for="startDate">From:</label>
-      <input type="date" id="startDate" name="startDate" value="<?php echo date('Y-m-d'); ?>">
-      <label for="endDate">To:</label>
-      <input type="date" id="endDate" name="endDate" value="<?php echo date('Y-m-d'); ?>">
-      <button id="applyDateRange" class="applyDateRange">Apply</button>
+    <div class="registration-buttons-shop">
+      <div class="registration-button-shop" id="openIncomeModalButton">
+        <img src="/images/addIncome.png">
+        <a>Add Daily Income</a>
+      </div>
+      <div class="registration-button-shop" id="openVendorExpenseModal">
+        <img src="/images/addVendorExpense.png">
+        <a>Add Vendor Expense</a>
+      </div>
+      <div class="registration-button-shop" id="openModalButton">
+        <img src="/images/shopping.png">
+        <a>Add Basic Expense</a>
+      </div>
     </div>
 
-
-    <section class="blocks">
-      <div class="block-profit profit">
-        <h2 id="totalDailyProfit">0</h2>
-        <h3>Profit</h3>
-        <!-- Add content for profit block here -->
+    <div class="timeperiod">
+      <select class='select-timerange' id="timeRange">
+        <option value="daily">Daily</option>
+        <option value="weekly">Weekly</option>
+        <option value="monthly">Monthly</option>
+        <option value="yearly">Yearly</option>
+      </select>
+      
+      <div class="select-period">
+        <label for="startDate">From:</label>
+        <input type="date" id="startDate" name="startDate" value="<?php echo date('Y-m-d'); ?>">
+        <label for="endDate">To:</label>
+        <input type="date" id="endDate" name="endDate" value="<?php echo date('Y-m-d'); ?>">
+        <button id="applyDateRange" class="applyDateRange">Apply</button>
       </div>
-    </section>
-    <section class="blockss">
-        <div class="block-expense expense">
-          <h2 id="totalDailyExpense">0</h2>
-          <h3>Expense</h3>
-          <img src="/images/add.png"  id="openModalButton">
-          <!-- Add content for expense block here -->
-        </div>
-        <div class="block-income income">
-          <h2 id="totalDailyIncome">0</h2>
-          <h3>Income</h3>
-          <img src="/images/add.png" id="openIncomeModalButton">
-          <!-- Add content for income block here -->
-        </div>
+      <!-- <div>
+        <button class="addIncomeUsingButton" id="openIncomeModalButton">Add Income</button>
+      </div> -->
+    </div>
+    
+    <section class="blocks">
+      <div class="block profit">
+        <h2 id="totalDailyProfit">0</h2>
+        <h3>Cash</h3>
+      </div>
+      <div class="block expense">
+        <h2 id="totalDailyExpense">0</h2>
+        <h3>Expense</h3>
+      </div>
+      <div class="block income">
+        <h2 id="totalDailyIncome">0</h2>
+        <h3>Gpay/Paytm</h3>
+      </div>
     </section>
    
     <div class="container">
       <div class="basic-expense-table">
-        <h1>Basic Expense</h1>
+        <div class="filterBasicExpenseTable">
+          <h1>Basic Expense</h1>
+          <select class="filter-basicExpenseForWhom" id="filterbasicExpenseForWhomName" name="filterBasicExpenseForWhomName" required>
+            <option class="filter-option-basicExpenseForWhom" value="" disabled selected>Select an employee</option>
+            <option class="filter-option-basicExpenseForWhom" value="All employees">All employees</option>
+          </select>
+          <select class="filter-expenseType" id="filterExpenseTypeName" name="filterExpenseTypeName" required>
+            <option class="filter-option-expenseType" value="" disabled selected>Select an expenseType</option>
+          </select>
+          <label for="startDate">From:</label>
+          <input type="date" id="filterStartDate" name="startDate" value="<?php echo date('Y-m-d'); ?>">
+          <label for="endDate">To:</label>
+          <input type="date" id="filterEndDate" name="endDate" value="<?php echo date('Y-m-d'); ?>">
+          <button id="filterBasicExpense" class="filterBasicExpense">Filter</button>
+          <button id="clearBasicExpense" class="clearBasicExpense">clear</button>
+        </div>
         <div class="table-container">
           <table>
             <thead>
@@ -86,10 +107,37 @@
           </table>
         </div>
       </div>
+    </div>
 
-      <!-- Income -->
+
+    <!-- Income -->
+    <div class="container-two">
       <div class="basic-income-table">
-        <h1>Income</h1>
+        <div class="filterIncomeExpenseTable">
+          <h1>Income</h1>
+          <div class="IncomeSearchBill">
+            <div class="IncomeSearchBill1">
+              <input type="text" id="searchInputForIncomeTable" placeholder="Search for a bill number">
+              <div id="suggestionsForIncomeTable" class="suggestions1"></div>
+            </div>
+            <div class="IncomeSearchBill2">
+              <select class="filter-incomeSource" id="incomeSourceName" name="incomeSourceName" required>
+                <option class="option-incomeSource" value="" disabled selected>select an income source</option>
+                <option class="option-incomeSource" value="CASH">CASH </option>
+                <option class="option-incomeSource" value="Bank Transfer">Bank Transfer</option>
+                <option class="option-incomeSource" value="Google Pay/Paytm/Phone Pe">Google Pay/Paytm/Phone Pe</option>
+              </select>
+              <label for="startDate">From:</label>
+              <input type="date" id="filterStartDateIncome" name="startDate" value="<?php echo date('Y-m-d'); ?>">
+              <label for="endDate">To:</label>
+              <input type="date" id="filterEndDateIncome" name="endDate" value="<?php echo date('Y-m-d'); ?>">
+              <button id="filterIncomeSource" class="filterIncomeSource">Filter</button>
+              <button id="clearIncomeExpense" class="clearIncomeExpense">clear</button>
+            </div>
+          </div>
+          
+        </div>
+        
         <div class="table-container">
           <table>
             <thead>
@@ -110,7 +158,48 @@
         </div>
       </div>
     </div>
-  </main>
+
+  <!-- Bill Summary -->
+      <div class="container-two">
+        <div class="basic-income-table">
+          <div class="filterIncomeExpenseTable">
+            <h1>Bill Summary</h1>
+            <div class="searchBillAndDate">
+              <div class="searchBillAndDate1">
+                <input type="text" id="searchInput" class="searchForBillNum" placeholder="Search for a bill number">
+                <div id="suggestions" class="suggestions"></div>
+              </div>
+              <div class="searchBillAndDate2">
+                <label for="startDate">From:</label>
+                <input type="date" id="filterStartDateBillSummary" name="startDate" value="<?php echo date('Y-m-d'); ?>">
+                <label for="endDate">To:</label>
+                <input type="date" id="filterEndDateBillSummary" name="endDate" value="<?php echo date('Y-m-d'); ?>">
+                <button id="filterBillSummary" class="filterIncomeSource">Filter</button>
+                <button id="clearBillSummary" class="clearIncomeExpense">clear</button>
+              </div>
+            </div>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Bill Number</th>
+                  <th>Cash Total</th>
+                  <th>GooglePay/Paytm Total</th>
+                  <th>Bank Transfer Total</th>
+                  <th>GrandTotal</th>
+                  <th>Total Product Quantity in Kg</th>
+                  <th>Grand Total PerProduct</th>
+                </tr>
+              </thead>
+              <tbody id="billSummaryTableBody">
+                <!-- Bill summary will be populated here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+</main>
 
 
   <!-- expense report modal -->
@@ -124,7 +213,7 @@
         <input type="date" id="expenseStartDate" name="startDate" value="<?php echo date('Y-m-d'); ?>">
         <label for="endDate">To:</label>
         <input type="date" id="ExpenseEndDate" name="endDate" value="<?php echo date('Y-m-d'); ?>">
-        <button id="ExpenseApplyDateRange" class="applyDateRange">Download PDF</button>
+        <button id="ExpenseApplyDateRange" class="applyDateRange">Download Excel</button>
       </div>
     </div>
   </div>
@@ -138,23 +227,18 @@
       <form id="employeeForm" class="registerEmployeeForm">
         <label for="employeeName">Employee Name</label>
         <input type="text" id="employeeName" required>
-  
         <label for="employeeAddress">Address</label>
         <input type="text" id="employeeAddress" required>
-  
         <label for="employeePhoneNumber">Phone Number</label>
         <input type="tel" id="employeePhoneNumber" required>
-  
         <label for="employeeSalary">Salary</label>
         <input type="number" id="employeeSalary" required>
-  
         <button type="submit">Submit</button>
       </form>
     </div>
   </div>
 
   <!--  register vendor -->
-
   <div class="vendor-modal" id="vendorModal">
     <div class="vendor-modal-content">
       <span class="close" id="closeModalVendor">&times;</span>
@@ -190,25 +274,41 @@
     <span class="income-close" id="closeIncomeModalButton">&times;</span>
     <h2>Add Income</h2>
     <form id="incomeForm" class="incomeForm">
-      <!-- <label for="amount">Amount:</label> -->
-      <input type="number" id="amount" name="amount" placeholder="Amount" required>
-      <!-- <label for="ProductSoldQuantity">Product Sold Quantity:</label> -->
-      <input type="text" id="ProductSoldQuantity" name="ProductSoldQuantity"  placeholder="Product Sold Quantity"required>
-      <label for="billNumber">Bill Number:</label>
-      <!-- <input type="text" id="billNumber" name="billNumber" placeholder="Bill Number" required> -->
-      <select class="select-billNumber" id="billNumberName" name="billNumberName" required>
-          <option class="select-option-billNumber" value="">Select an bill number</option>
-      </select>
-      <label for="date">Date:</label>
-      <input type="date" id="date" name="date" value="<?php echo date('Y-m-d'); ?>" required>
-      <label for="amount">Income Source:</label>
-        <select class="select-incomeSource" id="incomeSourceName" name="incomeSourceName" required>
-          <option class="option-incomeSource" value="CASH">CASH </option>
-          <option class="option-incomeSource" value="Bank Transfer">Bank Transfer</option>
-          <option class="option-incomeSource" value="Google Pay/Paytm/Phone Pe">Google Pay/Paytm/Phone Pe</option>
-        </select>
-      <label for="description">Description:</label>
-      <textarea id="description" name="description" rows="4" ></textarea>
+      <div class="incomeAmountAndProduct">
+        <div  class="incomeAmountAndProduct1">
+          <label for="billNumber">Amount:</label>
+          <input type="number" id="amount" name="amount" placeholder="Amount" required>
+        </div>
+        <div class="incomeAmountAndProduct2">
+          <label for="billNumber">Product Quantity:</label>
+          <input type="number" id="ProductSoldQuantity" name="ProductSoldQuantity" placeholder="Product Sold Quantity">
+        </div>
+      </div>
+      <div class="billAndDate">
+          <div class="billAndDate1">
+            <label for="billNumber">Bill Number:</label>
+            <input type="text" class="billNumberForIncomeModall" id="searchInputForIncomeModal" placeholder="Search for a bill number">
+            <div id="suggestionsForIncomeModal" class="suggestions3"></div>
+          </div>
+         <div class="billAndDate2">
+          <label for="date">Date:</label>
+          <input type="date" id="date" name="date" value="<?php echo date('Y-m-d'); ?>" required>
+         </div>
+      </div>
+      <div class="incomeSrcAndDesc">
+        <div class="incomeSrcAndDesc1">
+          <label for="amount">Income Source:</label>
+          <select class="select-incomeSource" id="incomeSourceNameForModal" name="incomeSourceName" required>
+            <option class="option-incomeSource" value="CASH">CASH </option>
+            <option class="option-incomeSource" value="Bank Transfer">Bank Transfer</option>
+            <option class="option-incomeSource" value="Google Pay/Paytm/Phone Pe">Google Pay/Paytm/Phone Pe</option>
+          </select>
+        </div>
+        <div class="incomeSrcAndDesc2">
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" placeholder="Write here something.." rows="4"></textarea>
+        </div>
+      </div>
       <button type="submit" class="income-submit-button">Submit</button>
     </form>
   </div>
@@ -221,91 +321,80 @@
     <span class="income-close" id="closeUpdateIncomeModalButton">&times;</span>
     <h2>Update Income</h2>
     <form id="update-incomeForm" class="update-incomeForm">
-      <!-- <label for="amount">Amount:</label> -->
-      <input type="number" id="updateAmount" name="amount" placeholder="Amount" required>
-      <!-- <label for="ProductSoldQuantity">Product Sold Quantity:</label> -->
-      <input type="text" id="updateProductSoldQuantity" name="ProductSoldQuantity" placeholder="Product Sold Quantity" required>
-      <label for="updateBillNumber">Bill Number:</label>
-      <!-- <input type="text" id="updateBillNumber" name="updateBillNumber" placeholder="Bill Number" required> -->
-      <select class="select-billNumber" id="updateBillNumberName" name="billNumberName" required>
-        <option class="select-option-billNumber">Select an bill number</option>
-      </select>
-      <label for="date">Date:</label>
-      <input type="date" id="updateDate" name="date" value="<?php echo date('Y-m-d'); ?>" required>
-      <label for="amount">Income Source:</label>
-      <select class="select-incomeSource" id="updateIncomeSourceName" name="incomeSourceName" required>
-        <option class="option-incomeSource" value="CASH">CASH </option>
-        <option class="option-incomeSource" value="Bank Transfer">Bank Transfer</option>
-        <option class="option-incomeSource" value="Google Pay/Paytm/Phone Pe">Google Pay/Paytm/Phone Pe</option>
-      </select>
-      <label for="description">Description:</label>
-      <textarea id="updateDescription" name="description" rows="4" ></textarea>
+      <div  class="incomeAmountAndProduct">
+        <div  class="incomeAmountAndProduct1">
+            <label for="updateBillNumber">Amount:</label>
+            <input type="number" id="updateAmount" name="amount" placeholder="Amount" required>
+        </div>
+        <div  class="incomeAmountAndProduct2">
+            <label for="updateBillNumber">Product Quantity:</label>
+            <input type="number" id="updateProductSoldQuantity" name="ProductSoldQuantity" placeholder="Product Sold Quantity">
+        </div>
+      </div>
+      <div class="billAndDate">
+        <div class="billAndDate1">
+          <label for="updateBillNumber">Bill Number:</label>
+          <!-- <select class="select-billNumber" id="updateBillNumberName" name="billNumberName" required>
+            <option class="select-option-billNumber">Select an bill number</option>
+          </select> -->
+          <input type="text" id="searchInputForIncomeModalUpdate" placeholder="Search for a bill number">
+          <div id="suggestionsForIncomeModalUpdate" class="suggestions4"></div>
+        </div>
+        <div class="billAndDate2">
+          <label for="date">Date:</label>
+          <input type="date" id="updateDate" name="date" value="<?php echo date('Y-m-d'); ?>" required>
+        </div>
+      </div>
+      <div class="incomeSrcAndDesc">
+        <div class="incomeSrcAndDesc1">
+          <label for="amount">Income Source:</label>
+          <select class="select-incomeSource" id="updateIncomeSourceName" name="incomeSourceName" required>
+            <option class="option-incomeSource" value="CASH">CASH </option>
+            <option class="option-incomeSource" value="Bank Transfer">Bank Transfer</option>
+            <option class="option-incomeSource" value="Google Pay/Paytm/Phone Pe">Google Pay/Paytm/Phone Pe</option>
+          </select>
+        </div>
+        <div class="incomeSrcAndDesc2">
+          <label for="description">Description:</label>
+          <textarea id="updateDescription" name="description" rows="4"></textarea>
+        </div>
+      </div>
       <button type="submit" class="income-submit-button">Update</button>
     </form>
   </div>
 </div>
 
+<!-- basic expense modal -->
 
- <!-- BAsic Expense Modal
 <div id="basicExpenseModal" class="basic-expense-modal">
   <div class="basic-expense-modal-content">
     <span class="close" id="closeBasicExpenseModalButton">&times;</span>
     <h2>Add Basic Expense</h2>
     <form class="basic-expense-form" id="basicExpenseForm">
 
-      <label for="expenseName">Expense Name:</label>
-      <select class="select-expense" id="ExpenseName" name="expenseName" required>
-        <option class="select-option-expense" value="">Select an Expense Type</option>
-      </select>
-
-      <button id="deleteExpenseType">Delete Expense Type</button>
-      <button id="ExpenseOpenModalButton">Add Expense Type</button>
-
-      <label for="expenseAmount">Amount:</label>
-      <input type="number" id="expenseAmount" name="expenseAmount" required>
-
-      <label for="basicExpenseForWhom">Expense For Whom:</label>
-      <select class="select-basicExpenseForWhom" id="basicExpenseForWhomName" name="basicExpenseForWhomName" required>
-        <option class="select-option-basicExpenseForWhom" value="huu">All employees</option>
-      </select>
-
-      <label for="expenseDate">Date:</label>
-      <input type="date" id="expenseDate" name="expenseDate" value="<?php echo date('Y-m-d'); ?>" required>
+      <div class="exp">
+        <label for="expenseTypesContainer">Expense Type:</label>
+        <div id="expenseTypesContainer" class="expense-types-container"></div>
+        
+        <button id="deleteExpenseType" class="deleteExpenseType">Delete Expense Type</button>
+        <button id="ExpenseOpenModalButton" class="addExpenseType">Add Expense Type</button>
+      </div>
       
-      <label for="expenseDescription">Description:</label>
-      <textarea id="expenseDescription" name="expenseDescription" rows="4"></textarea>
-
-      <button type="submit" class="submit-button">Submit</button>
-
-    </form>
-  </div>
-</div> -->
-
-<div id="basicExpenseModal" class="basic-expense-modal">
-  <div class="basic-expense-modal-content">
-    <span class="close" id="closeBasicExpenseModalButton">&times;</span>
-    <h2>Add Basic Expense</h2>
-    <form class="basic-expense-form" id="basicExpenseForm">
-
-      <!-- Expense Types Container -->
-      <label for="expenseTypesContainer">Expense Type:</label>
-      <div id="expenseTypesContainer" class="expense-types-container"></div>
-
-      <button id="deleteExpenseType">Delete Expense Type</button>
-      <button id="ExpenseOpenModalButton">Add Expense Type</button>
-
-      <label for="basicExpenseForWhom">Expense For Whom:</label>
-      <select class="select-basicExpenseForWhom" id="basicExpenseForWhomName" name="basicExpenseForWhomName" required>
-        <option class="select-option-basicExpenseForWhom">All employees</option>
-      </select>
-
-      <label for="expenseDate">Date:</label>
-      <input type="date" id="expenseDate" name="expenseDate" value="<?php echo date('Y-m-d'); ?>" required>
-
-      <label for="expenseDescription">Description:</label>
-      <textarea id="expenseDescription" name="expenseDescription" rows="4"></textarea>
-
-      <button type="submit" class="submit-button">Submit</button>
+      <div class="exp exp1">
+        <label for="basicExpenseForWhom">Expense For Whom:</label>
+        <select class="select-basicExpenseForWhom" id="basicExpenseForWhomName" name="basicExpenseForWhomName" required>
+          <option class="select-option-basicExpenseForWhom">All employees</option>
+        </select>
+        
+        <label for="expenseDate">Date:</label>
+        <input type="date" id="expenseDate" name="expenseDate" value="<?php echo date('Y-m-d'); ?>" required>
+        
+        <label for="expenseDescription">Description:</label>
+        <textarea id="expenseDescription" name="expenseDescription" rows="4"></textarea>
+        
+        <button type="submit" class="submit-button">Submit</button>
+      </div>
+      
     </form>
   </div>
 </div>
@@ -317,7 +406,7 @@
     <span class="expenseTypeClose" id="expenseTypeCloseModalButton">&times;</span>
     <form id="expenseTypeForm" class="expenseTypeForm">
       <label for="expenseType" class="expenseType">Expense Type:</label>
-      <input type="text" id="expenseTypeName" name="expenseType" required>
+      <input type="text" id="expenseTypeName" name="expenseType" placeholder="Enter expense type name" required>
       <button type="submit" class="submit">Submit</button>
     </form>
   </div>
@@ -331,43 +420,121 @@
     <span class="close" id="closeUpdateBasicExpenseModalButton">&times;</span>
     <h2>Update Basic Expense</h2>
     <form class="update-basic-expense-form" id="basicExpenseForm">
-      <label for="expenseName">Expense Name:</label>
-      <!-- <select class="select-expense" id="updateExpenseName" name="expenseName" required>
-        <option class="option-expense" value="Tea(CHAI)">Tea(CHAI) </option>
-        <option class="option-expense" value="Breakfast(Nasta)">Breakfast(Nasta)</option>
-        <option class="option-expense" value="ICE(BARF)">ICE(BARF)</option>
-        <option class="option-expense" value="Garland(Phoolon Ka Haar)">Garland(Phoolon Ka Haar)</option>
-        <option class="option-expense" value="Vegetables(Bhaji)">Vegetables(Bhaji)</option>
-        <option class="option-expense" value="Police">Police</option>
-        <option class="option-expense" value="Medicine(DAVA)">Medicine(DAVA)</option>
-        <option class="option-expense" value="Other">Other</option>
-      </select> -->
-
-      <select class="select-expense" id="updateExpenseName" name="expenseName" required>
-        <option value="">Select an Expense Type</option>
-      </select>
-
-      <label for="expenseAmount">Amount:</label>
-      <input type="number" id="updateExpenseAmount" name="expenseAmount" required>
-
-      <label for="basicExpenseForWhom">Expense For Whom:</label>
-      <select class="select-basicExpenseForWhom" id="updateBasicExpenseForWhomName" name="basicExpenseForWhomName" required>
-        <option class="select-option-basicExpenseForWhom">All employees</option>
-      </select>
-
-      <label for="expenseDate">Date:</label>
-      <input type="date" id="updateExpenseDate" name="expenseDate" value="<?php echo date('Y-m-d'); ?>" required>
-
-      <label for="expenseDescription">Description:</label>
-      <textarea id="updateExpenseDescription" name="expenseDescription" rows="4" required></textarea>
-
+      <div class="updateExpenseTypeAndAmount">
+        <div class="updateExpenseTypeAndAmount1">
+          <label for="expenseName">Expense Name:</label>
+          <select class="select-expense" id="updateExpenseName" name="expenseName" required>
+            <option value="">Select an Expense Type</option>
+          </select>
+        </div>
+        <div class="updateExpenseTypeAndAmount2">
+          <label for="expenseAmount">Amount:</label>
+          <input type="number" id="updateExpenseAmount" name="expenseAmount" required>
+        </div>
+      </div>
+      <div class="expenseForAndDate">
+        <div class="expenseForAndDate1">
+          <label for="basicExpenseForWhom">Expense For Whom:</label>
+          <select class="select-basicExpenseForWhom" id="updateBasicExpenseForWhomName" name="basicExpenseForWhomName" required>
+            <option class="select-option-basicExpenseForWhom">All employees</option>
+          </select>
+        </div>
+        <div class="expenseForAndDate2">
+          <label for="expenseDate">Date:</label>
+          <input type="date" id="updateExpenseDate" name="expenseDate" value="<?php echo date('Y-m-d'); ?>" required>
+        </div>
+      </div>
+      <div class="expenseDesx">
+        <label for="expenseDescription">Description:</label>
+        <textarea id="updateExpenseDescription" name="expenseDescription" rows="4" required></textarea>
+      </div>
       <button type="submit" class="submit-button">Update</button>
+    </form>
+  </div>
+</div>
+
+<!-- vendor expense modal -->
+
+<div id="vendorExpenseModal" class="vendorExpenseModal-modal">
+  <div class="vendorExpenseModal-modal-content">
+    <span class="close" id="closeVendorExpenseModalButton">&times;</span>
+    <h2>Add Vendor Expense</h2>
+    <form class="vendor-expense-form" id="vendorExpenseForm">
+      <div class="productNameAndVendorQuantity">
+        <div class="productNameAndVendorQuantity1">
+          <label>Product Name:</label>
+          <input type="text" id="productName" name="productName" placeholder="Enter product name" required>
+        </div>
+        <div class="productNameAndVendorQuantity2">
+          <label for="">vendor Quantity:</label>
+          <input type="text" id="vendorQuantity" name="quantity" placeholder="Enter quantity" required>
+        </div>
+      </div>
+      <div class="billnumberAndExpenseAmount">
+        <div class="billnumberAndExpenseAmount1">
+          <label for="">Bill Number:</label>
+          <input type="text" id="billNumberVendor" name="billNumber" placeholder="Enter bill number" required>
+        </div>
+        <div class="billnumberAndExpenseAmount2">
+          <label for="">Amount:</label>
+          <input type="number" id="vendorExpenseAmount" name="amount" placeholder="Enter amount" required>
+        </div>
+      </div>
+      <div class="expenseDateAndPaymentStatus">
+        <div class="expenseDateAndPaymentStatus1">
+          <label for="expenseDate">Date:</label>
+          <input type="date" id="vendorExpenseDate" name="expenseDate" value="<?php echo date('Y-m-d'); ?>" required>
+        </div>
+        <div class="expenseDateAndPaymentStatus2">
+          <label for="paymentStatus">Payment Status:</label>
+          <select class="select-paymentStatus" id="vendorPaymentStatus" name="paymentStatus" required>
+            <option class="option-paymentStatus" value="Paid">Paid</option>
+            <option class="option-paymentStatus" value="Unpaid">Unpaid</option>
+            <option class="option-paymentStatus" value="Partially Paid">Partially Paid</option>
+          </select>
+        </div>
+      </div>
+      <div class="duedateAndDesc">
+        
+        <div class="duedateAndDesc1">
+          <label for="paymentDueDate">Payment Due Date:</label>
+          <input type="date" id="vendorPaymentDueDate" name="paymentDueDate" value="<?php echo date('Y-m-d'); ?>">
+        </div>
+        <div class="duedateAndDesc2">
+          <label>Select vendor</label>
+          <select id="vendorSelect">
+            <option value="" disabled selected>Select Vendor</option>
+          </select>
+        </div>
+        
+      </div>
+      <div class="duedateAndDesc2">
+          <label for="">Description:</label>
+          <textarea id="vendorDescription" name="description" rows="4" placeholder="write something here"></textarea>
+      </div>
+      <div class="div-submit-button-vendor">
+        <button type="submit" class="submit-button-vendor">Submit</button>
+      </div>
     </form>
   </div>
 </div>
 
 </body>
   <script>
+
+    // vendor expense modal
+      const payButton = document.getElementById('openVendorExpenseModal');
+      const vendorExpenseModal = document.getElementById('vendorExpenseModal');
+      const closevendorExpenseModalButton = document.getElementById('closeVendorExpenseModalButton');
+
+      payButton.addEventListener('click', function () {
+        vendorExpenseModal.style.display = 'block';
+      });
+
+      closevendorExpenseModalButton.addEventListener('click', function () {
+        vendorExpenseModal.style.display = 'none';
+      });
+
     // Get modal elements
     const expenseTypeModal= document.getElementById('expenseTypeModal');
     const ExpenseOpenModalButton = document.getElementById('ExpenseOpenModalButton');
@@ -398,16 +565,11 @@
     
     // Get the expense type input value
     const expenseTypeInput = document.getElementById('expenseType');
-    // const expenseType = expenseTypeInput.value;
-    
-    // Do something with the expense type (e.g., send it to the server)
-    // console.log(`Expense Type submitted: ${expenseType}`);
+
     
     // Close the modal
     expenseTypeModal.style.display = 'none';
     
-    // Clear the input field
-    // expenseTypeInput.value = '';
     });
 
   </script>

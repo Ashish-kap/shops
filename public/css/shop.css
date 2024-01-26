@@ -1,6 +1,6 @@
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #EEEEEE;
@@ -22,13 +22,12 @@ main {
     background-color: #fff;
     color: #444;
     padding: 30px 20px 0px 20px;
-    height: 273px;
+    height: 150px;
     border-radius: 8px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     text-align: center;
     position: relative;
     justify-content: center;
- 
 }
 
 .homelogo{
@@ -60,6 +59,12 @@ main {
     font-size: 18px;
 }
 
+.timeperiod{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 /* Dropdown styles */
 .select-timerange {
     appearance: none;
@@ -70,17 +75,19 @@ main {
     outline: none;
     padding: 12px 60px;
     font-size: 16px;
-    margin-top: 1.5rem;
+
     color: #fff;
     font-weight: bold;
     text-align: center;
-    border-radius: 8px;
-    background-color: #F3AA60;;
+    background-color: #F3AA60;
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    border-radius: 8px;
+    margin-right: 30px;
 }
 
-/* Custom styles for the select dropdown arrow */
+
 select::-ms-expand {
     display: none;
 }
@@ -94,31 +101,30 @@ select::after {
     pointer-events: none;
 }
 
-/* Style the options */
+
 option {
    background-color: #fff;
    color: #333;
    text-align: left;
-   /* padding: 8px; */
 }
 
-/* Hover effect on options */
+
 option:hover {
    background-color: #f9f9f9;
 }
 
-/* Style the selected option */
+
 option:checked {
    background-color: #007bff;
    color: #fff;
 }
 
-/* Remove default focus outline on select element */
+
 select:focus {
     outline: none;
 }
 
-/* Create a fancy border for the select */
+
 .custom-select {
     position: relative;
     display: inline-block;
@@ -128,11 +134,13 @@ select:focus {
 }
 
 
-/* Date range */
 .select-period{
     text-align: center;
-    margin-top: 70px;
-    margin-bottom: 50px;
+    border-left: 3px solid #000;
+    border-right: 3px solid #000;
+    border-radius: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .select-period label {
@@ -156,6 +164,64 @@ select:focus {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
+}
+
+
+/* all expense buttons */
+.registration-buttons-shop {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0rem;
+    margin-bottom: 2rem;
+}
+
+.registration-button-shop {
+    flex-direction: row;
+    padding: 10px 60px;
+    margin: 0px 20px;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    color: #444;
+    background-color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.registration-button-shop a {
+    position: relative;
+    top: -1.2rem;
+}
+
+.registration-button-shop img {
+    position: relative;
+    right: 1rem;
+    height: 50px;
+}
+
+.registration-button-shop:hover {
+    background-color: #e5e5e5;
+    transform: scale(1.05);
+}
+
+/* income add button */
+.addIncomeUsingButton {
+    background-color: #EA047E;
+    color: #fff;
+    padding: 13px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+.addIncomeUsingButton:hover {
+    background-color: #0056b3;
 }
 
 
@@ -187,119 +253,58 @@ select:focus {
      transform: scale(1.05);
  }
 
- /* .registration-button:last-child {
-     background-color: #e74c3c;
- }
-
- .registration-button:last-child:hover {
-     background-color: #c0392b;
- } */
-
 
 /* Blocks section */
 .blocks {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin:auto 26rem
+    margin-top: 50px;
 }
 
-.blockss {
-    display: flex;
-    margin: -3rem 20rem; 
-    height: 0px;
+.block{
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 30px;
+    width: 250px;
+    margin: 0 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
 }
 
-.block-profit {
-    flex: 1;
+.block:hover {
+    transform: scale(1.05);
+}
+
+.block h2 {
+    color: #fff;
+}
+
+.block h3 {
+    color: #fff;
+    margin-top: -1rem;
+}
+
+.block.profit {
     background-color: #50CD89;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
-    border: 8px solid #fff;
-    padding:40px 20px;
-    text-align: center;
-    transition: transform 0.3s ease;
 }
 
-.block-profit h2{
-    color: #fff;
-    font-size: 24px;
-    margin-top: -20px;
-}
-
-.block-profit h3 {
-    color: #fff;
-    margin-top: -10px;
-}
-
-/* Hover effect for block-profits */
-/* .block-profit:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-} */
-
-.block-expense {
-    flex: 1;
-    background-color: #F1416C;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
-    border: 8px solid #fff;
-    padding: 70px 20px;
-    margin-right: 30px;
-    text-align: center;
-    transition: transform 0.3s ease;
-}
-
-.block-expense h2{
-    color: #fff;
-    font-size: 24px;
-    margin-top: -20px;
-}
-
-.block-expense h3 {
-    color: #fff;
-    margin-top: -10px;
-}
-
-.block-expense img {
-    width: 45px;
-    /* border-radius: 20px; */
-    
-}
-
-/* Hover effect for block-expenses */
-/* .block-expense:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-} */
-
-.block-income {
-    flex: 1;
+.block.income {
     background-color: #009EF7;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
-    border: 8px solid #fff;
-    padding: 70px 20px;
-    text-align: center;
-    transition: transform 0.3s ease;
+
 }
 
-
-.block-income h2{
-    color: #fff;
-    font-size: 24px;
-    margin-bottom: 15px;
-    margin-top: -20px;
+.block.expense {
+    background-color: #F1416C;
 }
 
-.block-income h3 {
-    color: #fff;
-    margin-top: -10px;
+.block img{
+    width: 40px;
+    position: absolute;
+    margin-left: -1rem;
 }
 
-.block-income img {
-    width: 45px;
-}
 
 
 /* Styles for the Employee Modal */
@@ -381,8 +386,6 @@ button[type="submit"]:hover {
 }
 
 
-/* register vendor modal */
-
 /* Vendor modal styling */
 .vendor-modal {
     display: none;
@@ -418,7 +421,7 @@ button[type="submit"]:hover {
     font-size: 16px;
 }
 
-/* Rest of the previous CSS styles */
+
 
 /* Styles for the Expense modal */
 
@@ -483,11 +486,195 @@ h2 {
 
 
 
+/* vendor expense modal */
+.vendorExpenseModal-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: opacity 0.3s ease;
+}
+
+.vendorExpenseModal-modal-content {
+    background-color: #fff;
+    padding: 10px 30px;
+    position: relative;
+    text-align: center;
+    height: 100%;
+}
+
+
+.close {
+    color: #aaa;
+    font-size: 30px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #666;
+}
+
+.vendorExpenseModal-modal h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.productNameAndVendorQuantity {
+    display: flex;
+}
+
+.productNameAndVendorQuantity1 {
+    width: 50%;
+}
+
+.productNameAndVendorQuantity2 {
+    width: 50%;
+}
+
+.billnumberAndExpenseAmount {
+    display: flex;
+}
+
+.billnumberAndExpenseAmount1 {
+    width: 50%;
+}
+
+.billnumberAndExpenseAmount2 {
+    width: 50%;
+    float: left;
+}
+
+.expenseDateAndPaymentStatus {
+    display: flex;
+}
+
+.expenseDateAndPaymentStatus1 {
+    width: 50%;
+}
+
+.expenseDateAndPaymentStatus2 {
+    width: 50%;
+    float: left;
+}
+
+
+.duedateAndDesc {
+    display: flex;
+}
+
+.duedateAndDesc1 {
+    width: 50%;
+}
+
+.duedateAndDesc2 {
+    float: left;
+    width: 50%;
+}
+
+
+.vendor-expense-form input[type="text"],
+.vendor-expense-form input[type="number"],
+.vendor-expense-form select,
+.vendor-expense-form textarea {
+    width: 60%;
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.vendor-expense-form input[type="date"] {
+    width: 60%;
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+
+.vendor-expense-form input[type="text"]:focus,
+.vendor-expense-form input[type="number"]:focus,
+.vendor-expense-form input[type="date"]:focus,
+.vendor-expense-form select:focus,
+.vendor-expense-form textarea:focus {
+    border-color: #3498db;
+}
+
+
+.vendor-expense-form label {
+    display: flex;
+    font-size: 16px;
+    margin-bottom: 5px;
+    margin-left: 7rem;
+    color: #555;
+}
+
+.select-paymentStatus {
+    margin-left: -20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    color: #555;
+    transition: border-color 0.3s ease;
+}
+
+.option-paymentStatus {
+    padding: 0px;
+}
+
+.select-paymentStatus.Paid {
+    border-color: #27ae60;
+}
+
+.select-paymentStatus.Unpaid {
+    border-color: #e74c3c;
+}
+
+.select-paymentStatus.PartiallyPaid {
+    border-color: #f39c12;
+}
+
+.div-submit-button-vendor{
+   display: flex;
+   margin-top: 70px;
+}
+
+.vendorExpenseModal-modal-content .submit-button-vendor {
+    background-color: #3498db;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 15px 50px;
+    transition: background-color 0.3s ease;
+}
+
+.vendorExpenseModal-modal-content .submit-button-vendor:hover {
+    background-color: #2980b9;
+}
+
+
 
 /*  INPUT MODAL */
 
-/* Styles for the income modal */
-
+/* 
 .income-modal {
     display: none;
     position: fixed;
@@ -502,10 +689,7 @@ h2 {
 
 .income-modal-content {
     background-color: #f9f9f9;
-    border-radius: 15px;
-    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.3);
-    max-width: 350px;
-    margin: 0% auto;
+    height: 100%;
     padding: 30px;
     position: relative;
     text-align: center;
@@ -513,7 +697,7 @@ h2 {
 
 .income-close {
     color: #aaa;
-    font-size: 28px;
+    font-size: 35px;
     font-weight: bold;
     position: absolute;
     top: 10px;
@@ -528,6 +712,7 @@ h2 {
 
 .income-modal h2 {
     font-size: 28px;
+    margin-top: 1rem;
     margin-bottom: 20px;
     color: #444;
 }
@@ -535,19 +720,68 @@ h2 {
 .income-modal label {
     display: block;
     font-size: 15px;
-    margin-bottom: 5px;
-    text-align: left;
     color: #444;
 }
 
-.income-modal input[type="number"],
-.income-modal input[type="date"],
-.income-modal input[type="text"],
+.income-modal label[for="date"] {
+    float: left;
+    margin-left: 0.5rem;
+}
+
+.income-modal label[for="billNumber"] {
+    float: left;
+    margin-left: 13rem;
+    margin-bottom: 5px;
+}
+
+.income-modal label[for="amount"] {
+   
+}
+
+.income-modal label[for="description"] {
+    float: left;
+    margin-left: 0.5rem;
+}
+
+
 .income-modal textarea {
-    width: 90%;
+    width: 64%;
+    padding: 12px;
+    margin-top: 1.5rem;
+    margin-left: -17rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.3s ease;
+}
+
+.income-modal input[type="number"]{
+    width: 30%;
+    padding: 12px;
+    margin-left: 12px;
+    width: 50%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.3s ease;
+}
+
+.income-modal input[type="date"]{
+    width: 60%;
+    height: 25%;
+    float: left;
+    margin-top: 1.5rem;
+    margin-left: -2.5rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.3s ease;
+}
+
+.income-modal input[type="text"]{
+    width: 30%;
     padding: 12px;
     margin-right: 12px;
-    margin-bottom: 5px;
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 15px;
@@ -561,41 +795,216 @@ h2 {
     border-color: #3498db;
 }
 
+.incomeAmountAndProduct{
+    display: flex;
+    flex-direction: row;
+}
+.incomeAmountAndProduct1,.incomeAmountAndProduct2{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    justify-content: center;
+}
+
+.billAndDate,.incomeSrcAndDesc{
+    display: flex;
+    margin-top: 1.5rem;
+}
+
+.billAndDate1, .incomeSrcAndDesc1{
+    width: 50%;
+}
+.billAndDate2,.incomeSrcAndDesc2 {
+    width: 50%;
+}
+
 .select-billNumber{
     appearance: none;
-    margin-left: -3rem;
-    margin-top: -3px;
+    margin-left: 11.5rem;
     margin-bottom: 5px;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background-color: #f5f5f5;
-    border: 1px solid #000;
+    background-color: #fff;
+    border: 1px solid #ccc;
     border-radius: 10px;
-    padding: 14px 18px;
+    padding: 10px 24px;
     font-size: 16px;
-    color: #333;
-    width: 100%;
-    max-width: 300px;
+    color: #757575;
+    width: 64%;
     cursor: pointer;
     transition: border-color 0.3s, background-color 0.3s, color 0.3s;
 }
 
-.income-submit-button {
+.select-incomeSource {
+    appearance: none;
+    margin-left: 11.5rem;
+    margin-top: 0.5rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: #757575;
+    width: 64%;
+    height: 35%;
+    cursor: pointer;
+    transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+}
+
+.select-incomeSource:focus {
+    outline: none;
+    border-color: #000;
+    background-color: #fff;
+    color: #000;
+}
+.option-incomeSource {
+    background-color: #fff;
+    color: #333;
+    padding: 10px;
+    border-radius: 6px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.option-incomeSource:hover {
+    background-color: #000;
+}
+
+.income-modal .income-submit-button {
     background-color: #3498db;
     border: none;
     border-radius: 8px;
-    margin-top: -5px;
+    margin-top: 3rem;
     color: #fff;
     cursor: pointer;
-    font-size: 18px;
-    padding: 12px 20px;
+    font-size: 16px;
+    padding: 10px 50px;
     transition: background-color 0.3s ease;
 }
 
 .income-submit-button:hover {
     background-color: #2980b9;
+} */
+
+
+/* Style the modal overlay */
+.income-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
 }
 
+/* Style the modal content */
+.income-modal-content {
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    height: inherit;
+    
+}
+
+
+/* Style the close button */
+.income-modal-content .income-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 35px;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Style the form container */
+.income-modal-content form {
+    padding: 50px;
+}
+
+/* Style form elements */
+.income-modal-content label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.income-modal-content input[type="number"],
+.income-modal-content input[type="text"],
+.income-modal-content input[type="date"],
+.income-modal-content select,
+.income-modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Style the submit button */
+.income-modal-content .income-submit-button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.income-modal-content .income-submit-button:hover {
+    background-color: #45a049;
+}
+
+/* Style the select dropdown */
+.income-modal-content .select-incomeSource {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Style the description textarea */
+.income-modal-content #description {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Additional styling for specific elements */
+.income-modal-content .incomeAmountAndProduct,
+.income-modal-content .billAndDate,
+.income-modal-content .incomeSrcAndDesc {
+    display: flex;
+    justify-content: space-between;
+}
+
+.income-modal-content .incomeAmountAndProduct1,
+.income-modal-content .incomeAmountAndProduct2,
+.income-modal-content .billAndDate1,
+.income-modal-content .billAndDate2,
+.income-modal-content .incomeSrcAndDesc1,
+.income-modal-content .incomeSrcAndDesc2 {
+    width: 48%;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .income-modal-content form {
+        padding: 15px;
+    }
+}
 
 /* Styles for the basic expense modal */
 .basic-expense-modal {
@@ -605,19 +1014,24 @@ h2 {
     left: 0;
     top: 0;
     width: 100%;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
     transition: opacity 0.3s ease;
+    background-color: #f5f5f5;
 }
 
 .basic-expense-modal-content {
-    background-color: #f5f5f5;
-    border-radius: 20px;
-    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.4);
-    max-width: 350px;
+    /* background-color: #f5f5f5; */
+    /* border-radius: 20px; */
+    /* box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.4); */
     margin: 0.2% auto;
-    padding: 30px;
-    position: relative;
+    /* position: relative; */
     text-align: center;
+}
+
+.exp{
+    float: left;
+    width:50%;
 }
 
 .close {
@@ -643,26 +1057,26 @@ h2 {
 
 .select-basicExpenseForWhom{
         appearance: none;
-        /* margin-left: 3rem; */
-        margin-top: -3px;
         margin-bottom: 5px;
         -webkit-appearance: none;
         -moz-appearance: none;
-        background-color: #f5f5f5;
-        border: 1px solid #000;
-        border-radius: 10px;
-        padding: 14px 18px;
-        font-size: 14px;
+        /* background-color: #f5f5f5; */
+        border: 1px solid #ccc;
+        margin-top: 10px;
+        border-radius: 15px;
+        padding: 14px 10px;
+        font-size: 16px;
         color: #333;
-        width: 100%;
-        max-width: 300px;
+        width: 89%;
+        /* max-width: 300px; */
         cursor: pointer;
         transition: border-color 0.3s, background-color 0.3s, color 0.3s;
 }
 
 .basic-expense-form label {
     display: block;
-    font-size: 14px;
+    font-size: 16px;
+    margin-top: 20px;
     margin-left: 30px;
     margin-bottom: 10px;
     color: #555;
@@ -682,12 +1096,13 @@ h2 {
 .basic-expense-form input[type="number"],
 .basic-expense-form input[type="date"],
 .basic-expense-form textarea {
-    width: 80%;
-    padding: 10px;
+    width: 85%;
+    /* padding: 10px; */
+    padding: 14px 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 14px;
+    border-radius: 15px;
+    font-size: 16px;
     transition: border-color 0.3s ease;
 }
 
@@ -700,7 +1115,7 @@ h2 {
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 10px;
-    font-size: 14px;
+    font-size: 16px;
     transition: border-color 0.3s ease;
 }
 
@@ -725,9 +1140,9 @@ h2 {
     border-radius: 10px;
     color: #fff;
     cursor: pointer;
-    font-size: 14px;
-    margin-top: -1rem;
-    padding: 12px 20px;
+    font-size: 16px;
+    margin-top: 1rem;
+    padding: 15px 35px;
     transition: background-color 0.3s ease;
 }
 
@@ -735,43 +1150,172 @@ h2 {
     background-color: #2980b9;
 }
 
+/* update Basic expense modal */
+.updateExpenseTypeAndAmount{
+    display: flex;
+}
+.updateExpenseTypeAndAmount1{
+    width:50%
+}
+.updateExpenseTypeAndAmount2{
+    width: 50%
+}
+
+.expenseForAndDate {
+    display: flex;
+}
+
+.expenseForAndDate1 {
+    width: 50%
+}
+
+.expenseForAndDate2 {
+    width: 50%
+}
+
+.expenseDesx{
+    margin-top: 1rem;
+    width: 50%;
+}
+
+/* filter body of basic expense table */
+.filterBasicExpenseTable {
+      background-color: #f2f2f2;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+  }
+
+.filterBasicExpenseTable h1 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+  }
+
+.filterBasicExpenseTable select,
+  input[type="date"] {
+      padding: 10px;
+      margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      outline: none;
+  }
+
+  .filterBasicExpenseTable select.filter-basicExpenseForWhom {
+      width: 20%;
+  }
+
+  .filterBasicExpenseTable select.filter-expenseType,
+  select.filter-basicExpenseForWhom {
+      width: 20%;
+  }
+
+  .filterBasicExpenseTable label {
+      font-size: 16px;
+      color: #333;
+      margin-right: 0px;
+  }
+
+  .filterBasicExpenseTable button {
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 5px;
+  }
+
+  .filterBasicExpenseTable button.clearBasicExpense {
+      background-color: #e74c3c;
+  }
+
+  .filterBasicExpenseTable button:hover {
+      background-color: #2582b0;
+  }
+
 
 /* expense type checkbox */
-
-.expense-types-container {
+/* .expense-types-container {
     display: flex;
     flex-direction: column;
-    max-height: 100px;
+    max-height: 400px;
     overflow-y: auto;
+    margin-left: 30px;
+    width: 90%;
 }
 
-.expense-type-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
 
 .checkbox-expense {
-    margin-right: 10px;
+    float: left;
+    margin-top: 1.3rem;
+    line-height: normal;
+    width: 18px;
+    height: 18px;
+    
 }
 
 .label-expense {
-    flex-grow: 1;
 }
+
+.expense-types-container .expense-amount {
+    max-width: 30%;
+    float: left;
+} */
+
+
+.expense-types-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-left: 30px;
+}
+
+.expense-type-section {
+    width: 50%;
+    box-sizing: border-box;
+}
+
+.checkbox-expense {
+    float: left;
+    margin-top: 1.3rem;
+    line-height: normal;
+    width: 18px;
+    height: 18px;
+}
+
 
 .expense-amount {
-    width: 20px;
-    /* Adjust the width as needed */
+    max-width: 60%;
+    float: left;
 }
 
-
+.deleteExpenseType{
+    background-color: #E74C3C;
+    padding: 10px 15px;
+    color: white;
+    border: none;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+.addExpenseType {
+    background-color: #3498DB;
+    padding: 10px 15px;
+    color: white;
+    border: none;
+    border-radius: 10px;
+}
 
 /* Modal Styles */
 .expenseTypeModal {
     display: none;
     position: fixed;
     z-index: 9999;
-    margin-left: 25rem;
+    /* margin-left: 25rem; */
     top:0;
     width: 100%;
     height: 100%;
@@ -785,16 +1329,23 @@ h2 {
     border-radius: 5px;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
     text-align: center;
+    margin-top: 5rem;
+    margin-left: 25rem;
     padding: 20px;
-    position: relative;
+    /* position: relative; */
     width: 400px;
 }
 
+.submit{
+    margin-top: 1rem;
+}
+
 .expenseTypeClose {
-    position: absolute;
-    top: 10px;
+    position: relative;
+    float: right;
+    margin-top: -1rem;
     right: 10px;
-    font-size: 24px;
+    font-size: 35px;
     color: #888;
     cursor: pointer;
 }
@@ -818,6 +1369,7 @@ h2 {
 input[type="text"] {
     width: 80%;
     padding: 10px;
+    margin-top: 1rem;
     border: 1px solid #ccc;
     border-radius: 3px;
     font-size: 16px;
@@ -843,18 +1395,16 @@ input[type="text"] {
 
 /*  BASIC EXPENSE TABLE */
 .container {
-    display: flex;
+    display:flex;
     align-items:center;
-    height: 100vh;
-    margin-top: 15rem;
-    background-color: #f0f0f0;
+    margin-top:5rem;
+    background-color:#f0f0f0;
 }
 
 .container-two {
     display: flex;
     align-items: center;
-    height: 100vh;
-    margin-top: 1rem;
+    margin-top: 2rem;
     background-color: #f0f0f0;
 }
 
@@ -863,33 +1413,29 @@ input[type="text"] {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: 80%;
-    max-width: 550px;
+    width: 100%;
 }
 
 .basic-income-table {
     background-color: #fff;
     border-radius: 8px;
-    margin-left:25px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: 80%;
-    max-width: 550px;
+    width: 100%;
 }
 
-
 .table-container {
-    max-height: 400px;
+    max-height: 800px;
     overflow-y: auto;
     border-top: 1px solid #ccc;
     margin-top: 20px;
 }
 
 .table-container-two {
-    max-height: 400px;
+    max-height: 500px;
     overflow-y: auto;
     border-top: 1px solid #ccc;
-    margin-top: 20px;
+    /* margin-top: 20px; */
 }
 
 .vendor-expense-table {
@@ -900,7 +1446,6 @@ input[type="text"] {
     width: 80%;
     max-width: 550px;
 }
-
 
 .employee-expense-table {
     background-color: #fff;
@@ -933,19 +1478,26 @@ th {
     gap: 10px;
 }
 
-button {
+.edit-button{
     padding: 6px 12px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    background-color: #007bff;
+    background-color: #3498DB;
     color: #fff;
     transition: background-color 0.3s;
 }
 
-button:hover {
-    background-color: #0056b3;
+.delete-button{
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #E74C3C;
+    color: #fff;
+    transition: background-color 0.3s;
 }
+
 
 /* Style for the select element */
 .select-expense {
@@ -987,50 +1539,145 @@ button:hover {
 }
 
 
-/* Style for the select element */
-.select-incomeSource {
-    appearance: none;
-    margin-left: -3rem;
-    margin-top: -3px;
-    margin-bottom: 5px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-color: #f5f5f5;
-    border: 1px solid #000;
+
+
+
+/* filter body of income expense table */
+
+.filterIncomeExpenseTable {
+    background-color: #f2f2f2;
     border-radius: 10px;
-    padding: 14px 18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+
+}
+
+.filterIncomeExpenseTable h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.filterIncomeExpenseTable select,
+.filterIncomeExpenseTable input[type="date"] {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+}
+
+.filterIncomeExpenseTable select.filterBillNumber {
+    width: 20%;
+}
+
+.filterIncomeExpenseTable select.filter-incomeSource,
+.filterIncomeExpenseTable select.filterBillNumber {
+    width: 20%;
+}
+
+.filterIncomeExpenseTable label {
     font-size: 16px;
     color: #333;
-    width: 100%;
-    max-width: 300px;
-    cursor: pointer;
-    transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+    margin-right: 0px;
 }
 
-.select-incomeSource:focus {
-    outline: none;
-    border-color: #000;
-    background-color: #fff;
-    color: #000;
-}
-
-/* Style for the individual options */
-.option-incomeSource {
-    background-color: #fff;
-    color: #333;
-    padding: 10px;
-    border-radius: 6px;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.option-incomeSource:hover {
-    background-color: #000;
+.filterIncomeExpenseTable button {
+    background-color: #3498db;
     color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.filterIncomeExpenseTable button.clearIncomeExpense {
+    background-color: #e74c3c;
+}
+
+.filterIncomeExpenseTable button:hover {
+    background-color: #2582b0;
+}
+
+.IncomeSearchBill{
+    display: flex;
+}
+
+.IncomeSearchBill1{
+    margin-top: -0.65rem;
+    margin-left: 5rem;
+    width:30%;
+}
+
+.IncomeSearchBill2 {
+    width: 80%
+}
+
+.searchBillAndDate{
+    display: flex;
+}
+
+.searchBillAndDate1{
+    margin-top: -0.6rem;
+    width: 40%;
+}
+
+.searchBillAndDate2 {
+    width: 80%;
+}
+
+.searchForBillNum{
+    margin-left: 7rem;
+}
+
+.suggestions {
+    display: none;
+    position: relative;
+    left: 30%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    max-height: 50px;
+    overflow-y: auto;
+    width: 83%;
+    cursor: pointer;
+}
+
+.suggestions1 {
+    display: none;
+    position: relative;
+    left: 8%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    max-height: 50px;
+    overflow-y: auto;
+    width: 83%;
+    cursor: pointer;
+}
+
+.billNumberForIncomeModall{
+    /* position: relative; */
+    /* top:10%; */
+    /* margin-left: -17rem; */
+
+}
+.suggestions3{
+    display: none;
+    position: relative;
+    left: 58%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    max-height: 50px;
+    overflow-y: auto;
+    width: 30%;
+    cursor: pointer;
 }
 
 
 /* Expense report modal */
-
  .expenseReportmodal {
      display: none;
      position: fixed;
@@ -1118,6 +1765,9 @@ button:hover {
      background-color: #1e7e34;
  }
 
+
+
+
 /* MOBILE */
 @media (max-width: 480px) {
 
@@ -1137,12 +1787,12 @@ button:hover {
             text-align: center;
             position: relative;
             justify-content: center;
-    
         }
-    
+
         img{
             width:45px;
         }
+        
         .homelogo {
             position: fixed;
             top: 0;

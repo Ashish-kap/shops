@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/employee.css">
     <title>All Employees</title>
 </head>
@@ -33,59 +36,68 @@
             <span class="close" id="closeEmployeeExpenseModalButton">&times;</span>
             <h2>Add Employee Expense</h2>
             <form class="employee-expense-form" id="employeeExpenseForm">
-                <label for="salaryAmount">Salary Amount</label>
-                <input type="number" id="salaryAmount" name="salaryAmount" required>
-    
-                <label for="expenseDate">Date:</label>
-                <input type="date" id="employeeExpenseDate" name="expenseDate" value="<?php echo date('Y-m-d'); ?>"
-                    required>
-
-                <label>which month salary:</label>
-                <div class="date-range-container">
-                    <label>From:</label>
-                    <select id="fromMonth">
-                        <option value="">select month</option>
-                        <option value="January">January</option>
-                        <option value="February">February</option>
-                        <option value="March">March</option>
-                        <option value="April">April</option>
-                        <option value="May">May</option>
-                        <option value="June">June</option>
-                        <option value="July">July</option>
-                        <option value="August">August</option>
-                        <option value="September">September</option>
-                        <option value="October">October</option>
-                        <option value="November">November</option>
-                        <option value="December">December</option>
-                    </select>
-
-                    <label>To:</label>
-                    <select id="toMonth">
-                        <option value="">select month</option>
-                        <option value="January">January</option>
-                        <option value="February">February</option>
-                        <option value="March">March</option>
-                        <option value="April">April</option>
-                        <option value="May">May</option>
-                        <option value="June">June</option>
-                        <option value="July">July</option>
-                        <option value="August">August</option>
-                        <option value="September">September</option>
-                        <option value="October">October</option>
-                        <option value="November">November</option>
-                        <option value="December">December</option>
-                    </select>
+                <div class="salAndExpDate">
+                    <div class="salAndExpDate1">
+                        <label for="salaryAmount">Salary Amount</label>
+                        <input type="number" id="salaryAmount" name="salaryAmount" placeholder="Enter salary amount" required>
+                    </div>
+                    <div class="salAndExpDate2">
+                        <label for="expenseDate">Date:</label>
+                        <input type="date" id="employeeExpenseDate" name="expenseDate" value="<?php echo date('Y-m-d'); ?>" required>
+                    </div>
                 </div>
-                <label for="paymentMethod">Payment Method:</label>
-                <select class="select-paymentStatus" id="paymentMethod" name="paymentMethod" required>
-                    <option class="option-paymentStatus" value="Cash">Cash</option>
-                    <option class="option-paymentStatus" value="Bank Transfer">Bank Transfer</option>
-                    <option class="option-paymentStatus" value="Google Pay/Phone Pe/Paytm">Google Pay/Phone Pe/Paytm</option>
-                </select>
+                <div class="monthSalAndPayment">
+                    <div class="monthSalAndPayment1">
+                        <label>which month salary:</label>
+                        <div class="date-range-container">
+                            <label>From:</label>
+                            <select id="fromMonth" class="whichMonthsalary">
+                                <option value="">select month</option>
+                                <option value="January">January</option>
+                                <option value="February">February</option>
+                                <option value="March">March</option>
+                                <option value="April">April</option>
+                                <option value="May">May</option>
+                                <option value="June">June</option>
+                                <option value="July">July</option>
+                                <option value="August">August</option>
+                                <option value="September">September</option>
+                                <option value="October">October</option>
+                                <option value="November">November</option>
+                                <option value="December">December</option>
+                            </select>
+                            <label class="formTo">To:</label>
+                            <select id="toMonth" class="whichMonthsalary">
+                                <option value="">select month</option>
+                                <option value="January">January</option>
+                                <option value="February">February</option>
+                                <option value="March">March</option>
+                                <option value="April">April</option>
+                                <option value="May">May</option>
+                                <option value="June">June</option>
+                                <option value="July">July</option>
+                                <option value="August">August</option>
+                                <option value="September">September</option>
+                                <option value="October">October</option>
+                                <option value="November">November</option>
+                                <option value="December">December</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="monthSalAndPayment2">
+                        <label for="paymentMethod">Payment Method:</label>
+                        <select class="select-paymentStatus" id="paymentMethod" name="paymentMethod" required>
+                            <option class="option-paymentStatus" value="Cash">Cash</option>
+                            <option class="option-paymentStatus" value="Bank Transfer">Bank Transfer</option>
+                            <option class="option-paymentStatus" value="Google Pay/Phone Pe/Paytm">Google Pay/Phone Pe/Paytm</option>
+                        </select>
+                    </div>
+                </div>
                 <!-- <input type="text" id="paymentMethod" name="paymentMethod" required> -->
-    
-                <label for="expenseDescription">Description:</label>
-                <textarea id="employeeExpenseDescription" name="expenseDescription" rows="4"></textarea>
+                <div class="dexsc">
+                    <label for="expenseDescription">Description:</label>
+                    <textarea id="employeeExpenseDescription" name="expenseDescription" rows="4"></textarea>
+                </div>
     
                 <button type="submit" class="submit-button">Submit</button>
             </form>

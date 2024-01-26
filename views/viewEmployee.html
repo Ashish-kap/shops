@@ -4,28 +4,57 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="/css/viewEmployee.css">
     <title>Document</title>
 </head>
 <body>
-    <a href="/dashboard" class="homelogo"><img src="/images/home.png"></a>
-    <div class='google-translator' id="google_translate_element"></div>
+    <div class="homeAndGoogle">
+        <div class="homeAndGoogle1">
+            <div class='google-translator' id="google_translate_element"></div>
+        </div>
+        <div class="homeAndGoogle2">
+            <a href="/dashboard" class="homelogo"><img src="/images/home.png"></a>
+        </div>
+    </div>
     <div class="employee-card">
         <div class="profile-photo">
             <img src="/images/employee_photo.jpg" alt="Employee Photo" width="150">
         </div>
         <div class="profile-details">
             <h2>Employee Details</h2>
-            <p id="employeeName"><strong>Name:</strong>Loading... </p>
-            <p id="employeeSalary"><strong>Salary:</strong>Loading...</p>
-            <p id="employeeBalanced"><strong>Balanced:</strong>Loading... </p>
-            <p id="employeeAddress"><strong>Address:</strong> Loading...</p>
-            <p id="employeePhoneNumber"><strong>Phone Number:</strong>Loading... </p>
+            <div class="pd">
+                <div class="pd1">
+                    <p id="employeeName"><strong>Name:</strong>Loading... </p>
+                    <p id="employeeJoinDate"><strong>Join Date:</strong>Loading... </p>
+                    <p id="employeeAddress"><strong>Address:</strong> Loading...</p>
+                    <p id="employeePhoneNumber"><strong>Phone Number:</strong>Loading... </p>
+                </div>
+                <div class="pd2">
+                    <p id="shopName"><strong>Shop Name:</strong>Loading... </p>
+                    <p id="employeeSalary"><strong>Salary:</strong>Loading...</p>
+                    <p id="employeeBalanced"><strong>Balanced:</strong>Loading... </p>
+                </div>
+            </div>
+        </div>
+        <div class="employeEditButton">
+            <img class="employeEditButtonImg" id="employeEditButtonId" src="/images/employee_edit.png">
         </div>
     </div>
     <div class="container">
         <div class="employee-expense-table">
-            <h1>Employee Expenses</h1>
+            <div class="filterVendorExpensetable">
+                <h1>Employee Expenses</h1>
+                <label for="startDate">From:</label>
+                <input type="date" id="filterStartDateEmployee" name="startDate" value="<?php echo date('Y-m-d'); ?>">
+                <label for="endDate">To:</label>
+                <input type="date" id="filterEndDateEmployee" name="endDate" value="<?php echo date('Y-m-d'); ?>">
+                <button id="filterEmployeeSource" class="filterVendorSource">Filter</button>
+                <button id="clearEmployeeExpense" class="clearVendorExpense">clear</button>
+            </div>
             <div class="table-container">
                 <table>
                     <thead>
@@ -51,62 +80,119 @@
             <span class="close" id="closeUpdateEmployeeExpenseModalButton">&times;</span>
             <h2>Update Employee Expense</h2>
             <form class="update-employee-expense-form" id="employeeExpenseForm">
-                <label for="salaryAmount">Salary Amount:</label>
-                <input type="number" id="updateSalaryAmount" name="salaryAmount" required>
-
-                <label>which month salary:</label>
-                <div class="date-range-container">
-                    <label>From:</label>
-                    <select id="updateFromMonth">
-                        <option value="">select month</option>
-                        <option value="January">January</option>
-                        <option value="February">February</option>
-                        <option value="March">March</option>
-                        <option value="April">April</option>
-                        <option value="May">May</option>
-                        <option value="June">June</option>
-                        <option value="July">July</option>
-                        <option value="August">August</option>
-                        <option value="September">September</option>
-                        <option value="October">October</option>
-                        <option value="November">November</option>
-                        <option value="December">December</option>
-                    </select>
-                
-                    <label>To:</label>
-                    <select id="updateToMonth">
-                        <option value="">select month</option>
-                        <option value="January">January</option>
-                        <option value="February">February</option>
-                        <option value="March">March</option>
-                        <option value="April">April</option>
-                        <option value="May">May</option>
-                        <option value="June">June</option>
-                        <option value="July">July</option>
-                        <option value="August">August</option>
-                        <option value="September">September</option>
-                        <option value="October">October</option>
-                        <option value="November">November</option>
-                        <option value="December">December</option>
-                    </select>
+                <div class="salAndExpDate">
+                    <div class="salAndExpDate1">
+                        <label for="salaryAmount">Salary Amount:</label>
+                        <input type="number" id="updateSalaryAmount" name="salaryAmount" required>
+                    </div>
+                    <div class="salAndExpDate2">
+                        <label>which month salary:</label>
+                        <div class="date-range-container">
+                            <label>From:</label>
+                            <select id="updateFromMonth" class="whichMonthsalary">
+                                <option value="">select month</option>
+                                <option value="January">January</option>
+                                <option value="February">February</option>
+                                <option value="March">March</option>
+                                <option value="April">April</option>
+                                <option value="May">May</option>
+                                <option value="June">June</option>
+                                <option value="July">July</option>
+                                <option value="August">August</option>
+                                <option value="September">September</option>
+                                <option value="October">October</option>
+                                <option value="November">November</option>
+                                <option value="December">December</option>
+                            </select>
+                        
+                            <label>To:</label>
+                            <select id="updateToMonth" class="whichMonthsalary">
+                                <option value="">select month</option>
+                                <option value="January">January</option>
+                                <option value="February">February</option>
+                                <option value="March">March</option>
+                                <option value="April">April</option>
+                                <option value="May">May</option>
+                                <option value="June">June</option>
+                                <option value="July">July</option>
+                                <option value="August">August</option>
+                                <option value="September">September</option>
+                                <option value="October">October</option>
+                                <option value="November">November</option>
+                                <option value="December">December</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-    
-                <label for="expenseDate">Date:</label>
-                <input type="date" id="updateEmployeeExpenseDate" name="expenseDate" value="<?php echo date('Y-m-d'); ?>"
-                    required>
-    
-                <label for="paymentMethod">Payment Method:</label>
-                <!-- <input type="text" id="updatePaymentMethod" name="paymentMethod" required> -->
-                <select class="select-paymentStatus" id="updatePaymentMethod" name="paymentMethod" required>
-                    <option class="option-paymentStatus" value="Cash">Cash</option>
-                    <option class="option-paymentStatus" value="Bank Transfer">Bank Transfer</option>
-                    <option class="option-paymentStatus" value="Google Pay/Phone Pe/Paytm">Google Pay/Phone Pe/Paytm</option>
-                </select>
-    
-                <label for="expenseDescription">Description:</label>
-                <textarea id="updateEmployeeExpenseDescription" name="expenseDescription" rows="4" required></textarea>
-    
+                <div class="monthSalAndPayment">
+                    <div class="monthSalAndPayment1">
+                        <label for="expenseDate">Date:</label>
+                        <input type="date" id="updateEmployeeExpenseDates" name="expenseDate" value="<?php echo date('Y-m-d'); ?>" required>
+                    </div>
+                    <div class="monthSalAndPayment2">
+                        <label for="paymentMethod">Payment Method:</label>
+                        <!-- <input type="text" id="updatePaymentMethod" name="paymentMethod" required> -->
+                        <select class="select-paymentStatus" id="updatePaymentMethod" name="paymentMethod" required>
+                            <option class="option-paymentStatus" value="Cash">Cash</option>
+                            <option class="option-paymentStatus" value="Bank Transfer">Bank Transfer</option>
+                            <option class="option-paymentStatus" value="Google Pay/Phone Pe/Paytm">Google Pay/Phone Pe/Paytm</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="dexsc">
+                    <div>   
+                        <label for="expenseDescription">Description:</label>
+                        <textarea id="updateEmployeeExpenseDescription" name="expenseDescription" rows="4" required></textarea>
+                    </div>
+                </div>
                 <button type="submit" class="submit-button">Update</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- employee modal -->
+    <div class="employee-modal" id="employeeModal">
+        <div class="employee-modal-content">
+            <span class="closeUpdateEmpModal" id="employeeCloseModal">&times;</span>
+            <h2>Update Employee</h2>
+            <form id="employeeFormm" class="registerEmployeeFormm">
+                <div class="empAndShopName">
+                    <div class="empAndShopName1">
+                        <label for="employeeName">Employee Name</label>
+                        <input type="text" id="employeeNamee" placeholder="Enter employee name here" required>
+                    </div>
+                    <div class="empAndShopName2">
+                        <label for="shopNameIncomeModal">Shop Name:</label>
+                        <select class="shopNameIncomeModal" id="shopNameIncomeModall" name="shopNameIncomeModal" required>
+                            <option class="select-shopNameIncomeModal" value="" disabled selected>Select a shop name
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="AddAndNumber">
+                    <div class="AddAndNumber1">
+                        <label for="employeeAddress">Address</label>
+                        <input type="text" id="employeeAddresss" placeholder="Enter address" required>
+                    </div>
+                    <div class="AddAndNumber2">
+                        <label for="employeePhoneNumber">Phone Number</label>
+                        <input type="tel" id="employeePhoneNumberr" placeholder="Enter contact number" required>
+                    </div>
+                </div>
+                <div class="dateAndSalary">
+                    <div class="dateAndSalary1">
+                        <label for="employeeJoinDate">Join Date</label>
+                        <input type="date" value="<?php echo date('Y-m-d'); ?>" id="employeeJoinDatee" required>
+                    </div>
+                    <div class="dateAndSalary2">
+                        <label for="employeeSalary">Salary</label>
+                        <input type="number" id="employeeSalaryy" placeholder="Enter Salary" required>
+                    </div>
+                </div>
+                <div class="employeeModalButton">
+                    <button type="submit">Submit</button>
+                </div>
             </form>
         </div>
     </div>

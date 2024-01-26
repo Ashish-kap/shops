@@ -1,3 +1,6 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+}
 .employee-card {
     border: 1px solid #ccc;
     padding: 20px;
@@ -63,13 +66,9 @@
 
 .employee-expense-modal-content {
     background-color: #fcfcfc;
-    border-radius: 25px;
-    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5);
-    max-width: 350px;
-    margin: 0.3% auto;
     padding: 20px 25px;
-    position: relative;
     text-align: center;
+    height: 100%;
 }
 
 .close {
@@ -96,11 +95,50 @@
 .employee-expense-form label {
     display: block;
     font-size: 16px;
+    margin-top: 20px;
+    margin-left: 30px;
     margin-bottom: 5px;
     color: #555;
     text-align: left;
 }
 
+.salAndExpDate{
+    display: flex;
+}
+.salAndExpDate1{
+    width:50%;
+}
+.salAndExpDate2{
+    width: 50%;
+}
+
+.monthSalAndPayment {
+    display: flex;
+}
+
+.monthSalAndPayment1 {
+    width: 50%;
+}
+
+.monthSalAndPayment2 {
+    width: 50%;
+}
+
+.whichMonthsalary{
+    border-radius: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    width: 35%;
+}
+
+.date-range-container .formTo{
+    margin-top: 0px;
+    margin-left: 0px;
+}
+
+.dexsc{
+    width: 50%;
+}
 
 .employee-expense-form input[type="text"],
 .employee-expense-form input[type="number"],
@@ -133,7 +171,8 @@
     color: #fff;
     cursor: pointer;
     font-size: 16px;
-    padding: 10px 25px;
+    margin-top: 2rem;
+    padding: 10px 55px;
     transition: background-color 0.3s ease;
 }
 
@@ -146,24 +185,22 @@
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background-color: #f5f5f5;
+    background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 12px 16px;
-    margin-left: -3rem;
     font-size: 16px;
     margin-top: 5px;
     margin-bottom: 5px;
     color: #333;
-    width: 100%;
-    max-width: 300px;
+    width: 85%;
+    margin-left: -1.8rem;
     cursor: pointer;
     transition: background-color 0.3s, border-color 0.3s;
 }
 
 .select-paymentStatus:focus {
     outline: none;
-    border-color: #6c63ff;
     background-color: #fff;
 }
 
@@ -180,6 +217,8 @@
     background-color: #6c63ff;
     color: #fff;
 }
+
+
 
 
 .homelogo {
@@ -209,13 +248,14 @@
 }
 
 .date-range-container select {
-    padding: 5px;
+    padding: 10px;
     font-size: 16px;
 }
 
 .date-range-container label {
     margin-right: 5px;
-}   
+    margin-top: -0px;
+}
 
 /* Mobile */
 @media (max-width: 480px) {
