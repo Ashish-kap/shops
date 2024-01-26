@@ -26,19 +26,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const mysql = require('mysql2');
 
- const connection = mysql.createConnection({
-    host: 'cloud.racknetweb.com',
-    user: 'erpmanifestsolut_root',
-    password: 'Erpsolution@123',
-    database: 'erpmanifestsolut_nodejs',
-});
-
-// const connection = mysql.createConnection({
-//   host: 'localhost',
-//   user: 'root',
-//   password: 'pass1234',
-//   database: 'sugarcaneco',
+//  const connection = mysql.createConnection({
+//     host: 'cloud.racknetweb.com',
+//     user: 'erpmanifestsolut_root',
+//     password: 'Erpsolution@123',
+//     database: 'erpmanifestsolut_nodejs',
 // });
+
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'pass1234',
+  database: 'sugarcaneco',
+});
 
 
 app.use(cors());
