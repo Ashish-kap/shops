@@ -2,14 +2,11 @@ const express = require("express");
 const cors = require("cors");
 const port = process.env.PORT || 8000;
 const cookieParser = require("cookie-parser");
-const path = require("path");
 const app = express();
 require("dotenv").config();
 app.use(express.json());
 app.use(cors());
-const mysql = require("mysql2");
 const shortUUID = require("short-uuid");
-const fs = require("fs");
 const multer = require("multer");
 const Routes = require("./routes/routes");
 const connection = require("./db.js");
@@ -96,6 +93,17 @@ app.get("/", (req, res) => {
 });
 
 app.use("/", Routes);
+
+app.get("/server", (req, res) => {
+  res.send("server is running");
+});
+
+cron.schedule("* * * * *", () => {
+  axios
+    .get(`https://voiceocean.onrender.com/server`)
+    .then((response) => console.log(response.data))
+    .catch((error) => console.error(error));
+});
 
 connection.connect((err) => {
   if (err) {
