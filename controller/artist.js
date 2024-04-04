@@ -1,6 +1,29 @@
 const connection = require("../db.js");
 const shortUUID = require("short-uuid");
 
+exports.searchArtist = (req, res) => {
+  const { name } = req.query;
+
+  if (!name) {
+    res.status(400).send("Please provide a name to search for.");
+    return;
+  }
+
+  const searchQuery = `
+    SELECT name,id FROM artists WHERE name LIKE ?
+  `;
+
+  connection.query(searchQuery, [`%${name}%`], (err, results) => {
+    if (err) {
+      console.error("Error searching for artist:", err);
+      res.status(500).send("Error searching for artist");
+      return;
+    }
+
+    res.status(200).json(results);
+  });
+};
+
 exports.getAllArtist = (req, res) => {
   const sql = "SELECT * FROM artists";
   connection.query(sql, (err, results) => {
@@ -300,5 +323,3 @@ exports.deleteArtist = (req, res) => {
     res.status(200).send("Artist deleted successfully");
   });
 };
-
-

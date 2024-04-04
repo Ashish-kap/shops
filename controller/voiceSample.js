@@ -2,6 +2,35 @@ const connection = require("../db.js");
 const fs = require("fs");
 const shortUUID = require("short-uuid");
 
+exports.getLanguagesAndCategory = (req, res) => {
+  const languageSql = `
+    SELECT DISTINCT language FROM voice_samples
+  `;
+  const categorySql = `
+    SELECT DISTINCT category FROM voice_samples
+  `;
+
+  connection.query(languageSql, (err, languageResults) => {
+    if (err) {
+      console.error("Error fetching unique languages:", err);
+      res.status(500).send("Error fetching unique languages");
+      return;
+    }
+    const languages = languageResults.map((row) => row.language);
+
+    connection.query(categorySql, (err, categoryResults) => {
+      if (err) {
+        console.error("Error fetching unique categories:", err);
+        res.status(500).send("Error fetching unique categories");
+        return;
+      }
+      const categories = categoryResults.map((row) => row.category);
+
+      res.status(200).json({ languages, categories });
+    });
+  });
+};
+
 exports.getAllVoiceSample = (req, res) => {
   const sql = "SELECT * FROM voice_samples";
   connection.query(sql, (err, results) => {
@@ -21,10 +50,10 @@ exports.getAllVoiceSample = (req, res) => {
 };
 
 exports.addVoiceSample = (req, res) => {
-  const { language, artist_id, category, title } = req.body;
+  const { language, artist_id, category, title, artist_name } = req.body;
   const sampleFile = req.file;
 
-  if (!language || !artist_id || !sampleFile || !category) {
+  if (!language || !artist_id || !sampleFile || !category ) {
     res.status(400).json("language, artist_id, category or sample is missing");
     return;
   }
@@ -56,10 +85,18 @@ exports.addVoiceSample = (req, res) => {
 
       // Insert the sample information into the database
       const insertSampleQuery =
-        "INSERT INTO voice_samples (id, language, artist_id, sample,category,title) VALUES (?, ?, ?, ?,?,?)";
+        "INSERT INTO voice_samples (id, language, artist_id, sample,category,title,artist_name) VALUES (?, ?, ?, ?,?,?,?)";
       connection.query(
         insertSampleQuery,
-        [sampleId, language, artist_id, samplePath, category, title],
+        [
+          sampleId,
+          language,
+          artist_id,
+          samplePath,
+          category,
+          title,
+          artist_name,
+        ],
         (err, result) => {
           if (err) {
             console.error("Error adding voice sample:", err);
@@ -160,7 +197,6 @@ exports.deleteVoiceSample = (req, res) => {
     return;
   }
 
-  
   const deleteSampleQuery = "DELETE FROM voice_samples WHERE id = ?";
 
   connection.query(deleteSampleQuery, [sampleId], (err, result) => {

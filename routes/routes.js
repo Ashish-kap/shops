@@ -17,8 +17,10 @@ router.patch("/update/artist/:artistId", artist.updateArtist);
 router.delete("/delete/artist/:artistId", artist.deleteArtist);
 
 router.get("/get/all/artists",artist.getAllArtist)
+router.get('/search/artist', artist.searchArtist)
 
 // voice samples
+router.get("/get/languages/and/category",voiceSample.getLanguagesAndCategory)
 router.delete('/delete/voice/sample/:sampleId',voiceSample.deleteVoiceSample)
 router.get("/get/all/voice/samples", voiceSample.getAllVoiceSample);
 router.patch(

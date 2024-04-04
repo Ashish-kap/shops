@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3000;
 const cookieParser = require("cookie-parser");
 const app = express();
 require("dotenv").config();
@@ -10,7 +10,7 @@ const shortUUID = require("short-uuid");
 const multer = require("multer");
 const Routes = require("./routes/routes");
 const connection = require("./db.js");
-const cron = require("node-cron");
+// const cron = require("node-cron");
 
 app.use("/voice_samples", express.static("voice_samples"));
 app.use(cors());
@@ -99,12 +99,12 @@ app.get("/server", (req, res) => {
   res.send("server is running");
 });
 
-cron.schedule("* * * * *", () => {
-  axios
-    .get(`https://voiceocean.onrender.com/server`)
-    .then((response) => console.log(response.data))
-    .catch((error) => console.error(error));
-});
+// cron.schedule("* * * * *", () => {
+//   axios
+//     .get(`https://voiceocean.onrender.com/server`)
+//     .then((response) => console.log(response.data))
+//     .catch((error) => console.error(error));
+// });
 
 connection.connect((err) => {
   if (err) {
